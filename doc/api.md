@@ -23,9 +23,18 @@ FORMAT: 1A
     + RequestBodyが不正な場合に発生する
     + Attributes (BadRequest)
 
++ Response 403 (application/json)
+    + Linkitへのメッセージの送信に失敗した場合に発生する
+    + Attributes (LinkitError)
+
 # Data Structures
 
 ## BadRequest (object)
 
 + `type`: `BadRequest` (string, fixed) - エラー種別
 + `message`: `Unable to understand the request` (string, fixed) - エラーの詳細
+
+## LinkitError (object)
+
++ `type`: `LinkitError` (string, fixed) - エラー種別
++ `message`: `Error caused on Linkit` (string, fixed) - エラーの詳細
