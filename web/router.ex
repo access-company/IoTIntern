@@ -1,5 +1,5 @@
 defmodule IotIntern.Router do
   use Antikythera.Router
 
-  get "/hello", Hello, :hello
+  post "/api/v1/alert", Alert, :post_alert
 end
