@@ -1,0 +1,24 @@
+@startuml SequenceDiagram
+title: Sequence Diagram
+
+actor User
+participant LinkitApp
+participant Robot
+participant IotInternGear
+participant LinkitServer
+
+Robot -> IotInternGear: アラートタイプ
+activate IotInternGear
+IotInternGear -> LinkitServer: アラートメッセージを送信
+activate LinkitServer
+LinkitServer -> IotInternGear: 200 OK
+IotInternGear -> Robot: 200 OK
+deactivate IotInternGear
+
+LinkitServer -> LinkitApp: メッセージをプッシュ
+deactivate LinkitServer
+activate LinkitApp
+LinkitApp -> User: メッセージを表示 or 通知
+deactivate LinkitApp
+
+@enduml
