@@ -8,7 +8,7 @@ defmodule IotIntern.Error do
 
   def linkit_error() do
     %{
-      type:    "LinkitError"
+      type:    "LinkitError",
       message: "Error caused on Linkit"
     }
   end

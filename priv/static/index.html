@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>お掃除ロボットシミュレーター</title>
+  </head>
+  <body>
+    <canvas id="app" data-processing-sources="intern.pde"></canvas>
+    <script src="./processing.js"></script>
+
+    <script type="text/javascript">
+      function notify(endpoint, msg_type) {
+        // NOTE: Notification request from processing app.
+        // https://www.quora.com/What-is-the-way-to-send-a-JSON-object-via-a-POST-request-in-JavaScript-not-jQuery-or-Nodejs
+        var url = endpoint + "api/v1/alert";
+        console.log(url);
+        var req = new XMLHttpRequest();
+        req.open("POST", url, true);
+        req.setRequestHeader("Content-type", "application/json");
+
+        req.onreadystatechange = function () {
+          // console.log(req.responseText);
+          if (req.readyState == 4 && req.status == 200) {
+            // var json = JSON.parse(req.responseText);
+          }
+        }
+
+        var data = JSON.stringify({"type": msg_type});
+        req.send(data);
+      }
+    </script>
+
+    <script type="text/javascript">
+      var bound = false;
+      function bindJavaScript() {
+        var pjs = Processing.getInstanceById("app");
+        if(pjs != null) {
+          pjs.bindJavaScript(this);
+          bound = true;
+        }
+        if(!bound) setTimeout(bindJavaScript, 250);
+      }
+      bindJavaScript();
+    </script>
+  </body>
+</html>
