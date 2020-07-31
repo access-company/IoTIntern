@@ -7,16 +7,15 @@
   </head>
   <body>
     <canvas id="app" data-processing-sources="intern.pde"></canvas>
-    <script src="./processing.js"></script>
+    <script src="./processing.min.js"></script>
 
     <script type="text/javascript">
-      function notify(endpoint, msg_type) {
+      function notify(msg_type) {
         // NOTE: Notification request from processing app.
         // https://www.quora.com/What-is-the-way-to-send-a-JSON-object-via-a-POST-request-in-JavaScript-not-jQuery-or-Nodejs
-        var url = endpoint + "api/v1/alert";
-        console.log(url);
+        var endpoint = "http://iot-intern.localhost:8080/api/v1/alert";
         var req = new XMLHttpRequest();
-        req.open("POST", url, true);
+        req.open("POST", endpoint, true);
         req.setRequestHeader("Content-type", "application/json");
 
         req.onreadystatechange = function () {

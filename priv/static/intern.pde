@@ -3,7 +3,7 @@
 JavaScript javascript;
 
 interface JavaScript {
-  void notify(String endpoint, String msgType);
+  void notify(String msgType);
 }
 
 void bindJavaScript(JavaScript js) {
@@ -114,44 +114,35 @@ class Sprite {
 PImage bg;
 Sprite robot;
 ArrayList<Sprite> room_objs = new ArrayList<Sprite>();
-String endpoint = "http://iot-intern.localhost:8080/";
-
-// app call setup() function at initialization.
 
 void setup() {
   size(800, 800);
   imageMode(CENTER);
   rectMode(CENTER);
 
-  String assets_url = endpoint + "assets/image/";
+  bg = loadImgAsset("room");
 
-  bg = loadImage(assets_url + "room.png");
-
-  robot_img_url = assets_url + "pet_robot_soujiki_cat.png"
-  robot = new Sprite(loadImage(robot_img_url),
-                     100, 100,
-                     400, 400,
-                     0.0, 3.0, 1.0); // rot, v, v_weight
-
-  senpuki  = new Sprite(loadImage(assets_url + "kaden_senpuki.png"),
+  robot    = new Sprite(loadImgAsset("pet_robot_soujiki_cat"),
+                        100, 100,
+                        400, 400,
+                        0.0, 3.0, 1.0); // rot, v, v_weight
+  senpuki  = new Sprite(loadImgAsset("kaden_senpuki"),
                         120, 160,
                         200, 300,
                         0.0, 0.0, 1.0);
+  kitchen  = new Sprite(loadImgAsset("room_island_kitchen_nobg"),
+                        180, 180,
+                        120, 90,
+                        0.0, 0.0, 1.0);
+  tv       = new Sprite(loadImgAsset("tv_girl_chikaku"),
+                        180, 180,
+                        500, 80,
+                        0.0, 0.0, 1.0);
+  yukasita = new Sprite(loadImgAsset("room_yukashita_syuunou_open"),
+                        180, 180,
+                        400, 600,
+                        0.0, 0.0, 0.0);
 
-  kitchen = new Sprite(loadImage(assets_url + "room_island_kitchen_nobg.png"),
-                       180, 180,
-                       120, 90,
-                       0.0, 0.0, 1.0);
-
-  tv = new Sprite(loadImage(assets_url + "tv_girl_chikaku.png"),
-                       180, 180,
-                       500, 80,
-                       0.0, 0.0, 1.0);
-
-  yukasita = new Sprite(loadImage(assets_url + "room_yukashita_syuunou_open.png"),
-                       180, 180,
-                       400, 600,
-                       0.0, 0.0, 0.0);
   yukasita.set_bbox(90, 90);
 
   room_objs.add(senpuki);
@@ -185,10 +176,16 @@ void draw() {
 
   if (robot.v == 0.0 && javascript != null && !robot.already_notified) {
     robot.already_notified = true;
-    javascript.notify(endpoint, "derailment");
+    javascript.notify("derailment");
   }
 
   robot.update(v_weight);
+}
+
+PImage loadImgAsset(String filename) {
+  String baseAssetsUrl = "/assets/image/";
+  String imgUrl = baseAssetsUrl + filename + ".png";
+  return loadImage(imgUrl);
 }
 
 boolean collision_jadge(ArrayList<Integer> bb1, ArrayList<Integer> bb2) {
@@ -213,6 +210,6 @@ boolean collision_jadge(ArrayList<Integer> bb1, ArrayList<Integer> bb2) {
 
 void keyPressed() {
   if (javascript != null) {
-    javascript.notify(endpoint, "derailment");
+    javascript.notify("derailment");
   }
 }
