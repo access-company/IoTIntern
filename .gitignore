@@ -6,3 +6,4 @@ erl_crash.dump
 *.ez
 /node_modules
 gear_config.json
+/doc/linkit_api.md
