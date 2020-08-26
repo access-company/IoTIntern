@@ -116,10 +116,15 @@ PImage explosion;
 Sprite robot;
 ArrayList<Sprite> room_objs = new ArrayList<Sprite>();
 
+int startTime;
+
 void setup() {
   size(600, 700);
   imageMode(CENTER);
   rectMode(CENTER);
+
+  // FIXME: ugly workaround.
+  startTime = hour() * 60 * 60 + minute() * 60 + second();
 
   bg        = loadImgAsset("background");
   explosion = loadImgAsset("explosion");
@@ -179,6 +184,15 @@ void draw() {
   if (robot.v == 0.0 && javascript != null && !robot.already_notified) {
     robot.already_notified = true;
     javascript.notify("derailment");
+  }
+
+  int currentTime = hour() * 60 * 60 + minute() * 60 + second();
+  // robot will be down after 10s.
+  if (currentTime - startTime > 5) {
+    robot.v = 0.4
+  }
+  if (currentTime - startTime > 10) {
+    robot.v = 0.0
   }
 
   robot.update(v_weight);
