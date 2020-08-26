@@ -13,12 +13,6 @@ mix deps.get && mix deps.get
 * Web Server の起動
 
 ```
-MIX_ENV=dev mix run --no-halt
-```
-
-または
-
-```
 iex -S mix
 ```
 
