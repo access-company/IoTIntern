@@ -28,7 +28,7 @@ http://iot-intern.localhost:8080/ui/index.html
 [IoTIntern]$tree -L 1
 .
 ├── README.md
-├── api_test.http // VSCode の RestAPI アドオンで使う？
+├── api_test.http // VSCode の REST Client で使う
 ├── deps // mix deps.get でパッケージが入る
 ├── doc // ドキュメント
 ├── gear_config.json // コンフィグファイル
@@ -37,7 +37,6 @@ http://iot-intern.localhost:8080/ui/index.html
 ├── mix.lock // 依存パッケージの version 一覧 (触らない)
 ├── priv // シミュレータ画面のような静的コンテンツ
 ├── test // テストコード
-├── ui // NO USE
 └── web // API 記述先
 ```
 
