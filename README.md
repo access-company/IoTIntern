@@ -4,19 +4,19 @@
 
 ## 動かし方
 
-* 依存関係の取得
+### 依存関係の取得
 
 ```
 mix deps.get && mix deps.get
 ```
 
-* Web Server の起動
+### Web Server の起動
 
 ```
 iex -S mix
 ```
 
-* シミュレータからの確認
+### シミュレータからの確認
 
 Web Server を起動した状態でブラウザから
 http://iot-intern.localhost:8080/ui/index.html
@@ -45,13 +45,13 @@ http://iot-intern.localhost:8080/ui/index.html
 
 API を追加するには"コントローラーの処理を書くこと"と"ルーターのパスを設定する" の二つを行う。
 
-* コントローラーの処理を書く
+### コントローラーの処理を書く
 
 `web/controller/hello.ex` のようにモジュールと関数を定義する。
 
 `Hello` モジュールの `hello/1` 関数は第一引数に `conn` を受け取り、新しい`conn` を返す。そしてレスポンスのコンテンツを `conn` に詰めるには関数 `Conn.json/3` を使っている。
 
-* ルーターのパスを書く
+### ルーターのパスを書く
 
 `web/router.ex` を書き換える。
 
