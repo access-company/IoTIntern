@@ -15,6 +15,10 @@ void bindJavaScript(JavaScript js) {
 class Sprite {
   PImage img;
 
+  PImage img1;
+  PImage img2;
+  int lastUpdateTime;
+
   int xwidth;
   int xheight;
 
@@ -55,6 +59,8 @@ class Sprite {
   Sprite(PImage img, int w, int h, int x, int y, float rot, float v, float v_weight) {
     this(w, h, x, y, v_weight);
     this.img = img;
+    this.img1 = this.img;
+    this.img2 = this.img;
     this.rot = rot;
     this.v = v;
   }
@@ -62,6 +68,11 @@ class Sprite {
   void set_bbox(int width, int height) {
     this.bbox_width  = width;
     this.bbox_height = height;
+  }
+
+  void setFlippedImage(PImage flippedImg) {
+    this.img1 = this.img
+    this.img2 = flippedImg;
   }
 
   ArrayList<Integer> bbox() {
@@ -74,6 +85,20 @@ class Sprite {
   }
 
   void update() {
+    int currentTime = hour() * 60 * 60 + minute() * 60 + second();
+    if (this.lastUpdateTime == null) {
+      this.lastUpdateTime = currentTime;
+    }
+
+    if (currentTime - this.lastUpdateTime > 1) {
+      this.lastUpdateTime = currentTime;
+      if (this.img == this.img2) {
+        this.img = this.img1;
+      } else {
+        this.img = this.img2;
+      }
+    }
+
     if (this.img != null) {
       this.img.resize(this.xwidth, this.xheight);
     }
@@ -137,6 +162,7 @@ void setup() {
                         120, 160,
                         200, 300,
                         0.0, 0.0, 1.0);
+  senpuki.setFlippedImage(loadImgAsset("kaden_senpuki2"))
   kitchen  = new Sprite(loadImgAsset("room_island_kitchen_nobg"),
                         180, 180,
                         120, 90,
