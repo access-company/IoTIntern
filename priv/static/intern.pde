@@ -112,15 +112,17 @@ class Sprite {
 }
 
 PImage bg;
+PImage explosion;
 Sprite robot;
 ArrayList<Sprite> room_objs = new ArrayList<Sprite>();
 
 void setup() {
-  size(800, 800);
+  size(600, 700);
   imageMode(CENTER);
   rectMode(CENTER);
 
-  bg = loadImgAsset("room");
+  bg        = loadImgAsset("background");
+  explosion = loadImgAsset("explosion");
 
   robot    = new Sprite(loadImgAsset("pet_robot_soujiki_cat"),
                         100, 100,
@@ -180,6 +182,10 @@ void draw() {
   }
 
   robot.update(v_weight);
+
+  if (robot.v == 0.0) {
+    image(explosion, robot.x, robot.y);
+  }
 }
 
 PImage loadImgAsset(String filename) {
