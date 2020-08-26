@@ -30,7 +30,7 @@ defmodule IotIntern.Controller.HelloTest do
     assert Jason.decode!(res.body) == %{"message" => "hello"}
   end
 
-  test "hello-croma api succeeds with 400" do
+  test "hello-croma api fails with 400" do
     headers = %{"auth" => "xxxx"}
     req_body = %{"message" => "Invalid Message"}
     res = Req.post_json("/api/v1/hello-croma", req_body, headers)

@@ -27,7 +27,6 @@ defmodule IotIntern.Controller.Hello do
       use Croma.SubtypeOfAtom, values: [:hello, :world]
     end
 
-
     use Croma.Struct, recursive_new?: true, fields: [
       message: Message,
     ]
