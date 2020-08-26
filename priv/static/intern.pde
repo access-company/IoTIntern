@@ -213,12 +213,16 @@ void draw() {
   }
 
   int currentTime = hour() * 60 * 60 + minute() * 60 + second();
-  // robot will be down after 10s.
-  if (currentTime - startTime > 5) {
+  // robot will be down after 15s.
+  if (currentTime - startTime > 10) {
     robot.v = 0.4
   }
-  if (currentTime - startTime > 10) {
-    robot.v = 0.0
+  if (currentTime - startTime > 15) {
+    robot.v = 0.0;
+    if (!robot.already_notified) {
+      javascript.notify("dead_battery");
+    }
+    robot.already_notified = true;
   }
 
   robot.update(v_weight);
