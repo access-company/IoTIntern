@@ -1,7 +1,8 @@
 defmodule IotIntern.Controller.Hello do
   use Antikythera.Controller
 
-  alias Antikythera.{Conn, Httpc}
+  alias Antikythera.Conn
+  # alias Antikythera.Httpc
 
   def hello(%{request: req} = conn) do
     %{
@@ -13,8 +14,8 @@ defmodule IotIntern.Controller.Hello do
       } = req_body,
     } = req
 
-    # NOTE: モックして ok を返すようにする
-    :ok = Httpc.get("https://example.com")
+    # NOTE: リクエストの呼び出しには Httpc モジュールを使う。テストでは実際にリクエストを行わないよう :meck を使う。
+    # :ok = Httpc.get("https://example.com")
 
     case {auth, msg} do
       {"xxxx", msg} when msg in ["hello", "world"] -> Conn.json(conn, 200, req_body)
