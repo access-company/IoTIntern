@@ -16,10 +16,9 @@ defmodule IotIntern.Controller.Hello do
     # NOTE: モックして ok を返すようにする
     :ok = Httpc.get("https://example.com")
 
-    if auth == "xxxx" and (msg == "hello" or msg == "world") do
-      Conn.json(conn, 200, req_body)
-    else
-      Conn.json(conn, 400, %{"message" => "ng"})
+    case {auth, msg} do
+      {"xxxx", msg} when msg in ["hello", "world"] -> Conn.json(conn, 200, req_body)
+      _                                            -> Conn.json(conn, 400, %{"message" => "ng"})
     end
   end
 end
