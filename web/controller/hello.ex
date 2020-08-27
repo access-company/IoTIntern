@@ -14,8 +14,8 @@ defmodule IotIntern.Controller.Hello do
       } = req_body,
     } = req
 
-    # NOTE: リクエストの呼び出しには Httpc モジュールを使う。テストでは実際にリクエストを行わないよう :meck を使う。
-    # :ok = Httpc.get("https://example.com")
+    # NOTE: リクエストの呼び出しは下記のように行うがテストでは実際にリクエストを行わないよう :meck を使う。
+    # Httpc.get("https://example.com")
 
     case {auth, msg} do
       {"xxxx", msg} when msg in ["hello", "world"] -> Conn.json(conn, 200, req_body)
