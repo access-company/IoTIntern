@@ -233,7 +233,7 @@ void draw() {
 }
 
 PImage loadImgAsset(String filename) {
-  String baseAssetsUrl = "/assets/image/";
+  String baseAssetsUrl = "/ui/image/";
   String imgUrl = baseAssetsUrl + filename + ".png";
   return loadImage(imgUrl);
 }
