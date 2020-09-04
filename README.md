@@ -91,5 +91,4 @@ mix test test/web/controller/hello_test.exs
 ```
 ## お掃除ロボットの API 実装課題
 
-
 `web/controller/alert.ex` の課題に従って実装を進めてみてください。
