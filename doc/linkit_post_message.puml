@@ -1,4 +1,4 @@
-@startuml Workflow
+@startuml LinkitPostMessage
 title: Linkit メッセージ投稿までの流れ
 
 == アカウントの準備 ==
