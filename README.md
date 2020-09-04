@@ -14,6 +14,8 @@ mix deps.get && mix deps.get
 
 ### Web Server の起動
 
+Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
+
 Gear コンフィグに下記のの値を設定する。
 
 `linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
@@ -87,3 +89,7 @@ mix test
 ```
 mix test test/web/controller/hello_test.exs
 ```
+## お掃除ロボットの API 実装課題
+
+
+`web/controller/alert.ex` の課題に従って実装を進めてみてください。
