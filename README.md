@@ -14,7 +14,25 @@ mix deps.get && mix deps.get
 
 ### Web Server の起動
 
+Gear コンフィグに下記のの値を設定する。
+
+`linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
+
+
 ```
+[IoTIntern]$cat gear_config.json
+{
+  "linkit_app_id": "a_BjF4XHB2",
+  "linkit_group_id": "g_YrTWTxJY",
+  "linkit_api_key": "2t23xxxxxxxxxxxxxx", // 要確認
+  "notification_user_credential": "xxxxx",
+  "chatroom_id": "xxxxxxxx"
+}
+```
+
+```
+#!/bin/bash
+export IOT_INTERN_CONFIG_JSON=`cat gear_config.json`
 iex -S mix
 ```
 
