@@ -13,10 +13,7 @@ FORMAT: 1A
             + `derailment`: 脱輪
             + `jamming`: 異物混入
 
-+ Response 200 (application/json)
-    + 正常応答
-    + Attributes
-        + `post_date_at`: `2020-07-09T10:10:05Z` (string, required) - Linkitにメッセージを投稿した日時
++ Response 201 (application/json)
 
 + Response 400 (application/json)
     + RequestBodyが不正な場合に発生する
