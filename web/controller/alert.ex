@@ -13,13 +13,10 @@
 #   コメントアウトを解除し，適宜コードを補完して関数を完成させて，Linkitへ通知が送れるようにしてください．
 #
 # 課題4
-#   テストコードの課題を出す予定（TBD）
-#
-# 課題5
-#   新規のAPIを課題として出す予定（TBD）
+#   テストコードを書いてみてください.
 #
 # 課題6
-#   Cromaによるバリデーションを課題として出す予定（TBD）
+#   Cromaによるバリデーション機能を試してみてください.
 
 defmodule IotIntern.Controller.Alert do
   use Antikythera.Controller
