@@ -35,6 +35,7 @@ Gear コンフィグに下記のの値を設定する。
 ```
 #!/bin/bash
 IOT_INTERN_CONFIG_JSON=`cat gear_config.json` iex -S mix
+IOT_INTERN_CONFIG_JSON="$(< gear_config.json)" iex -S mix
 ```
 
 ### シミュレータからの確認
