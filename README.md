@@ -14,8 +14,28 @@ mix deps.get && mix deps.get
 
 ### Web Server の起動
 
+Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
+
+Gear コンフィグに下記のの値を設定する。
+
+`linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
+
+
 ```
-iex -S mix
+[IoTIntern]$cat gear_config.json
+{
+  "linkit_app_id": "a_BjF4XHB2",
+  "linkit_group_id": "g_YrTWTxJY",
+  "linkit_api_key": "2t23xxxxxxxxxxxxxx", // 要確認
+  "notification_user_credential": "xxxxx",
+  "chatroom_id": "xxxxxxxx"
+}
+```
+
+```
+#!/bin/bash
+IOT_INTERN_CONFIG_JSON=`cat gear_config.json` iex -S mix
+IOT_INTERN_CONFIG_JSON="$(< gear_config.json)" iex -S mix
 ```
 
 ### シミュレータからの確認
@@ -69,3 +89,6 @@ mix test
 ```
 mix test test/web/controller/hello_test.exs
 ```
+## お掃除ロボットの API 実装課題
+
+[alert.ex](https://github.com/access-company/IoTIntern/blob/master/web/controller/alert.ex) の課題に従って実装を進めてみてください。

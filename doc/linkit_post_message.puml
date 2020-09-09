@@ -1,0 +1,40 @@
+@startuml LinkitPostMessage
+title: Linkit メッセージ投稿までの流れ
+
+== アカウントの準備 ==
+
+participant "運営メンバー" as Operator
+participant "参加者" as User
+participant "Linkit 管理画面" as LinkitDashboard
+participant "Gear API" as Gear
+participant "Linkit API" as LinkitAPI
+
+Operator -> LinkitDashboard: アカウント作成操作
+activate LinkitDashboard
+note right: ロボットアカウントと参加者のアカウントを作成
+User <-- LinkitDashboard: メール通知 (mail_address, password)
+Operator <-- LinkitDashboard: (user_id)
+deactivate LinkitDashboard
+
+== チャットルームの準備 ==
+
+Operator -> LinkitAPI: ロボットアカウントでログイン
+activate LinkitAPI
+Operator <-- LinkitAPI: ロボットの鍵 (credential)
+deactivate LinkitAPI
+Operator -> LinkitAPI: チャットルーム作成要求 (任意の user_id)
+activate LinkitAPI
+note right: ロボットと任意のユーザーのチャットルームが作られる
+Operator <-- LinkitAPI: (chatroom_id)
+deactivate
+
+== チャットルームへのメッセージの投稿 ==
+
+Operator -> User: 事前通知 (credential, chatroom_id)
+User -> Gear: メッセージ投稿 API (credential, chatroom_id)
+activate Gear
+Gear -> LinkitAPI: メッセージ投稿 API (credential, chatroom_id)
+Gear <-- LinkitAPI: レスポンス
+User <-- LinkitAPI: メッセージ受信
+deactivate Gear
+@enduml
