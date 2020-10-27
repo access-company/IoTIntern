@@ -14,6 +14,8 @@ FORMAT: 1A
             + `jamming`: 異物混入
 
 + Response 201 (application/json)
+    + Attributes
+      + `sent_at`: `2020-01-01T13:00:00` (string, required) - Linkitへの送信日時
 
 + Response 400 (application/json)
     + RequestBodyが不正な場合に発生する
