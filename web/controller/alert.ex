@@ -25,6 +25,6 @@ defmodule IotIntern.Controller.Alert do
   # alias IotIntern.Linkit
 
   def post_alert(%{request: %{body: _body}} = conn) do
-    Conn.json(conn, 201, %{})
+    Conn.json(conn, 200, %{})
   end
 end

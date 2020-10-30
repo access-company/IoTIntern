@@ -13,7 +13,7 @@ FORMAT: 1A
             + `derailment`: 脱輪
             + `jamming`: 異物混入
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
     + Attributes
       + `sent_at`: `2020-01-01T13:00:00` (string, required) - Linkitへの送信日時
 
