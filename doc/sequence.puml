@@ -12,9 +12,9 @@ activate LinkitServer
 alt 正常時
     IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
     IotInternGear <-- LinkitServer: 成功応答
-    Robot <-- IotInternGear: 201
+    Robot <-- IotInternGear: 200 (sent_at)
     LinkitApp <-- LinkitServer: メッセージ通知
-else 400 リクエストが不正の時
+else 400 リクエストボディが不正の時
     Robot <-- IotInternGear: 400
 else 上記以外が返る時
     IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
