@@ -5,7 +5,7 @@ SSH接続対象のEC2インスタンスが稼働していることを前提と�
 
 ## 初回
 
-- iot-internインスタンス用のSSH Configを[このスクリプト](../../script/aws/generate_ssh_config.sh)で出力する
+- iot-internインスタンス用のSSH Configを[このスクリプト](../../../script/aws/generate_ssh_config.sh)で出力する
   ```sh
   script/aws/generate_ssh_config.sh > ~/.ssh/config.iot-intern
   ```

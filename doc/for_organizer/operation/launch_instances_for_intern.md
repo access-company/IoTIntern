@@ -1,6 +1,6 @@
 # Gear開発用EC2インスタンスの起動
 
-- ベースとなるAMIのidと必要なインスタンス数を指定し、[このスクリプト](../../script/aws/launch_instances.sh)で起動する
+- ベースとなるAMIのidと必要なインスタンス数を指定し、[このスクリプト](../../../script/aws/launch_instances.sh)で起動する
   ```sh
   script/aws/launch_instances.sh ami-xxx 16
   ```

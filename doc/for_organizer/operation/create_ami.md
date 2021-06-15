@@ -9,19 +9,19 @@
 
 ## 手順
 
-- ユーザーデータとして[このスクリプト](../../script/util/bootstrap_amazonlinux2.sh)を使用する。スクリプト冒頭の以下の項目を編集する
+- ユーザーデータとして[このスクリプト](../../../script/util/bootstrap_amazonlinux2.sh)を使用する。スクリプト冒頭の以下の項目を編集する
   - 使用する処理系のバージョン
     - `antikythera_instance_example`が依存している`antikythera`の[`.tool-versions`](../../../.tool-versions)の指定に合わせる
   - ユーザーのパスワード
   - (optional)変更する場合はSSH接続用の公開鍵
-- [スクリプト](../../script/aws/launch_makeami_instance.sh)でAMI作成用のインスタンスを起動する
+- [スクリプト](../../../script/aws/launch_makeami_instance.sh)でAMI作成用のインスタンスを起動する
   ```sh
   script/aws/create_ami.sh script/util/bootstrap_amazonlinux2.sh
   ```
 - `iot-intern-makeami-yyyymmdd`という名前のインスタンスが起動するので、SSH接続して初期化が完了していることを確認する
   - `/tmp/bootstrap_amazonlinux2_yyyymmddHHMM.log`の最後に`Finished all steps!`と出力されていることを確認する
 - インスタンスをstopさせる
-- インスタンスのidを指定して[AMI作成スクリプト](../../script/aws/create_ami.sh)を実行する
+- インスタンスのidを指定して[AMI作成スクリプト](../../../script/aws/create_ami.sh)を実行する
   ```sh
   script/aws/create_ami.sh i-xxx
   ```
