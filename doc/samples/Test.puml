@@ -1,0 +1,4 @@
+@startuml
+participant "user" as user
+user -> user: "行動"
+@enduml
