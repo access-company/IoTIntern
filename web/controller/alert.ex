@@ -13,18 +13,49 @@
 # 課題4
 #   テストコードを書いてみてください.
 #
-# 課題6 (Optional)
+# 課題5 (Optional)
 #   Cromaによるバリデーション機能を試してみてください.
 
 defmodule IotIntern.Controller.Alert do
   use Antikythera.Controller
 
   alias Antikythera.Conn
-  # 必要に応じて適宜エイリアスのコメントアウトを解除してください
-  # alias IotIntern.Error
-  # alias IotIntern.Linkit
+  alias Antikythera.Time
+  alias IotIntern.Error
+  alias IotIntern.Linkit
 
-  def post_alert(%{request: %{body: _body}} = conn) do
-    Conn.json(conn, 200, %{})
+  @alert_messages %{
+    "dead_battery" => "バッテリー不足",
+    "derailment"   => "脱輪",
+    "jamming"      => "異物混入"
+  }
+
+  defmodule RequestBody do
+    use Croma
+
+    defmodule Message do
+      use Croma.SubtypeOfAtom, values: [:dead_battery, :derailment, :jamming]
+    end
+
+    use Croma.Struct, recursive_new?: true, fields: [
+      type: Message,
+    ]
+  end
+
+  def post_alert(%{request: %{body: body}} = conn) do
+    case RequestBody.new(body) do
+      {:ok, _} ->
+        message = Map.get(@alert_messages, body["type"])
+        case Linkit.post_message(message) do
+          {201, nil} ->
+            now_time = Time.now()
+            [iso_now_time | _] = Time.to_iso_timestamp(now_time) |> String.split(".")
+            Conn.json(conn, 200, %{sent_at: iso_now_time})
+          _ ->
+            Conn.json(conn, 500, Error.linkit_error())
+        end
+      _ ->
+        Conn.json(conn, 400, Error.bad_request_error())
+    end
   end
 end

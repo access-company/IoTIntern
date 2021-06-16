@@ -1,42 +1,40 @@
-# defmodule IotIntern.Linkit do
-#   alias Antikythera.Httpc
+defmodule IotIntern.Linkit do
+  alias Antikythera.Httpc
 
-#   @linkit_base_url  "https://linkit-api.jin-soku.biz"
+  @linkit_base_url  "https://linkit-api.jin-soku.biz"
 
-#   def post_message(message) do
-#     %{"linkit_api_key" => linkit_api_key, "notification_user_credential" => credential} = IotIntern.get_all_env()
+  def post_message(message) do
+    %{
+      "linkit_api_key"               => api_key,
+      "notification_user_credential" => credential,
+      "linkit_app_id"                => app_id,
+      "linkit_group_id"              => group_id,
+      "chatroom_id"                  => chatroom_id,
+    } = IotIntern.get_all_env()
 
-#     # 適切なHTTPヘッダとリクエストボディを作ってください
-#     http_headers = %{
-#     }
-#     req_body = %{
-#     }
-    
-#     generate_request_url()
-#     |> send_request_to_linkit(req_body, http_headers)
-#   end
+    endpoint_url = Enum.join([
+      @linkit_base_url,
+      app_id,
+      group_id,
+      "chat_rooms",
+      chatroom_id,
+      "messages"
+    ], "/")
 
-#   defp generate_request_url() do
-#     # 適切なリクエストURLを作ってください
-#   end
+    header = %{
+      "authorization" => credential,
+      "x-api-key"     => api_key,
+    }
 
-#   defp send_request_to_linkit(url, body, header) do
-#     case Httpc.post(url, {:json, body}, header) do
-#       {:ok, %{status: 201, body: body}} -> {:ok,    decode_success_response(body)}
-#       {:ok, %{body: body}}              -> {:error, decode_error_response(body)  }
-#     end
-#   end
+    req_body = %{
+      "type"    => "string",
+      "message" => message,
+    }
 
-#   defp decode_success_response(body) do
-#     # APIのレスポンスに必要な部分だけを関数の戻り値として返せるように成形してください
-#   end
-
-#   defp decode_error_response(body) do
-#     case Jason.decode(body) do
-#       {:ok, decoded_body} ->
-#         decoded_body
-#       {:error, _} ->
-#         :linkit_error
-#     end
-#   end
-# end
+    case Httpc.post(endpoint_url, {:json, req_body}, header) do
+      {:ok, %{status: 201}} -> {201, nil}
+      {:ok, %{status: 403, body: res_body}} -> {500, Jason.decode!(res_body)}
+      {:error, :timeout} -> {:error, :timeout}
+    end
+  end
+end

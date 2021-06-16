@@ -8,20 +8,22 @@ participant LinkitServer
 
 Robot -> IotInternGear: アラートタイプ (type)
 activate IotInternGear
-activate LinkitServer
-alt 正常時
-    IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
-    IotInternGear <-- LinkitServer: 成功応答
-    Robot <-- IotInternGear: 200 (sent_at)
-    LinkitApp <-- LinkitServer: メッセージ通知
-else 400 リクエストボディが不正の時
-    Robot <-- IotInternGear: 400
-else 上記以外が返る時
-    IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
-    IotInternGear <-- LinkitServer: 認証失敗など
-    IotInternGear -> IotInternGear: 例外を発生させる
-    Robot <-- IotInternGear: 500
+
+IotInternGear -> IotInternGear: リクエストボディーをバリデーション
+alt リクエストボディが不正の場合
+  Robot <-- IotInternGear: 400 (BadRequest)
 end
-deactivate IotInternGear
+
+IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
+activate LinkitServer
+alt Linkitに通知が成功
+  IotInternGear <-- LinkitServer: 成功応答
+  Robot <-- IotInternGear: 200 (sent_at)
+  LinkitApp <-- LinkitServer: メッセージ通知
+else 通知が失敗(認証失敗など)
+  IotInternGear <-- LinkitServer: エラー応答
+  Robot <-- IotInternGear: 500 (InternalError)
+end
 deactivate LinkitServer
+deactivate IotInternGear
 @enduml
