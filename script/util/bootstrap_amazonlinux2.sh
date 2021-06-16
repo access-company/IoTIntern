@@ -173,7 +173,7 @@ EOF
   cd /home/jupyter
   su jupyter -c "git clone https://github.com/pprzetacznik/IElixir.git"
   cd IElixir
-  su jupyter -c "git checkout 4785f3f3b9cf9d09399038cf6c4af438559d951a" # the last version cdcompatible to elixir < 1.10
+  su jupyter -c "git checkout 4785f3f3b9cf9d09399038cf6c4af438559d951a" # the last version compatible to elixir < 1.10
   su jupyter -c "mix deps.get"
   su jupyter -c "MIX_ENV=prod mix compile"
   su - jupyter -c "cd /home/jupyter/IElixir && ./install_script.sh"
