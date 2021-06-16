@@ -7,7 +7,7 @@
 
 ### aws cli
 
-- aws cliをインストールする
+- [aws cli (v2)](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/install-cliv2.html)をインストールする
 - aws cliを使用するためのプロファイルを設定する。プロファイル名は`iot_intern`とする
   - アクセスキーを設定する
     - IAMユーザーでアクセスキーを取得する
