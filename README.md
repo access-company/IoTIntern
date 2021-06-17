@@ -44,8 +44,7 @@ http://iot-intern.localhost:8080/ui/index.html
 
 ## リポジトリレイアウト
 
-```sh
-$ tree -L 1
+```
 .
 ├── README.md
 ├── api_test.http // VSCode の REST Client で使う
@@ -90,4 +89,4 @@ IOT_INTERN_CONFIG_JSON=`cat gear_config.json` mix test test/web/controller/hello
 
 ## お掃除ロボットの API 実装課題
 
-[alert.ex](https://github.com/access-company/IoTIntern/blob/master/web/controller/alert.ex) の課題に従って実装を進めてみてください。
+[alert.ex](./web/controller/alert.ex) の課題に従って実装を進めてみてください。
