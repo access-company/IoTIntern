@@ -4,6 +4,7 @@
 
 AWSリソースのセットアップや運用はIAMユーザーを使用して行う。
 運営に関わるメンバーそれぞれのIAMユーザーを作成する。
+この時`Uesr name`は`FirstnameLastname`の形式(例:`TaroYamada`)で作成する。
 
 ## VPC
 
