@@ -24,7 +24,7 @@
 - Jupyter notebook上でIElixirが動作すること
   - ポートフォワーディングした状態で、ローカルのWebブラウザで http://localhost:8081 にアクセス
   - 図のように、カーネルとしてElixirを指定して新しいnotebookを開く
-    ![Elixirカーネルを指定したnotebookの開き方](../../images/how_to_open_notebook_with_ielixir.png)
+    ![Elixirカーネルを指定したnotebookの開き方](../images/how_to_open_notebook_with_ielixir.png)
   - 適当なElixirコードを入力してセルを実行し、実行結果が出力されることを確認
 - IoTIntern gearが起動し、ローカルからアクセスできること
   - リモートでgearを起動
