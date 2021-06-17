@@ -51,7 +51,7 @@ defmodule IotIntern.Controller.Alert do
             now_time = Time.now()
             [iso_now_time | _] = Time.to_iso_timestamp(now_time) |> String.split(".")
             Conn.json(conn, 200, %{sent_at: iso_now_time})
-          {403, _} ->
+          _ ->
             Conn.json(conn, 500, Error.linkit_error())
         end
       _ ->
