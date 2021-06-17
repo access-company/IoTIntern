@@ -36,7 +36,7 @@ defmodule IotIntern.Controller.AlertTest do
     end)
   end
 
-  test "alert api fails with 500" do
+  test "alert api fails with 500 due to status 403 of Linkit API" do
     res_body = """
     {
       "result": "failed",
@@ -46,6 +46,19 @@ defmodule IotIntern.Controller.AlertTest do
     """
 
     :meck.expect(Httpc, :post, 3, {:ok, %{status: 403, body: res_body}})
+
+    expected_body = %{"message" => "Error caused on Linkit", "type" => "LinkitError"}
+
+    Enum.each(["jamming", "derailment", "dead_battery"], fn message ->
+      req_body = %{"type" => message}
+      res = Req.post_json(@api_path, req_body, %{})
+      assert res.status == 500
+      assert Jason.decode!(res.body) == expected_body
+    end)
+  end
+
+  test "alert api fails with 500 due to timeout of Linkit API" do
+    :meck.expect(Httpc, :post, 3, {:error, :timeout})
 
     expected_body = %{"message" => "Error caused on Linkit", "type" => "LinkitError"}
 
