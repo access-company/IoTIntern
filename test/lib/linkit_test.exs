@@ -31,7 +31,7 @@ defmodule IotIntern.Controller.LinkitTest do
       "result" => "failed"
     }
 
-    assert Linkit.post_message("message") == {500, expected}
+    assert Linkit.post_message("message") == {403, expected}
   end
 
   test "Linkit.post_message returns error with timeout" do
