@@ -1,4 +1,4 @@
 @startuml
-participant "user" as user
+participant "ユーザー" as user
 user -> user: "行動"
 @enduml
