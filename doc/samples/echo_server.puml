@@ -1,0 +1,16 @@
+@startuml
+participant クライアント as client
+participant サーバー as server
+
+activate server
+client -> server: API 呼び出し (message)
+alt 正常時
+  client <-- server: 200 (message)
+  client -> client: message を画面に表示
+else リクエストボディが不正である場合
+  client <-- server: 400 (BadRequest)
+  note right: JSON でない場合や\nフィールドのメッセージがおかしい場合
+  client -> client: エラーを表示
+end
+deactivate server
+@enduml
