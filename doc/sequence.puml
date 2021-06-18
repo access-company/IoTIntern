@@ -1,24 +1,29 @@
 @startuml SequenceDiagram
-title: Sequence Diagram
+title: お掃除ロボットのアラートメッセージ投稿
 
-actor User
 participant LinkitApp
 participant Robot
 participant IotInternGear
 participant LinkitServer
 
-Robot -> IotInternGear: アラートタイプ
+Robot -> IotInternGear: アラートタイプ (type)
 activate IotInternGear
-IotInternGear -> LinkitServer: アラートメッセージを送信
+
+IotInternGear -> IotInternGear: リクエストボディーをバリデーション
+alt リクエストボディが不正の場合
+  Robot <-- IotInternGear: 400 (BadRequest)
+end
+
+IotInternGear -> LinkitServer: メッセージ投稿 (linkit_api_key, notification_user_credential, message)
 activate LinkitServer
-LinkitServer -> IotInternGear: 200 OK
-IotInternGear -> Robot: 200 OK
-deactivate IotInternGear
-
-LinkitServer -> LinkitApp: メッセージをプッシュ
+alt Linkitに通知が成功
+  IotInternGear <-- LinkitServer: 成功応答
+  Robot <-- IotInternGear: 200 (sent_at)
+  LinkitApp <-- LinkitServer: メッセージ通知
+else 通知が失敗(認証失敗など)
+  IotInternGear <-- LinkitServer: エラー応答
+  Robot <-- IotInternGear: 500 (InternalError)
+end
 deactivate LinkitServer
-activate LinkitApp
-LinkitApp -> User: メッセージを表示 or 通知
-deactivate LinkitApp
-
+deactivate IotInternGear
 @enduml

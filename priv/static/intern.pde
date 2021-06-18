@@ -15,6 +15,10 @@ void bindJavaScript(JavaScript js) {
 class Sprite {
   PImage img;
 
+  PImage img1;
+  PImage img2;
+  int lastUpdateTime;
+
   int xwidth;
   int xheight;
 
@@ -55,6 +59,8 @@ class Sprite {
   Sprite(PImage img, int w, int h, int x, int y, float rot, float v, float v_weight) {
     this(w, h, x, y, v_weight);
     this.img = img;
+    this.img1 = this.img;
+    this.img2 = this.img;
     this.rot = rot;
     this.v = v;
   }
@@ -62,6 +68,11 @@ class Sprite {
   void set_bbox(int width, int height) {
     this.bbox_width  = width;
     this.bbox_height = height;
+  }
+
+  void setFlippedImage(PImage flippedImg) {
+    this.img1 = this.img
+    this.img2 = flippedImg;
   }
 
   ArrayList<Integer> bbox() {
@@ -74,6 +85,20 @@ class Sprite {
   }
 
   void update() {
+    int currentTime = hour() * 60 * 60 + minute() * 60 + second();
+    if (this.lastUpdateTime == null) {
+      this.lastUpdateTime = currentTime;
+    }
+
+    if (currentTime - this.lastUpdateTime > 1) {
+      this.lastUpdateTime = currentTime;
+      if (this.img == this.img2) {
+        this.img = this.img1;
+      } else {
+        this.img = this.img2;
+      }
+    }
+
     if (this.img != null) {
       this.img.resize(this.xwidth, this.xheight);
     }
@@ -112,15 +137,22 @@ class Sprite {
 }
 
 PImage bg;
+PImage explosion;
 Sprite robot;
 ArrayList<Sprite> room_objs = new ArrayList<Sprite>();
 
+int startTime;
+
 void setup() {
-  size(800, 800);
+  size(600, 700);
   imageMode(CENTER);
   rectMode(CENTER);
 
-  bg = loadImgAsset("room");
+  // FIXME: ugly workaround.
+  startTime = hour() * 60 * 60 + minute() * 60 + second();
+
+  bg        = loadImgAsset("background");
+  explosion = loadImgAsset("explosion");
 
   robot    = new Sprite(loadImgAsset("pet_robot_soujiki_cat"),
                         100, 100,
@@ -130,6 +162,7 @@ void setup() {
                         120, 160,
                         200, 300,
                         0.0, 0.0, 1.0);
+  senpuki.setFlippedImage(loadImgAsset("kaden_senpuki2"))
   kitchen  = new Sprite(loadImgAsset("room_island_kitchen_nobg"),
                         180, 180,
                         120, 90,
@@ -179,11 +212,28 @@ void draw() {
     javascript.notify("derailment");
   }
 
+  int currentTime = hour() * 60 * 60 + minute() * 60 + second();
+  // robot will be down after 15s.
+  if (currentTime - startTime > 10) {
+    robot.v = 0.4
+  }
+  if (currentTime - startTime > 15) {
+    robot.v = 0.0;
+    if (!robot.already_notified) {
+      javascript.notify("dead_battery");
+    }
+    robot.already_notified = true;
+  }
+
   robot.update(v_weight);
+
+  if (robot.v == 0.0) {
+    image(explosion, robot.x, robot.y);
+  }
 }
 
 PImage loadImgAsset(String filename) {
-  String baseAssetsUrl = "/assets/image/";
+  String baseAssetsUrl = "/ui/image/";
   String imgUrl = baseAssetsUrl + filename + ".png";
   return loadImage(imgUrl);
 }

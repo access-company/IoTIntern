@@ -13,17 +13,15 @@ FORMAT: 1A
             + `derailment`: 脱輪
             + `jamming`: 異物混入
 
-+ Response 201 (application/json)
-    + 正常応答
++ Response 200 (application/json)
     + Attributes
-        + `message`: `脱輪しました` (string, required) - Linkitに投稿したメッセージ
-        + `post_date`: `2020-07-09T10:10:05Z` (string, required) - Linkitにメッセージを投稿した日時
+      + `sent_at`: `2020-01-01T13:00:00` (string, required) - Linkitへの送信日時
 
 + Response 400 (application/json)
     + RequestBodyが不正な場合に発生する
     + Attributes (BadRequest)
 
-+ Response 403 (application/json)
++ Response 500 (application/json)
     + Linkitへのメッセージの送信に失敗した場合に発生する
     + Attributes (LinkitError)
 

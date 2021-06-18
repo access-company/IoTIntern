@@ -1,0 +1,21 @@
+FORMAT: 1A
+
+# API 一覧
+
+## エコー API [POST /echo]
+
+* クライアントからのリクエストボディをそのまま返します
+
+* Request (application/json)
+    * Headers
+
+    * Attributes
+        * `message`: `hello` - メッセージ
+
+* Response 200 (application/json)
+    * Attributes
+        * `message`: `hello` - 応答メッセージ
+
+* Response 400 (application/json)
+    * Attributes
+        * `message`: `Bad Request` - エラーメッセージ
