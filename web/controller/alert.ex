@@ -47,7 +47,7 @@ defmodule IotIntern.Controller.Alert do
       {:ok, _} ->
         message = Map.get(@alert_messages, body["type"])
         case Linkit.post_message(message) do
-          {201, nil} ->
+          {201, _} ->
             now_time = Time.now()
             [iso_now_time | _] = Time.to_iso_timestamp(now_time) |> String.split(".")
             Conn.json(conn, 200, %{sent_at: iso_now_time})
