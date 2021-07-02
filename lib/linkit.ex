@@ -3,40 +3,37 @@
 
 #   @linkit_base_url  "https://linkit-api.jin-soku.biz"
 
+#   # typespec に定義される関数仕様となるように関数を実装してください。
+#   # typespec (https://hexdocs.pm/elixir/1.12/typespecs.html) とは関数の型仕様を宣言するための仕様で、下記のような記法で記述します。
+#   # @spec 関数名(引数の型,..) :: 返り値の型
+#   # つまり、post_message は String.t を引数にとり、返り値として2種類の型のタプルを返すという仕様になっています。
+#   # post_message 関数の引数と返り値の具体例としては test/lib/linkit_test.exs を参照ください。
+#   @spec post_message(String.t) :: {integer, map} | {:error, any}
 #   def post_message(message) do
-#     %{"linkit_api_key" => linkit_api_key, "notification_user_credential" => credential} = IotIntern.get_all_env()
+#     %{
+#       "linkit_api_key"               => api_key,
+#       "notification_user_credential" => credential,
+#       "linkit_app_id"                => app_id,
+#       "linkit_group_id"              => group_id,
+#       "chatroom_id"                  => chatroom_id,
+#     } = IotIntern.get_all_env()
 
-#     # 適切なHTTPヘッダとリクエストボディを作ってください
-#     http_headers = %{
+#     # 適切なリクエスト URL を作ってください
+#     endpoint_url = ""
+
+#     # 適切な HTTP ヘッダを作ってください
+#     header = %{
 #     }
+
+#     # 適切なリクエストボディを作ってください
 #     req_body = %{
 #     }
-    
-#     generate_request_url()
-#     |> send_request_to_linkit(req_body, http_headers)
-#   end
 
-#   defp generate_request_url() do
-#     # 適切なリクエストURLを作ってください
-#   end
-
-#   defp send_request_to_linkit(url, body, header) do
-#     case Httpc.post(url, {:json, body}, header) do
-#       {:ok, %{status: 201, body: body}} -> {:ok,    decode_success_response(body)}
-#       {:ok, %{body: body}}              -> {:error, decode_error_response(body)  }
-#     end
-#   end
-
-#   defp decode_success_response(body) do
-#     # APIのレスポンスに必要な部分だけを関数の戻り値として返せるように成形してください
-#   end
-
-#   defp decode_error_response(body) do
-#     case Jason.decode(body) do
-#       {:ok, decoded_body} ->
-#         decoded_body
-#       {:error, _} ->
-#         :linkit_error
+#     # 仕様に沿った関数の戻り値を返せるように実装してください
+#     case Httpc.post(endpoint_url, {:json, req_body}, header) do
+#       {:ok, %{status: 201, body: res_body}} -> {}
+#       {:ok, %{status: 403, body: res_body}} -> {}
+#       {:error, reason} -> {}
 #     end
 #   end
 # end
