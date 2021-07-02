@@ -13,7 +13,7 @@
 # 課題4
 #   テストコードを書いてみてください.
 #
-# 課題6 (Optional)
+# 課題5 (Optional)
 #   Cromaによるバリデーション機能を試してみてください.
 
 defmodule IotIntern.Controller.Alert do
