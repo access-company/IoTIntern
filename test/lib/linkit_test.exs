@@ -36,7 +36,7 @@ defmodule IotIntern.Controller.LinkitTest do
     assert Linkit.post_message("message") == {201, expected}
   end
 
-  test "Linkit.post_message returns 500" do
+  test "Linkit.post_message returns 403" do
     res_body = """
     {
       "result": "failed",
