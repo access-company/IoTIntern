@@ -1,7 +1,6 @@
 defmodule IotIntern.Controller.AlertTest do
   use ExUnit.Case
 
-  alias Antikythera.Time
   alias Antikythera.Httpc
 
   @api_path "/api/v1/alert"
@@ -33,15 +32,14 @@ defmodule IotIntern.Controller.AlertTest do
 
     :meck.expect(Httpc, :post, 3, {:ok, %{status: 201, body: res_body}})
 
-    :meck.expect(Time, :now, fn() ->
-      {Time, {2021, 6, 02}, {3, 53, 30}, 302}
-    end)
+    now = ~U[2021-06-02T03:53:30Z]
+    :meck.expect(DateTime, :utc_now, fn -> now end)
 
     Enum.each(["jamming", "derailment", "dead_battery"], fn message ->
       req_body = %{"type" => message}
       res = Req.post_json(@api_path, req_body, %{})
       assert res.status == 200
-      assert Jason.decode!(res.body) == %{"sent_at" => "2021-06-02T03:53:30"}
+      assert Jason.decode!(res.body) == %{"sent_at" => "2021-06-02T03:53:30Z"}
     end)
   end
 

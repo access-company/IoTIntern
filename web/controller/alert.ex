@@ -20,7 +20,6 @@ defmodule IotIntern.Controller.Alert do
   use Antikythera.Controller
 
   alias Antikythera.Conn
-  alias Antikythera.Time
   alias IotIntern.Error
   alias IotIntern.Linkit
 
@@ -48,8 +47,7 @@ defmodule IotIntern.Controller.Alert do
         message = Map.get(@alert_messages, body["type"])
         case Linkit.post_message(message) do
           {201, _} ->
-            now_time = Time.now()
-            [iso_now_time | _] = Time.to_iso_timestamp(now_time) |> String.split(".")
+            iso_now_time = DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601()
             Conn.json(conn, 200, %{sent_at: iso_now_time})
           _ ->
             Conn.json(conn, 500, Error.linkit_error())
