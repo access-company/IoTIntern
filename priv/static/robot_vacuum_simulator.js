@@ -237,20 +237,19 @@ async function handle_message(msg_type) {
     messages[msg_type] + "\nメッセージ送信完了日時\n" + res_body.sent_at;
 }
 
-// post a message to linkit
 async function notify_linkit(msg_type) {
   const url = "http://iot-intern.localhost:8080/api/v1/alert";
   const response = await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: { "Content-Type": "application/json" },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify({ type: msg_type }), // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ type: msg_type }),
   });
-  return response.json(); // レスポンスの JSON を解析
+  return response.json();
 }
 
 function show_text(msg, x, y) {
