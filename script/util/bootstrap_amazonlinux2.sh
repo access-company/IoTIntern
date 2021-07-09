@@ -5,6 +5,7 @@ set -euo pipefail -o posix
 # Edit this section before launching an EC2 instance for making AMI
 #
 iot_intern_repo_url="https://github.com/access-company/IoTIntern.git"
+elixir_training_repo_url="https://github.com/Fumipo-Theta/elixir-training.git"
 
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
@@ -194,6 +195,9 @@ conf.NotebookApp.port = 8081
 EOF
   )
   echo "${content}" > /home/jupyter/.jupyter/jupyter_notebook_config.py
+
+  # clone elixir training repository
+  su jupyter -c "git clone ${elixir_training_repo_url} /home/jupyter/jupyter-working/elixir-training"
 
   # Configure the jupyter server to start automatically
   #

@@ -40,6 +40,10 @@
 ## Gear開発用EC2インスタンスの運用
 
 - AMIの作成 [(手順)](./operation/create_ami.md)
-  - 処理系をupgradeする際やSSH接続用の鍵を更新する際もAMIを作り直す
+  - 以下のケースでAMIの作り直しが必要
+    - 処理系をupgradeするとき
+    - SSH接続用の鍵やユーザーパスワードを更新するとき
+    - このレポジトリのmasterブランチを更新したとき
+    - [Elixir講座のレポジトリのmasterブランチ](https://github.com/Fumipo-Theta/elixir-training)が更新された時
 - 必要な数のEC2インスタンスを起動 [(手順)](./operation/launch_instances_for_intern.md)
 - EC2インスタンスを終了 [(手順)](./operation/terminate_instances_for_intern.md)
