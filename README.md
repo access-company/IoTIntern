@@ -16,7 +16,7 @@ mix deps.get && mix deps.get
 
 Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
 
-Gear コンフィグに下記のの値を設定する。
+Gear コンフィグに下記の値を設定する。
 
 `linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
 
@@ -47,7 +47,6 @@ http://iot-intern.localhost:8080/ui/index.html
 ```
 .
 ├── README.md
-├── api_test.http // VSCode の REST Client で使う
 ├── deps // mix deps.get でパッケージが入る
 ├── doc // ドキュメント
 ├── gear_config.json // コンフィグファイル
