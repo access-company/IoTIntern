@@ -98,13 +98,13 @@ function draw() {
   robot.display();
 
   if (robot.v == 0.0) {
-    handle_message("derailment");
+    handle_event("derailment");
   } else if (frame_counter == frame_battery_dead - 2.0 * frame_rate) {
     // decrease velocity about two seconds before time limit
     robot.v = 0.7;
   } else if (frame_counter == frame_battery_dead) {
     let msg = Math.random() < 0.5 ? "jamming" : "dead_battery";
-    handle_message(msg);
+    handle_event(msg);
     robot.v = 0.0;
   }
 
@@ -224,7 +224,7 @@ class RectObj {
   }
 }
 
-async function handle_message(msg_type) {
+async function handle_event(msg_type) {
   if (is_notified) return;
   is_notified = true;
   const res_body = await notify_linkit(msg_type);
