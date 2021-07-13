@@ -5,7 +5,6 @@ set -euo pipefail -o posix
 # Edit this section before launching an EC2 instance for making AMI
 #
 iot_intern_repo_url="https://github.com/access-company/IoTIntern.git"
-elixir_training_repo_url="https://github.com/Fumipo-Theta/elixir-training.git"
 
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
@@ -141,14 +140,9 @@ EOF
   # Install jupyter notebook for elixir hands-on
   #
 
-  # Create a linux user to start jupyter server
-  useradd -m jupyter
-  ln -s /etc/asdf-tool-versions /home/jupyter/.tool-versions
-  echo "[Done] Created a new user jupyter"
-
   # Install jupyter
-  su jupyter -c "python3 -m pip install --upgrade pip"
-  su jupyter -c "python3 -m pip install jupyter"
+  su intern-user -c "python3 -m pip install --upgrade pip"
+  su intern-user -c "python3 -m pip install jupyter"
   echo "[Done] Installed jupyter"
 
   #
@@ -171,39 +165,35 @@ EOF
   cd zeromq-4.2.0
   ./configure && make && make install
 
-  cd /home/jupyter
-  su jupyter -c "git clone https://github.com/pprzetacznik/IElixir.git"
+  cd /home/intern-user
+  su intern-user -c "git clone https://github.com/pprzetacznik/IElixir.git"
   cd IElixir
-  su jupyter -c "git checkout 4785f3f3b9cf9d09399038cf6c4af438559d951a" # the last version compatible to elixir < 1.10
-  su jupyter -c "mix deps.get"
-  su jupyter -c "MIX_ENV=prod mix compile"
-  su - jupyter -c "cd /home/jupyter/IElixir && ./install_script.sh"
+  su intern-user -c "git checkout 4785f3f3b9cf9d09399038cf6c4af438559d951a" # the last version compatible to elixir < 1.10
+  su intern-user -c "mix deps.get"
+  su intern-user -c "MIX_ENV=prod mix compile"
+  su - intern-user -c "cd /home/intern-user/IElixir && ./install_script.sh"
   echo "[Done] Installed IElixir kernel"
 
   # Configure the jupyter server
-  su - jupyter -c "jupyter notebook --generate-config"
-  su jupyter -c "mkdir /home/jupyter/jupyter-working"
+  su - intern-user -c "jupyter notebook --generate-config"
 
   content=$(cat << EOF
 conf = get_config()
 
 conf.NotebookApp.ip = '0.0.0.0'
-conf.NotebookApp.notebook_dir = '/home/jupyter/jupyter-working'
+conf.NotebookApp.notebook_dir = '/home/intern-user/$(basename ${iot_intern_repo_url} .git)/doc/elixir-training/notebooks'
 conf.NotebookApp.token = u''
 conf.NotebookApp.open_browser = False
 conf.NotebookApp.port = 8081
 EOF
   )
-  echo "${content}" > /home/jupyter/.jupyter/jupyter_notebook_config.py
-
-  # clone elixir training repository
-  su jupyter -c "git clone ${elixir_training_repo_url} /home/jupyter/jupyter-working/elixir-training"
+  echo "${content}" > /home/intern-user/.jupyter/jupyter_notebook_config.py
 
   # Configure the jupyter server to start automatically
   #
   # Use rc.local instead of systemd
   #  because we couldn't find the way to make tools installed by asdf work
-  echo 'nohup su - jupyter -c "jupyter notebook" > /tmp/jupyter-notebook.log &' >> /etc/rc.local
+  echo 'nohup su - intern-user -c "jupyter notebook" > /tmp/jupyter-notebook.log &' >> /etc/rc.local
   chmod 755 /etc/rc.d/rc.local
   echo "[Done] Configured jupyter server"
 
