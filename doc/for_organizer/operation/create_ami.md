@@ -9,6 +9,8 @@
 
 ## 手順
 
+### EC2インスタンスの起動
+
 - ユーザーデータとして[このスクリプト](../../../script/util/bootstrap_amazonlinux2.sh)を使用する。スクリプト冒頭の以下の項目を編集する
   - 使用する処理系のバージョン
     - `antikythera_instance_example`が依存している`antikythera`の[`.tool-versions`](../../../.tool-versions)の指定に合わせる
@@ -20,6 +22,13 @@
   ```
 - `iot-intern-makeami-yyyymmdd`という名前のインスタンスが起動するので、SSH接続して初期化が完了していることを確認する
   - `/tmp/bootstrap_amazonlinux2_yyyymmddHHMM.log`の最後に`Finished all steps!`と出力されていることを確認する
+
+### リモートで使う開発ツールのインストール
+
+今の所、手動での対応を必要とするものは無い。
+
+### AMIの登録
+
 - インスタンスをstopさせる
 - インスタンスのidを指定して[AMI作成スクリプト](../../../script/aws/create_ami.sh)を実行する
   ```sh
