@@ -9,12 +9,13 @@
 # 課題3
 #   lib/linkit.exにLinkitのAPIを叩くための関数があります．
 #   コメントアウトを解除し，適宜コードを補完して関数を完成させて，Linkitへ通知が送れるようにしてください．
+#   mix test test/lib/linkit_test.exs を実行してテストが成功することを確認してください.
 #
 # 課題4
-#   テストコードを書いてみてください.
+#   Alert APIのテストコードを書いてみてください.
 #
-# 課題6 (Optional)
-#   Cromaによるバリデーション機能を試してみてください.
+# 課題5 (Optional)
+#   Cromaを用いてリクエストボディのバリデーションを試してみてください.
 
 defmodule IotIntern.Controller.Alert do
   use Antikythera.Controller

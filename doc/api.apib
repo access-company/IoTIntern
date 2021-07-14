@@ -9,13 +9,13 @@ FORMAT: 1A
 + Request (application/json)
     + Attributes
         + `type`: `derailment` (enum[string], required) - 異常の種類
-            + `dead_battery`: パッテリー切れ
+            + `dead_battery`: バッテリー不足
             + `derailment`: 脱輪
             + `jamming`: 異物混入
 
 + Response 200 (application/json)
     + Attributes
-      + `sent_at`: `2020-01-01T13:00:00` (string, required) - Linkitへの送信日時
+      + `sent_at`: `2020-01-01T13:00:00Z` (string, required) - Linkitへの送信完了日時 (iso8601形式)
 
 + Response 400 (application/json)
     + RequestBodyが不正な場合に発生する
