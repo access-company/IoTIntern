@@ -1,6 +1,6 @@
 FORMAT: 1A
 
-# IOTインターン2020
+# IOTインターン2021
 
 ## アラート送信 [POST /api/v1/alert]
 
@@ -15,7 +15,7 @@ FORMAT: 1A
 
 + Response 200 (application/json)
     + Attributes
-      + `sent_at`: `2020-01-01T13:00:00Z` (string, required) - Linkitへの送信完了日時 (iso8601形式)
+      + `sent_at`: `2020-01-01T13:00:00Z` (string, required) - Linkitへの送信完了日時 (iso8601形式, UTC)
 
 + Response 400 (application/json)
     + RequestBodyが不正な場合に発生する
