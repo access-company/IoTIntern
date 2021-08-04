@@ -30,7 +30,7 @@ log="/tmp/bootstrap_amazonlinux2_$(date '+%Y%m%dT%H%M').log"
   cd /opt
   git clone https://github.com/inotify-tools/inotify-tools.git --branch 3.20.2.2
   cd inotify-tools && bash autogen.sh
-  ./configure --prefix=/usr && make && make install
+  ./configure --prefix=/usr --libdir=/lib64 && make && make install
   # development header of the Expat is required in compiling fast_xml, on which antikythera depends
   yum install -y patch expat-devel
 
