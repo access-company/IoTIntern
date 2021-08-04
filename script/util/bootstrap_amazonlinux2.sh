@@ -5,7 +5,6 @@ set -euo pipefail -o posix
 # Edit this section before launching an EC2 instance for making AMI
 #
 iot_intern_repo_url="https://github.com/access-company/IoTIntern.git"
-
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
 nodejs_version="10.23.0"
@@ -47,6 +46,8 @@ EOF
   #
   # Add linux users
   #
+  gear_dir_name="$(basename "${iot_intern_repo_url}" .git)"
+
   add_linux_user() {
     name="$1"
     uid="$2"
@@ -68,9 +69,9 @@ EOF
     chown -R "${name}:${name}" "${dot_ssh_dir}"
 
     # Clone gear repository to the home directory
-    repo_dir="${home_dir}/$(basename "${iot_intern_repo_url}" .git)"
-    git clone "${iot_intern_repo_url}" "${repo_dir}"
-    chown -R "${name}:${name}" "${repo_dir}"
+    gear_dir="${home_dir}/${gear_dir_name}"
+    git clone "${iot_intern_repo_url}" "${gear_dir}"
+    chown -R "${name}:${name}" "${gear_dir}"
 
     ln -s /etc/asdf-tool-versions "${home_dir}/.tool-versions"
 
@@ -181,7 +182,7 @@ EOF
 conf = get_config()
 
 conf.NotebookApp.ip = '0.0.0.0'
-conf.NotebookApp.notebook_dir = '/home/intern-user/$(basename ${iot_intern_repo_url} .git)/doc/elixir-training/notebooks'
+conf.NotebookApp.notebook_dir = '/home/intern-user/${gear_dir_name}/doc/elixir-training/notebooks'
 conf.NotebookApp.token = u''
 conf.NotebookApp.open_browser = False
 conf.NotebookApp.port = 8888
