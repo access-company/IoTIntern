@@ -138,6 +138,14 @@ EOF
   echo "[Done] installed nodejs ${nodejs_version}"
 
   #
+  # Compaile gear in advance
+  #
+
+  # when do mix test, successful tests should be indicated
+  su intern-user -c "cd /home/intern-user/${gear_dir_name} && mix deps.get && mix deps.get && MIX_ENV=dev mix compile && mix test test/web/controller/hello_test.exs"
+  echo "[Done] compiled the gear"
+
+  #
   # Install jupyter notebook for elixir hands-on
   #
 
