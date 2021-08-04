@@ -184,7 +184,7 @@ conf.NotebookApp.ip = '0.0.0.0'
 conf.NotebookApp.notebook_dir = '/home/intern-user/$(basename ${iot_intern_repo_url} .git)/doc/elixir-training/notebooks'
 conf.NotebookApp.token = u''
 conf.NotebookApp.open_browser = False
-conf.NotebookApp.port = 8081
+conf.NotebookApp.port = 8888
 EOF
   )
   echo "${content}" > /home/intern-user/.jupyter/jupyter_notebook_config.py
