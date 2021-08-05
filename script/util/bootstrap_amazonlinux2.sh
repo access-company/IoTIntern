@@ -142,7 +142,7 @@ EOF
   #
 
   # when do mix test, successful tests should be indicated
-  su intern-user -c "cd /home/intern-user/${gear_dir_name} && mix deps.get && mix deps.get && MIX_ENV=dev mix compile && mix test test/web/controller/hello_test.exs"
+  su intern-user -c "cd /home/intern-user/${gear_dir_name} && mix deps.get && mix deps.get && MIX_ENV=dev mix compile && MIX_ENV=test mix compile"
   echo "[Done] compiled the gear"
 
   #
