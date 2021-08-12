@@ -23,9 +23,12 @@
 - `iot-intern-makeami-yyyymmdd`という名前のインスタンスが起動するので、SSH接続して初期化が完了していることを確認する
   - `/tmp/bootstrap_amazonlinux2_yyyymmddHHMM.log`の最後に`Finished all steps!`と出力されていることを確認する
 
-### リモートで使う開発ツールのインストール
+### 手動セットアップが必要なもの
 
-今の所、手動での対応を必要とするものは無い。
+- LinkitのPost Message API (`POST /:app_id/:group_id/chat_rooms/:chatroom_id/messages`)の仕様書の設置
+  - Linkitの仕様書は本来内部向けのドキュメントであり、publicであるこのレポジトリに含めるべきではないため手動で設置する
+  - パスは`/home/intern-user/IoTIntern/doc/linkit_api.apib`とする
+  - 拡張子は`.apib`とすること(VSCodeのAPI Blueprint Viewer拡張機能でプレビューするために必要)
 
 ### AMIの登録
 
