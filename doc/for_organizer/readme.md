@@ -46,4 +46,5 @@
     - このレポジトリのmasterブランチを更新したとき
     - [Elixir講座のレポジトリのmasterブランチ](https://github.com/Fumipo-Theta/elixir-training)が更新された時
 - 必要な数のEC2インスタンスを起動 [(手順)](./operation/launch_instances_for_intern.md)
+- 受講者の成果物をローカルにダウンロード [(手順)](./operation/download_work_of_participants.md)
 - EC2インスタンスを終了 [(手順)](./operation/terminate_instances_for_intern.md)
