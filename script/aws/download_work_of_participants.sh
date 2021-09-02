@@ -27,7 +27,9 @@ for host_and_public_ip_pairs in $("${script_dir}/list_public_ip_addresses.sh"); 
   ip=$(echo "${host_and_public_ip_pairs}" | cut -d ',' -f2)
   echo "Start downlading from ${hostname}..."
 
-  ssh -i "${user_key_path}" -o StrictHostKeyChecking=no "${USER_NAME}@${ip}" <<"EOC"
+  # REMOTE_TARGET_DIR should be expanded before transferred to remote
+  # shellcheck disable=SC2087
+  ssh -i "${user_key_path}" -o StrictHostKeyChecking=no "${USER_NAME}@${ip}" <<EOC
 rm -rf ${REMOTE_TARGET_DIR}/_build
 rm -rf ${REMOTE_TARGET_DIR}/deps
 EOC
