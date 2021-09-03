@@ -1,9 +1,5 @@
 {
   "recommendations": [
-    "develiteio.api-blueprint-viewer",
-    "mjmcloug.vscode-elixir",
-    "mhutchie.git-graph",
-    "jebbs.plantuml",
     "ms-vscode-remote.remote-ssh"
   ]
 }
