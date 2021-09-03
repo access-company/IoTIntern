@@ -25,6 +25,5 @@ install_extension develiteio api-blueprint-viewer 0.9.4
 # https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
 install_extension mhutchie git-graph 1.30.0
 
-# https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls
-# If version of the Erlang required by antikythera <= 20, version of the elixir-ls should be <= 0.5.0
-install_extension JakeBecker elixir-ls 0.5.0
+# https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir
+install_extension mjmcloug vscode-elixir 1.1.0
