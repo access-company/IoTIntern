@@ -4,7 +4,8 @@ set -euo pipefail -o posix
 #
 # Edit this section before launching an EC2 instance for making AMI
 #
-iot_intern_repo_url="https://github.com/access-company/IoTIntern.git"
+gear_dir_name=IoTIntern
+iot_intern_repo_url="https://github.com/access-company/${gear_dir_name}.git"
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
 nodejs_version="10.23.0"
@@ -46,7 +47,6 @@ EOF
   #
   # Add linux users
   #
-  gear_dir_name="$(basename "${iot_intern_repo_url}" .git)"
 
   add_linux_user() {
     name="$1"
