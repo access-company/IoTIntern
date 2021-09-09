@@ -17,7 +17,7 @@ if [ $# -lt 1 ]; then
 fi
 
 REMOTE_TARGET_DIR="/home/${USER_NAME}/IoTIntern"
-now=$(gdate +%Y%m%d%H%M%S)
+now=$(date +%Y%m%d%H%M%S)
 LOCAL_DOWNLOAD_DIR="./tmp-downloaded/${now}"
 mkdir -p "${LOCAL_DOWNLOAD_DIR}"
 script_dir=$(dirname "$0")
