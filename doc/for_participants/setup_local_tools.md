@@ -19,6 +19,13 @@
 
 - [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh): (必須) ローカルのVSCodeからリモートマシン上のファイルを編集するために必要
 
+## Google Chrome
+
+- [ここ](https://www.google.com/intl/ja_jp/chrome/)からダウンロードしてインストール
+  - Gearにアクセスするためのwebブラウザとして推奨する
+- 他のブラウザではlocalhostにsub-domainを指定したとき名前解決されず、gearにアクセスできない場合がある(少なくともSafariが該当)
+  - そのようなブラウザで名前解決されるようにするには`/etc/hosts`に`127.0.0.1 iot-intern.localhost`を追記することが必要だが、誤操作によるリスクがあるため推奨しない
+
 ## Linkit
 
 Linkitには[アプリ版](https://support.jin-soku.biz/support/solutions/articles/48001140891-linkit%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%96%B9%E6%B3%95%EF%BC%88%E3%82%A2%E3%83%97%E3%83%AA%E7%89%88%EF%BC%89)(Android・iOS)と[ブラウザ版](https://support.jin-soku.biz/support/solutions/articles/48001140888-linkit%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%96%B9%E6%B3%95)があり、少なくともいずれかを使用できればOK。
