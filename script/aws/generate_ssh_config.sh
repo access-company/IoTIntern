@@ -6,21 +6,15 @@ set -euo pipefail
 # $ ./generate_ssh_config.sh > ~/.ssh/config.iot-intern
 #
 
-public_ip_addresses_of_running_instances(){
-  aws ec2 describe-instances \
-    --profile iot_intern \
-    --filters 'Name=tag:Name,Values=iot-intern' 'Name=instance-state-name,Values=running' \
-    | jq -c '.["Reservations"] | map(.["Instances"]) | flatten | sort_by(.["LaunchTime"])' \
-    | jq -r '.[].PublicIpAddress'
-}
+script_dir=$(dirname "$0")
 
 output_config() {
-  index=0
-  echo "${1}" | while IFS="," read -r ip; do
-    echo "Host iot-intern-${index}"
+  for host_and_public_ip_pairs in $("${script_dir}/list_public_ip_addresses.sh"); do
+    hostname=$(echo "${host_and_public_ip_pairs}" | cut -d ',' -f1)
+    ip=$(echo "${host_and_public_ip_pairs}" | cut -d ',' -f2)
+    echo "Host ${hostname}"
     echo "  User intern-admin"
     echo "  HostName ${ip}"
-    index=$((index + 1))
   done
 }
 
@@ -31,4 +25,4 @@ Host iot-intern-*
 
 EOF
 
-output_config "$(public_ip_addresses_of_running_instances)"
+output_config

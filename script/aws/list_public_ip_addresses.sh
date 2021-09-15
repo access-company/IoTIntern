@@ -11,9 +11,8 @@ list_public_ip_addresses(){
     | jq -r '.[].PublicIpAddress')
 
   index=0
-  echo "host, public_ip_address"
   for ip_address in ${ip_addresses}; do
-    echo "iot-intern-${index}, ${ip_address}"
+    echo "iot-intern-${index},${ip_address}"
     index=$((index + 1))
   done
 }
