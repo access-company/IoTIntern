@@ -2,7 +2,8 @@
 
 ## 課題
 
-[仕様](../api.apib) に沿って時刻を返すように [alert API](web/controller/alert.ex) を実装してください。
+- `IO.inspect` で `conn` の内容を確認してください
+- [仕様](../api.apib) に沿って時刻を返すように [alert API](web/controller/alert.ex) を実装してください
 
 ## 期待結果
 
