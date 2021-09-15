@@ -48,7 +48,6 @@ Jupyter notebookと、Elixirの実行環境が必要である。
   - `notebooks`ディレクトリを開く
 - ファイルの実体はローカルの[`notebooks`](./notebooks)ディレクトリに存在する
 
-
 ## Contributing guide
 
 - Notebookの変更をコミットする前に、下の画像のようにnotebookのツールバーの`Kernel` > `Restart & Clear Output`を実行した上で保存しておくこと
