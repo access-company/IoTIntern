@@ -1,0 +1,4 @@
+.jupyter/lab
+.jupyter/notebook
+.ipynb_checkpoints
+.vagrant
