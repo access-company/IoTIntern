@@ -77,15 +77,23 @@ API を追加するには"コントローラーの処理を書くこと"と"ル�
 全ての `*_test.exs` ファイルを対象に実行するには
 
 ```sh
-IOT_INTERN_CONFIG_JSON=`cat gear_config.json` mix test
+IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test
 ```
 
 または特定のテストファイルに対して下記のように行う。
 
 ```sh
-IOT_INTERN_CONFIG_JSON=`cat gear_config.json` mix test test/web/controller/hello_test.exs
+IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/web/controller/hello_test.exs
 ```
 
 ## お掃除ロボットの API 実装課題
 
-[alert.ex](./web/controller/alert.ex) の課題に従って実装を進めてみてください。
+[apidoc branch](https://github.com/access-company/IoTIntern/tree/apidoc) 上の [仕様書](./doc/api.apib) と [シーケンス図](./doc/sequence.puml) の通りに実装することを目指します。
+下記の課題に従って実装を進めてください。
+
+- [例題](./doc/tasks/example.md)
+- [課題 1](./doc/tasks/task1.md)
+- [課題 2](./doc/tasks/task2.md)
+- [課題 3](./doc/tasks/task3.md)
+- [課題 4](./doc/tasks/task4.md)
+- [課題 5](./doc/tasks/task5.md)
