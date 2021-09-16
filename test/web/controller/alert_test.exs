@@ -12,5 +12,7 @@
 #     :meck.expect(DateTime, :utc_now, fn -> now end)
 
 #     # Linkit API を meck してください。
+
+#     # リクエストに対し正常レスポンスが返ることを期待するテストコードを実装してください。
 #   end
 # end
