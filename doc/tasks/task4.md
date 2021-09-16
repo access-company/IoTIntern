@@ -86,4 +86,4 @@ Randomized with seed 791970
 
   > Hoge.foo(1, 2)
     5
-    ```
+  ```
