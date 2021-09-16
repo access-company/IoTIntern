@@ -10,7 +10,7 @@
 - テストが成功する
 
   ```shell
-  $ IOT_INTERN_CONFIG_JSON=`cat gear_config.json` mix test test/lib/linkit_test.exs
+  $ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
   … (省略) 3 tests, 0 failures
   ```
 

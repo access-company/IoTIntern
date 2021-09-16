@@ -88,7 +88,7 @@ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/web/controller/hell
 
 ## お掃除ロボットの API 実装課題
 
-[apidoc branch](https://github.com/access-company/IoTIntern/tree/apidoc) 上の [仕様書](./doc/api.apib) と [シーケンス図](./doc/sequence.puml) の通りに実装することを目指します。
+[apidoc branch](https://github.com/access-company/IoTIntern/tree/apidoc) 上の [仕様書](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib) と [シーケンス図](https://github.com/access-company/IoTIntern/blob/apidoc/doc/sequence.puml) の通りに実装することを目指します。
 下記の課題に従って実装を進めてください。
 
 - [例題](./doc/tasks/example.md)

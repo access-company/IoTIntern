@@ -122,7 +122,7 @@ invalid_map = %{}
 {:error, {:value_missing, [Hoge, {Croma.String, :foo}]}}
 ```
 
-### `defun`の仕様例
+### `defun`の使用例
 
 [`defun`](https://github.com/skirino/croma/blob/master/lib/croma/defun.ex)を使うことで、関数の定義とそのtypespec定義を同時に行なうことができます。
 通常、関数とそのtypespecの定義は下記のように行います。
