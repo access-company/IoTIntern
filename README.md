@@ -96,4 +96,4 @@ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/web/controller/hell
 - [課題 2](./doc/tasks/task2.md)
 - [課題 3](./doc/tasks/task3.md)
 - [課題 4](./doc/tasks/task4.md)
-- [発展課題](./doc/tasks/task5.md)
+- [発展課題](./doc/tasks/advanced_task.md)
