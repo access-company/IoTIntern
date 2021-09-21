@@ -17,6 +17,5 @@
     "-Xmx2g",
     "-DPLANTUML_LIMIT_SIZE=16384"
   ],
-  "plantuml.server": "https://www.plantuml.com/plantuml",
-  "elixirLS.dialyzerEnabled": false
+  "plantuml.server": "https://www.plantuml.com/plantuml"
 }

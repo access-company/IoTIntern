@@ -4,7 +4,8 @@ set -euo pipefail -o posix
 #
 # Edit this section before launching an EC2 instance for making AMI
 #
-iot_intern_repo_url="https://github.com/access-company/IoTIntern.git"
+gear_dir_name=IoTIntern
+iot_intern_repo_url="https://github.com/access-company/${gear_dir_name}.git"
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
 nodejs_version="10.23.0"
@@ -46,7 +47,6 @@ EOF
   #
   # Add linux users
   #
-  gear_dir_name="$(basename "${iot_intern_repo_url}" .git)"
 
   add_linux_user() {
     name="$1"
@@ -141,70 +141,47 @@ EOF
   # Compaile gear in advance
   #
 
-  # when do mix test, successful tests should be indicated
   su intern-user -c "cd /home/intern-user/${gear_dir_name} && mix deps.get && mix deps.get && MIX_ENV=dev mix compile && MIX_ENV=test mix compile"
   echo "[Done] compiled the gear"
 
   #
-  # Install jupyter notebook for elixir hands-on
+  # Prepare environment for elixir-training by using docker
+  # to avoid affecting the compilation environment of the iot-intern gear
   #
 
-  # Install jupyter
-  su intern-user -c "python3 -m pip install --upgrade pip"
-  su intern-user -c "python3 -m pip install jupyter"
-  echo "[Done] Installed jupyter"
+  # Install docker and docker-compose
+  sudo yum install -y docker
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo usermod -a -G docker intern-admin
+  curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  echo "[Done] installed docker and docker-compose"
 
-  #
-  # Install IElixir (https://github.com/pprzetacznik/IElixir)
-  #
+  content=$(cat << "EOF"
+[Unit]
+Description=Elixir training
+Requires=docker.service
 
-  # sqlite3.h is required in IElixir
-  yum install -y sqlite-devel
+[Service]
+Environment=COMPOSE_FILE=/home/intern-user/IoTIntern/doc/elixir-training/docker/docker-compose.yml
 
-  # sodium
-  # https://download.libsodium.org/libsodium/releases/
-  cd /opt
-  curl https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.tar.gz | tar -xz
-  cd libsodium-1.0.18
-  ./configure && make && make install
-  # zmq
-  cd /opt
-  wget https://github.com/zeromq/libzmq/releases/download/v4.2.0/zeromq-4.2.0.tar.gz
-  tar xfz zeromq-4.2.0.tar.gz && rm zeromq-4.2.0.tar.gz
-  cd zeromq-4.2.0
-  ./configure && make && make install
+ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
+ExecStart=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} up
+ExecStop=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
 
-  cd /home/intern-user
-  su intern-user -c "git clone https://github.com/pprzetacznik/IElixir.git"
-  cd IElixir
-  su intern-user -c "git checkout 4785f3f3b9cf9d09399038cf6c4af438559d951a" # the last version compatible to elixir < 1.10
-  su intern-user -c "mix deps.get"
-  su intern-user -c "MIX_ENV=prod mix compile"
-  su - intern-user -c "cd /home/intern-user/IElixir && ./install_script.sh"
-  echo "[Done] Installed IElixir kernel"
+Restart=always
+Type=simple
 
-  # Configure the jupyter server
-  su - intern-user -c "jupyter notebook --generate-config"
-
-  content=$(cat << EOF
-conf = get_config()
-
-conf.NotebookApp.ip = '0.0.0.0'
-conf.NotebookApp.notebook_dir = '/home/intern-user/${gear_dir_name}/doc/elixir-training/notebooks'
-conf.NotebookApp.token = u''
-conf.NotebookApp.open_browser = False
-conf.NotebookApp.port = 8888
+[Install]
+WantedBy=multi-user.target
 EOF
   )
-  echo "${content}" > /home/intern-user/.jupyter/jupyter_notebook_config.py
 
-  # Configure the jupyter server to start automatically
-  #
-  # Use rc.local instead of systemd
-  #  because we couldn't find the way to make tools installed by asdf work
-  echo 'nohup su - intern-user -c "jupyter notebook" > /tmp/jupyter-notebook.log &' >> /etc/rc.local
-  chmod 755 /etc/rc.d/rc.local
-  echo "[Done] Configured jupyter server"
+  echo "${content}" > /etc/systemd/system/docker-compose-elixir-training.service
+  sudo systemctl start docker-compose-elixir-training
+  sudo systemctl enable docker-compose-elixir-training
+  echo "[Done] registerd docker-compose-elixir-training service"
 
   echo 'Finished all steps!'
 ) &> "$log"
