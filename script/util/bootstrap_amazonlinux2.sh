@@ -119,6 +119,7 @@ EOF
 
   # Erlang
   su intern-admin -c "asdf plugin-add erlang"
+  su intern-admin -c "asdf plugin update erlang 9ca2dea00fd13e0ba8b35d5f8d5f48dfd27ff4a2" # This is the latest commit which uses kerl v2.1.2. kerl >= v2.2.0 does not support Erlang v.20
   su intern-admin -c "asdf install erlang ${erlang_version}"
   echo "[Done] installed Erlang ${erlang_version}"
 
