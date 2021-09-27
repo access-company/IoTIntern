@@ -16,7 +16,7 @@ mix deps.get && mix deps.get
 
 Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
 
-Gear コンフィグに下記の値を設定する。
+[Gear コンフィグ](./gear_config.json)に下記の値を設定する。
 
 `linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
 
@@ -97,13 +97,13 @@ API を追加するには"コントローラーの処理を書くこと"と"ル�
 
 ### コントローラーの処理を書く
 
-`web/controller/hello.ex` のようにモジュールと関数を定義する。
+[`web/controller/hello.ex`](web/controller/hello.ex) のようにモジュールと関数を定義する。
 
 `Hello` モジュールの `hello/1` 関数は第一引数に `conn` を受け取り、新しい`conn` を返す。そしてレスポンスのコンテンツを `conn` に詰めるには関数 `Conn.json/3` を使っている。
 
 ### ルーターのパスを書く
 
-`web/router.ex` を書き換える。
+[`web/router.ex`](web/router.ex) を書き換える。
 
 ## テストの実行
 
