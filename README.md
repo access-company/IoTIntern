@@ -58,6 +58,39 @@ http://iot-intern.localhost:8080/ui/index.html
 └── web // API 記述先
 ```
 
+## Antikythera概要
+
+### WebサーバーとしてのAntikythera
+
+[Antikythera](https://github.com/access-company/antikythera)は複数のwebサービスをホスティングするPlatform as a Serviceである。
+Antikytheraにホスティングされた個々のwebサービスをgearと呼んでいる。
+AntikytheraはErlang VM上で動くプロセスの1つであり、gearもまたAntikytheraと同じErlang VM上で動いている。
+
+- Antikytheraの機能
+    - HTTPサーバー
+      - クライアントからのHTTPリクエストに対し、Antikytheraが管理しているErlangプロセスを使ってgearの関数を呼び出し、処理を行う
+      - 処理結果をHTTPリクエストとしてクライアントに返す
+    - Web Socketの管理
+    - (図には書いていないが) gearが任意の非同期処理を行うための機能提供
+
+![Overview of antikythera framework](/overview_of_antikythera.png)
+
+### HTTPリクエストに対しHTTPレスポンスが返るまでの流れ
+
+1. AntikytheraがクライアントからのHTTPリクエストを受け取る
+2. Antikytheraがgearの関数を呼び出す
+   1. リクエストURLによって処理を行うgearが決まる
+       - サブドメインに基づく
+   2. リクエストのメソッドとURLのパスによって処理を行う関数が決まる
+       - gearの`web/router.ex`に基づく
+       - このファイルにはメソッド・パスの組に対して呼び出されるべき関数(コントローラーと呼ぶ)が定義されている
+   3. gearのコントローラーが実行される
+       - コントローラーはHTTPリクエストを表すデータ構造を受け取り、HTTPレスポンスを表すデータ構造を返す関数
+       - レスポンスボディは必要に応じてHTMLやJSONに加工する(ビューの関数を呼び出す)
+3. AntikytheraがクライアントにHTTPレスポンスを返す
+
+Gear開発者はコントローラーを起点として、HTTPリクエストに対しどのような処理を行うべきか、どのようなHTTPレスポンスを返すべきかに集中すればいい。
+
 ## API 追加のやり方
 
 API を追加するには"コントローラーの処理を書くこと"と"ルーターのパスを設定する" の二つを行う。
