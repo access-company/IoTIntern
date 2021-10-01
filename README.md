@@ -64,7 +64,7 @@ http://iot-intern.localhost:8080/ui/index.html
 
 [Antikythera](https://github.com/access-company/antikythera)は複数のwebサービスをホスティングするPlatform as a Serviceである。
 Antikytheraにホスティングされた個々のwebサービスをgearと呼んでいる。
-AntikytheraはErlang VM上で動くプロセスの1つであり、gearもまたAntikytheraと同じErlang VM上で動いている。
+AntikytheraはErlang VM上で動くErlangプロセスの1つであり、gearもまたAntikytheraと同じErlang VM上で動いている。
 
 - Antikytheraの機能
     - HTTPサーバー
