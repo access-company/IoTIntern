@@ -33,7 +33,7 @@ $ cat gear_config.json
 ```
 
 ```sh
-IOT_INTERN_CONFIG_JSON=`cat gear_config.json` iex -S mix
+IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) iex -S mix
 ```
 
 ### シミュレータからの確認
