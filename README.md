@@ -16,7 +16,7 @@ mix deps.get && mix deps.get
 
 Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
 
-Gear コンフィグに下記の値を設定する。
+[Gear コンフィグ](./gear_config.json)に下記の値を設定する。
 
 `linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
 
@@ -58,19 +58,52 @@ http://iot-intern.localhost:8080/ui/index.html
 └── web // API 記述先
 ```
 
+## Antikythera概要
+
+### WebサーバーとしてのAntikythera
+
+[Antikythera](https://github.com/access-company/antikythera)は複数のwebサービスをホスティングするPlatform as a Serviceである。
+Antikytheraにホスティングされた個々のwebサービスをgearと呼んでいる。
+AntikytheraはErlang VM上で動くErlangプロセスの1つであり、gearもまたAntikytheraと同じErlang VM上で動いている。
+
+- Antikytheraの機能
+    - HTTPサーバー
+      - クライアントからのHTTPリクエストに対し、Antikytheraが管理しているErlangプロセスを使ってgearの関数を呼び出し、処理を行う
+      - 処理結果をHTTPリクエストとしてクライアントに返す
+    - Web Socketの管理
+    - (図には書いていないが) gearが任意の非同期処理を行うための機能提供
+
+![Overview of antikythera framework](/overview_of_antikythera.png)
+
+### HTTPリクエストに対しHTTPレスポンスが返るまでの流れ
+
+1. AntikytheraがクライアントからのHTTPリクエストを受け取る
+2. Antikytheraがgearの関数を呼び出す
+   1. リクエストURLによって処理を行うgearが決まる
+       - サブドメインに基づく
+   2. リクエストのメソッドとURLのパスによって処理を行う関数が決まる
+       - gearの`web/router.ex`に基づく
+       - このファイルにはメソッド・パスの組に対して呼び出されるべき関数(コントローラーと呼ぶ)が定義されている
+   3. gearのコントローラーが実行される
+       - コントローラーはHTTPリクエストを表すデータ構造を受け取り、HTTPレスポンスを表すデータ構造を返す関数
+       - レスポンスボディは必要に応じてHTMLやJSONに加工する(ビューの関数を呼び出す)
+3. AntikytheraがクライアントにHTTPレスポンスを返す
+
+Gear開発者はコントローラーを起点として、HTTPリクエストに対しどのような処理を行うべきか、どのようなHTTPレスポンスを返すべきかに集中すればいい。
+
 ## API 追加のやり方
 
 API を追加するには"コントローラーの処理を書くこと"と"ルーターのパスを設定する" の二つを行う。
 
 ### コントローラーの処理を書く
 
-`web/controller/hello.ex` のようにモジュールと関数を定義する。
+[`web/controller/hello.ex`](web/controller/hello.ex) のようにモジュールと関数を定義する。
 
 `Hello` モジュールの `hello/1` 関数は第一引数に `conn` を受け取り、新しい`conn` を返す。そしてレスポンスのコンテンツを `conn` に詰めるには関数 `Conn.json/3` を使っている。
 
 ### ルーターのパスを書く
 
-`web/router.ex` を書き換える。
+[`web/router.ex`](web/router.ex) を書き換える。
 
 ## テストの実行
 
