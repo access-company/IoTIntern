@@ -150,6 +150,14 @@ EOF
   # to avoid affecting the compilation environment of the iot-intern gear
   #
 
+  # Kernel parameter tuning
+  content=$(cat <<'EOF'
+vm.swappiness = 10
+EOF
+  )
+  echo "${content}" >> '/etc/sysctl.d/docker-compose-elixir-training.conf'
+  echo "[Done] tuned kernel parameters"
+
   # Install swap file
   swapfile_size_in_mb=1024
   dd if=/dev/zero of=/swapfile count="${swapfile_size_in_mb}" bs=1M
