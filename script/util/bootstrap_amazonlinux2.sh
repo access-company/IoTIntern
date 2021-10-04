@@ -150,6 +150,15 @@ EOF
   # to avoid affecting the compilation environment of the iot-intern gear
   #
 
+  # Install swap file
+  swapfile_size_in_mb=1024
+  dd if=/dev/zero of=/swapfile count="${swapfile_size_in_mb}" bs=1M
+  chmod 600 /swapfile
+  mkswap /swapfile
+  swapon /swapfile
+  echo '/swapfile swap swap defaults 0 0' >> /etc/fstab
+  echo "[Done] installed swap file"
+
   # Install docker and docker-compose
   sudo yum install -y docker
   sudo systemctl start docker
