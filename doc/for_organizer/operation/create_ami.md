@@ -18,7 +18,7 @@
   - (optional)変更する場合はSSH接続用の公開鍵
 - [スクリプト](../../../script/aws/launch_makeami_instance.sh)でAMI作成用のインスタンスを起動する
   ```sh
-  script/aws/create_ami.sh script/util/bootstrap_amazonlinux2.sh
+  script/aws/launch_makeami_instance.sh script/util/bootstrap_amazonlinux2.sh
   ```
 - `iot-intern-makeami-yyyymmdd`という名前のインスタンスが起動するので、SSH接続して初期化が完了していることを確認する
   - `/tmp/bootstrap_amazonlinux2_yyyymmddHHMM.log`の最後に`Finished all steps!`と出力されていることを確認する
