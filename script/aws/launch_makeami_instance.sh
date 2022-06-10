@@ -68,7 +68,7 @@ run_instance() {
   aws ec2 run-instances \
     --profile iot_intern \
     --image-id "$image_id" \
-    --instance-type "t2.micro" \
+    --instance-type "t3.micro" \
     --subnet-id "$subnet_id" \
     --user-data "file://${file}" \
     --block-device-mappings "$block_device_mappings" \
