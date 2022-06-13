@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook
+FROM jupyter/base-notebook:2022-06-06
 
 USER root
 
@@ -64,5 +64,5 @@ RUN set -xe \
 
 USER $NB_UID
 
-CMD ["start-notebook.sh"]
+CMD ["start-notebook.sh", "--LabApp.token=''"]
 

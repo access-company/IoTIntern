@@ -8,12 +8,13 @@ gear_dir_name=IoTIntern
 iot_intern_repo_url="https://github.com/access-company/${gear_dir_name}.git"
 erlang_version="20.3.8.25"
 elixir_version="1.9.4"
-nodejs_version="10.23.0"
+nodejs_version="14.17.1"
+
 
 admin_password=""
 user_password=""
-admin_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIPKAZD/SvZuOqGaHmK7SuqQVsobk0BKqmGd2vrCxoN'
-user_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSkVAyNavvy7uq+xOskFm587XLID83yLWdAO+NT6/dL'
+admin_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFdUtImrkF223X3Eyj+Kv8jaSltvCldKKcr/46eGMDvl'
+user_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfzA7yQtj8YRPunRbrF/OhiVMH8DAXe7E4wGHNolhmZ'
 
 #
 # Do setup
@@ -133,7 +134,6 @@ EOF
   # Node.js
   yum install -y perl-Digest-SHA
   su intern-admin -c "asdf plugin-add nodejs"
-  su intern-admin -c "bash /opt/asdf/plugins/nodejs/bin/import-release-team-keyring"
   su intern-admin -c "asdf install nodejs ${nodejs_version}"
   su intern-admin -c "npm install --global yarn"
   echo "[Done] installed nodejs ${nodejs_version}"
