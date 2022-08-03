@@ -42,7 +42,7 @@ gen_block_device_mappings() {
         "DeviceName": "/dev/xvda",
         "Ebs": {
           "DeleteOnTermination": true,
-          "VolumeSize": 8,
+          "VolumeSize": 16,
           "VolumeType": "gp3"
         }
       }

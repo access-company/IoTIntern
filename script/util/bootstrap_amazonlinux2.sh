@@ -139,7 +139,7 @@ EOF
   echo "[Done] installed nodejs ${nodejs_version}"
 
   #
-  # Compaile gear in advance
+  # Compile gear in advance
   #
 
   su intern-user -c "cd /home/intern-user/${gear_dir_name} && mix deps.get && mix deps.get && MIX_ENV=dev mix compile && MIX_ENV=test mix compile"
