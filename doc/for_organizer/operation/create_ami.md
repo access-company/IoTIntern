@@ -29,6 +29,9 @@
   - Linkitの仕様書は本来内部向けのドキュメントであり、publicであるこのレポジトリに含めるべきではないため手動で設置する
   - パスは`/home/intern-user/IoTIntern/doc/linkit_api.apib`とする
   - 拡張子は`.apib`とすること(VSCodeのAPI Blueprint Viewer拡張機能でプレビューするために必要)
+- Visual Studio Code サーバーと拡張機能のインストール
+  - Visual Studio Code サーバーは、Remote - SSH による初回接続時に自動で EC2 へインストールされる
+  - Remote - SSH で EC2 に接続し、[スクリプト](../../../script/util/install_vscode_extensions.sh)で拡張機能をインストールする
 
 ### AMIの登録
 
