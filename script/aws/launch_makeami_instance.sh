@@ -23,7 +23,10 @@ find_image_id() {
   aws ec2 describe-images \
     --profile iot_intern \
     --owner amazon \
-    --filters "Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2" "Name=state,Values=available" \
+    --filters "Name=architecture,Values=x86_64" \
+      "Name=virtualization-type,Values=hvm" \
+      "Name=name,Values=amzn2-ami-kernel-*" \
+      "Name=state,Values=available" \
     --query Images \
   | jq -r "sort_by(.CreationDate)[-1].ImageId"
 }
