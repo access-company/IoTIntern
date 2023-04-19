@@ -215,6 +215,8 @@ head ++ [1, 2, 3] = [0, 1, 2, 3]
 {a, b, c} = {1, "a", :atom}
 ```
 
+<!-- livebook:{"continue_on_error":true} -->
+
 ```elixir
 {a, b} = {1, "a", :atom}
 ```
@@ -283,7 +285,7 @@ IO.inspect(the_answer)
 
 ### 文字列に対するパターンマッチ
 
-文字列の結合に`<>`という演算子を使用できることを[2 Basic syntax #特徴的な演算子](http://0.0.0.0:8080/sessions/s57i3lg74l4s7742o5ls2hzeapulq6f3c27m5dup#%E7%89%B9%E5%BE%B4%E7%9A%84%E3%81%AA%E6%BC%94%E7%AE%97%E5%AD%90)で紹介したが、この演算子はパターンマッチにも使用できる。
+文字列の結合に`<>`という演算子を使用できることを[2 Basic syntax #特徴的な演算子](./2%20Basic%20syntax.livemd#特徴的な演算子)で紹介したが、この演算子はパターンマッチにも使用できる。
 
 ただし、変数を用いる場合は<>の右辺にしか置けない。
 

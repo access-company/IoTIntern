@@ -312,6 +312,8 @@ defmodule HttpBin do
 end
 ```
 
+<!-- livebook:{"continue_on_error":true} -->
+
 ```elixir
 HttpBin.send_request(:post, %{foo: "bar"}, %{"Content-Type" => "application/json"})
 ```
