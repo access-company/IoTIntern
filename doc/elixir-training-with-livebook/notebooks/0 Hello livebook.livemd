@@ -1,0 +1,56 @@
+# Hello Livebook!
+
+## はじめに
+
+一連のnotebookはElixirを紹介するためのドキュメントです。
+
+* 短時間（2時間半程度）で書けるようになることを目的としています
+  * 必要最低限を残してかなりの部分が省略されています
+  * より良いコードが書きたくなったり，細かい情報が必要になったら後述のリンク先を参照してください
+  * 正確性に欠けたり誤った説明をあえてしている箇所があります
+* 誤字脱字に気付いたらPR頂けるとありがたいです
+
+notebookを作るにあたり, 下記のドキュメントを参考にしています。
+
+* https://tentakano.github.io/ElixirTutorial/
+
+## Livebookについて
+
+Livebookでは, markdown, そしてコードとコードの実行結果を記録することができます。 Notebookは"cell"と呼ばれる単位で区切って記述します。
+
+* Markdown cellとCode cellをよく使います
+* このセクションもcell(Markdown cell)です
+* cellをダブルクリックするとinsertモードに切り替わります
+* `Shift` + `Enter`でMarkdown cellをレンダリング、またはCode cellを実行します
+* 試してみましょう
+
+```elixir
+# ここはCode cellです
+IO.puts("Hello IElixir!")
+```
+
+その他のショートカットキーは左下のKeyboard Shortcutsボタンから見ることができます。
+
+なお、ここでのElixir学習はLivebookを使用するのですが、ターミナル上でiexというコマンドを実行することでもElixirコードを対話的に実行可能です。
+
+iexも試してみてください。
+
+```
+$ iex
+Erlang/OTP 23 [erts-11.0.3] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [hipe]
+
+Interactive Elixir (1.11.2) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> "Hello Elixir!"
+"Hello Elixir!"
+```
+
+## もっと詳しく・よりよいコードを書くために
+
+* [公式ドキュメント](https://hexdocs.pm/elixir/Kernel.html)
+  * ビルトインの関数・マクロについてよく知ることは簡潔かつバグが少ないコードを書くために必要です
+  * 多分あるだろうと思った関数はたいがい実装されているものです．私もよくにらめっこしながらコーディングしています
+* [Elixir School](https://elixirschool.com/ja/)
+  * Elixirが体系立てて解説されています．ピュアなElixirだけでなく，頻出ライブラリについても解説されています
+* [プログラミングElixir](プログラミングElixir)
+  * 書籍で体系立てて学びたければこちら
+  * かなり網羅的に書かれていますが，例題の解答がなく，これだけで書けるようになるかと聞かれると疑問・・・

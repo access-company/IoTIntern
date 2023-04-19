@@ -1,0 +1,140 @@
+# Elixirの概要
+
+## Erlang
+
+ElixirとErlangは切っても切れない関係にある。
+
+* ElixirはErlang VM上で動いている
+
+  * Erlangの持つ言語的特性がElixirにも当てはまる
+
+* 誕生は1986年（34年前）でかなり歴史がある
+
+* 関数型・動的型付け言語
+
+* 元々エリクソン社が電話交換機を作るために開発したため，以下のような用途に優れた特性を持っている
+
+  * とにかくサービスを継続することが大事（耐障害性）
+  * システムを止めずにアップデートが必要（ホットスワップ）
+  * 多数の機器が連携しながら同時に稼働する（分散性）
+
+上記のような特徴は, 現代の分散システムでも必要とされていて，言語としてもサーバーシステムに適している。
+
+Nintendoのゲームサーバーでも採用実績があるらしい([参考](https://employment.en-japan.com/engineerhub/entry/2019/08/01/103000))。
+
+この特性を実現するために以下のような並列処理・分散処理をサポートする機能を持っている。
+
+* 軽量プロセス
+
+  * Erlang VMが独自に管理するもの。 OSのプロセスやスレッドとは別物
+  * 大量のプロセスを性能低下無しに生成できる
+  * プロセス同士の独立性が高く, メッセージパッシングで透過的にデータをやり取りする
+    * データは整数や文字列, リスト, 関数といったほぼあらゆるもの
+  * プロセス間の階層構造を楽に定義できる
+    * 死活監視をするプロセスを作って子プロセスを管理させることが簡単
+    * しばしばエラー発生時にはプロセスを殺して，新しくプロセスを立ち上げ直す
+
+* ノード間通信
+
+  * リモートマシン上にローカルでやるのと同じようにプロセスを生成できる
+  * プロセス間通信もローカルと何も変わるところがない
+
+* ホットコードローディング
+
+ここまで聞くと欠陥がないように見えるが, もちろんそんな事は無い。特に古典的な言語のため生産性・可読性が・・・
+
+## Elixir
+
+* José Valim が創始者。 Plataformatec 社が中心的にサポートしている
+* 書きやすく読みやすい言語でErlangの特性を利用するために開発されている
+* Erlangの特性を引き継いでいる
+  * 動的型付け
+  * 関数型
+  * Scalable
+  * Maintainable
+
+Elixir独自の特徴（記法的な面から）としては
+
+* パターンマッチが強力（大事．慣れると他言語に戻れないぐらい大事）
+* コードの自動生成や言語拡張などができるマクロ（言語自体がマクロでどんどん拡張して発展させたもの）
+  * むやみに濫用すると危険．黒魔術
+* Erlangと相互にライブラリを共有できる
+
+最近では José Valim が [nx](https://github.com/elixir-nx/nx) という機械学習を想定したプロジェクトを立ち上げた。
+
+関連して [Nx](https://github.com/elixir-nx/nx/tree/main/nx#readme) という Numpy にインスパイアされた計算ライブラリが作成されており、科学計算方面への利用も今後促進されそう。
+
+## Elixirのコードの雰囲気
+
+ここでは関数型であることと, パターンマッチの活用の部分だけ。
+
+処理を関心ごとに関数に分割
+小さな関数を組合せて大きな仕事を果たす
+宣言的に記述
+ループや分岐, 例外処理といった制御構造を極力排除 (言語機能に押し付ける)
+繰り返しは写像や再起関数で
+分岐や例外処理はパターンマッチで
+Erlangプロセスの利用については別の機会に。
+
+<!-- livebook:{"break_markdown":true} -->
+
+### 例題 FizzBuzz関数
+
+$FizzBuzz$関数は正の整数$n$に対し, 次のように定義される。
+
+$$
+FizzBuzz(n) =
+\begin{cases}
+  \text{"FizzBuzz"} & \text{if } n \equiv 0 & (\text{mod } 15) \\
+  \text{"Buzz"}     & \text{if } n \equiv 0 & (\text{mod } 5) \\
+  \text{"Fizz"}     & \text{if } n \equiv 0 & (\text{mod } 3)
+\end{cases}
+$$
+
+$FizzBuzz$関数を実装し, 30以下の正の整数それぞれに対して適用した結果を表示せよ。
+
+````elixir
+defmodule FizzBuzz do
+  @moduledoc """
+  Implementation of FizzBuzz function.
+  Use `FizzBuzz.say/1` to get answer of the game.
+
+  Example:
+  ```elixir
+  iex> FizzBuzz.say(1)
+  {:ok, 1}
+  iex> FizzBuzz.say(3)
+  {:ok, "Fizz"}
+  ```
+  """
+
+  def say(n) when is_integer(n) and n > 0, do: {:ok, do_say(n)}
+  def say(_), do: {:error, "not a positive integer"}
+
+  defp do_say(n) when rem(n, 15) == 0, do: "FizzBuzz"
+  defp do_say(n) when rem(n, 5) == 0, do: "Buzz"
+  defp do_say(n) when rem(n, 3) == 0, do: "Fizz"
+  defp do_say(n), do: n
+end
+
+make_pair_with_fizzbuzz = fn n -> {n, FizzBuzz.say(n)} end
+
+format_result = fn
+  {n, {:ok, value}} -> "FizzBuzz(#{n}) = #{value}"
+  {n, {:error, reason}} -> "FizzBuzz(#{inspect(n)}) failed: #{reason}"
+end
+````
+
+```elixir
+1..30
+|> Enum.map(make_pair_with_fizzbuzz)
+|> Enum.map(format_result)
+|> Enum.each(&IO.puts/1)
+```
+
+```elixir
+[-1, 0, 1.0, "a", [1, 2, 3], %{x: 0}]
+|> Enum.map(make_pair_with_fizzbuzz)
+|> Enum.map(format_result)
+|> Enum.each(&IO.puts/1)
+```
