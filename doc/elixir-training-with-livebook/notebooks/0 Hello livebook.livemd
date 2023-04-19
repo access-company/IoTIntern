@@ -26,7 +26,7 @@ Livebookでは, markdown, そしてコードとコードの実行結果を記録
 
 ```elixir
 # ここはCode cellです
-IO.puts("Hello IElixir!")
+IO.puts("Hello Livebook!")
 ```
 
 その他のショートカットキーは左下のKeyboard Shortcutsボタンから見ることができます。
