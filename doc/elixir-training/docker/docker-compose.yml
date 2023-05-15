@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        user: root
+        user: jovyan
         environment:
             CHOWN_HOME: "yes"
             CHOWN_HOME_OPTS: "-R"
