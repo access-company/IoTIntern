@@ -62,6 +62,8 @@ RUN set -xe \
   && ./install_script.sh \
   && conda install --quiet --yes 'jupyter_console'
 
+RUN chown -R $NB_UID /home/jovyan
+
 USER $NB_UID
 
 CMD ["start-notebook.sh", "--LabApp.token=''"]
