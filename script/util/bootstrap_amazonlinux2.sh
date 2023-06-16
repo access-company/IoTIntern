@@ -182,11 +182,11 @@ Description=Elixir training
 Requires=docker.service
 
 [Service]
-Environment=COMPOSE_FILE=/home/intern-user/IoTIntern/doc/elixir-training/docker/docker-compose.yml
+Environment=MAKE_FILE=/home/intern-user/IoTIntern/doc/elixir-training-with-livebook/Makefile
 
-ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
-ExecStart=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} up
-ExecStop=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
+ExecStartPre=-/usr/local/bin/docker rm -f Elixirise
+ExecStart=/usr/local/bin/make -f ${MAKE_FILE}
+ExecStop=/usr/local/bin/docker stop Elixirise
 
 Restart=always
 Type=simple
