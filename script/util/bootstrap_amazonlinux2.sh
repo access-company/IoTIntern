@@ -182,11 +182,11 @@ Description=Elixir training
 Requires=docker.service
 
 [Service]
-Environment=MAKE_FILE=/home/intern-user/IoTIntern/doc/elixir-training-with-livebook/Makefile
+Environment=MAKE_FILE=/home/intern-user/IoTIntern/doc/elixir-training-with-livebook/makefile_for_ec2
 
-ExecStartPre=-/usr/local/bin/docker rm -f Elixirise
-ExecStart=/usr/local/bin/make -f ${MAKE_FILE}
-ExecStop=/usr/local/bin/docker stop Elixirise
+ExecStartPre=-/usr/bin/docker rm -f Elixirise
+ExecStart=/usr/bin/make -f ${MAKE_FILE}
+ExecStop=/usr/bin/docker stop Elixirise
 
 Restart=always
 Type=simple
@@ -196,10 +196,10 @@ WantedBy=multi-user.target
 EOF
   )
 
-  echo "${content}" > /etc/systemd/system/docker-compose-elixir-training.service
-  sudo systemctl start docker-compose-elixir-training
-  sudo systemctl enable docker-compose-elixir-training
-  echo "[Done] registerd docker-compose-elixir-training service"
+  echo "${content}" > /etc/systemd/system/docker-elixir-training.service
+  sudo systemctl start docker-elixir-training
+  sudo systemctl enable docker-elixir-training
+  echo "[Done] registerd docker-elixir-training service"
 
   echo 'Finished all steps!'
 ) &> "$log"
