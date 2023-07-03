@@ -184,9 +184,9 @@ Requires=docker.service
 [Service]
 Environment=MAKE_FILE=/home/intern-user/IoTIntern/doc/elixir-training-with-livebook/makefile_for_ec2
 
-ExecStartPre=-/usr/bin/docker rm -f Elixirise
+ExecStartPre=-/usr/bin/docker rm -f Elixircise
 ExecStart=/usr/bin/make -f ${MAKE_FILE}
-ExecStop=/usr/bin/docker stop Elixirise
+ExecStop=/usr/bin/docker stop Elixircise
 
 Restart=always
 Type=simple
