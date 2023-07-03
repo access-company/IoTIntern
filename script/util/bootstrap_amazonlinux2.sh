@@ -182,11 +182,11 @@ Description=Elixir training
 Requires=docker.service
 
 [Service]
-Environment=COMPOSE_FILE=/home/intern-user/IoTIntern/doc/elixir-training/docker/docker-compose.yml
+Environment=MAKE_FILE=/home/intern-user/IoTIntern/doc/elixir-training-with-livebook/makefile_for_ec2
 
-ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
-ExecStart=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} up
-ExecStop=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down --volumes
+ExecStartPre=-/usr/bin/docker rm -f Elixircise
+ExecStart=/usr/bin/make -f ${MAKE_FILE}
+ExecStop=/usr/bin/docker stop Elixircise
 
 Restart=always
 Type=simple
@@ -196,10 +196,10 @@ WantedBy=multi-user.target
 EOF
   )
 
-  echo "${content}" > /etc/systemd/system/docker-compose-elixir-training.service
-  sudo systemctl start docker-compose-elixir-training
-  sudo systemctl enable docker-compose-elixir-training
-  echo "[Done] registerd docker-compose-elixir-training service"
+  echo "${content}" > /etc/systemd/system/docker-elixir-training.service
+  sudo systemctl start docker-elixir-training
+  sudo systemctl enable docker-elixir-training
+  echo "[Done] registerd docker-elixir-training service"
 
   echo 'Finished all steps!'
 ) &> "$log"
