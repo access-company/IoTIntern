@@ -1,0 +1,220 @@
+# 基本的な文法
+
+## 基本的な値
+
+Elixirは動的型付け言語だが、内部的には型が存在する。
+
+[基本的な型](https://elixir-lang.org/getting-started/basic-types.html)は以下。
+
+* Integer
+* Float
+* Boolean
+* String
+* List
+* Tuple
+* Atom
+* Anonymous function
+* Port
+* Reference
+* PID
+
+<!-- livebook:{"break_markdown":true} -->
+
+### 数値
+
+```elixir
+# integer
+1
+```
+
+```elixir
+# 16進数
+0x01
+```
+
+```elixir
+# float
+1.0
+```
+
+```elixir
+# float
+1.0e+3
+```
+
+### boolean
+
+```elixir
+# boolean
+true
+false
+```
+
+### Atom
+
+* `:`から始まる名前付きの値で, 実体がErlangVM上で**ただ1つ**
+  * コンパイル時(コーディング時)に定まっている定数を表現するために使われることが多い
+  * 実体がただ1つなので, 同じAtomをプログラム内の複数箇所で使っても値はコピーされず, 既存のAtomに対する参照のみが増える
+* 一度生成されたAtomはVMから**消えない**( Garbage Collect されない)
+  * メモリを使い尽くすことにつながる恐れがあるので, 動的にAtomを生成すべきではない
+  * コーディング時にAtomの使用をためらう必要はない
+
+```elixir
+:atom
+```
+
+```elixir
+:atom == :atom
+```
+
+```elixir
+:atom != :another
+```
+
+```elixir
+# booleanのtrueやfalse、値がないことを示すnilも実際にはatomとして定義されています
+true == true
+```
+
+```elixir
+nil == nil
+```
+
+### 文字列
+
+* ダブルクォーテーション`"`を使う場合 => 文字列
+* シングルクォーテーション`'`を使う場合 => 文字のリスト
+
+基本的にはダブルクォーテーションを使うのでいい。
+
+```elixir
+# string
+"abcABCアイウ"
+```
+
+文字列の中で`#{}`を使うと、式を埋め込むことができる。
+
+`#{}`の中身は評価されて文字列に変換される。
+
+```elixir
+target = "Alice"
+"Hello #{target}."
+```
+
+```elixir
+"Answer of everything is #{1 + 2 + 3 + 5 + 7 + 11 + 13}!"
+```
+
+### List (linked list)
+
+* 値が0個以上あることを表現する
+* 要素数が動的に増減する場合に使用する
+* 要素の型の組み合わせは任意
+* 内部実装はlinked list
+  * ランダムアクセスは低速で, インデックスを使ったアクセスは組み込まれていない
+
+```elixir
+# list
+[0, "a", true, [0, 1, 2]]
+```
+
+```elixir
+l = [0, 1, 2]
+
+try do
+  IO.inspect(l[0])
+rescue
+  ArgumentError -> IO.inspect("Access to an item by index is not supported")
+end
+```
+
+```elixir
+# Enum というモジュールにインデックスで要素を取り出す関数 at が実装されている
+
+Enum.at([0, 1, 2, 3], 2)
+```
+
+### Tuple
+
+* 複数の値を組み合わせた値
+* 要素数はコンパイル時に確定。つまり動的な要素の追加や削除は不可能
+* 何らかの「意味のある値の組合せ」を表現するために使われる
+  * floatの組で「座標」を表現する
+  * `:ok`, `:error`との組で処理の「成功」または「失敗」を表す
+* 値の型の組合せは任意
+
+```elixir
+# tuple
+{0, 1, 2}
+```
+
+```elixir
+# 処理が成功したことと, 結果の組を表すデータ構造として
+File.read("./resources/2/hello.txt")
+```
+
+```elixir
+# 処理が失敗したことを表すデータ構造として
+File.read("./resources/not/found")
+```
+
+### Map
+
+* keyとvalueの組
+* 他言語では辞書やオブジェクトと呼ばれる
+* key, valueともにどのような型でも用いることができる
+* keyの重複は不可能
+  * 重複すると、1組のkey valueだけ残る
+  * どの組が残るかは仕様上不定
+
+```elixir
+m = %{"key" => "value", 0 => 1, :atom => :value}
+
+IO.inspect(m["key"])
+IO.inspect(m[0])
+IO.inspect(m[:atom])
+```
+
+keyがatomだけのとき、省略記法が使える
+
+```elixir
+%{a: 0, b: "b", c: :value} == %{:a => 0, :b => "b", :c => :value}
+```
+
+```elixir
+%{a: 0} != %{"a" => 0}
+```
+
+```elixir
+m = %{:a => 0, "b" => 1}
+
+m.a == m[:a]
+```
+
+```elixir
+m["b"]
+# m.b # => KeyError
+```
+
+## 特徴的な演算子
+
+[Basic operators - Elixir](https://elixir-lang.org/getting-started/basic-operators.html)
+
+* 中置演算子
+  * すでに出ている`+`や`*`などの算術演算子
+  * リストの連結演算子 `++`
+  * 文字列の連結演算子 `<>`
+* 中置演算子も実体は関数
+  * ドキュメントでは`+/2`のように参照する
+
+```elixir
+1 + 2
+```
+
+```elixir
+[1, 2, 3] ++ [4, 5, 6]
+```
+
+```elixir
+"Hello" <> " world!"
+```

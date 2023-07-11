@@ -19,10 +19,10 @@
 - 起動したインスタンスに`intern-user`でSSH接続できること
   - 後の確認のためポートフォワーディングも行っておく
     ```sh
-    ssh intern-user@<public_ip_address> -i ~/.ssh/iot-intern-user-key -L 8080:localhost:8080 -L 8081:localhost:8081
+    ssh intern-user@<public_ip_address> -i ~/.ssh/iot-intern-user-key -L 8080:localhost:8080 -L 8888:localhost:8888
     ```
 - Jupyter notebook上でIElixirが動作すること
-  - ポートフォワーディングした状態で、ローカルのWebブラウザで http://localhost:8081 にアクセス
+  - ポートフォワーディングした状態で、ローカルのWebブラウザで http://localhost:8888 にアクセス
   - 図のように、カーネルとしてElixirを指定して新しいnotebookを開く
     ![Elixirカーネルを指定したnotebookの開き方](../images/how_to_open_notebook_with_ielixir.png)
   - 適当なElixirコードを入力してセルを実行し、実行結果が出力されることを確認

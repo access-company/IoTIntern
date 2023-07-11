@@ -1,0 +1,393 @@
+# Elixirの関数とモジュール
+
+## 関数の種類
+
+Elixirは関数型言語で、関数は基本的な型の一つでもある。
+
+* Elixirの関数は2種類
+  * コードのどこにでも書ける無名関数(anonymous function)
+  * モジュール(module)に属する必要がある名前付き関数(named function)
+
+## 無名関数
+
+モジュールに属さない関数。 変数に束縛することで使い回すことができる。
+
+* 無名関数の定義方法
+* 無名関数は、内部的には定義時に返る`#Function<43.97283095/2 in :erl_eval.expr/5>`のようなハッシュで識別されている
+
+```elixir
+# 引数を1つとる関数
+fn x -> x * 2 end
+```
+
+```elixir
+# 引数を2つとる関数
+fn x, y -> x + y end
+```
+
+* 無名関数を変数に束縛できる
+* 無名関数の呼び出し時は, `add.(1, 2)`のように`.()`と括弧の前にピリオドが必要
+  * 名前付き関数呼び出しの`()`が省略できる仕様との間で曖昧さを回避するため
+  * `IO.inspect "hello"`は`IO`moduleの名前付き関数`puts`を呼び出しているので括弧を省略できている
+  * 丁寧に書くと`IO.inspect("hello")`
+
+```elixir
+add = fn x, y -> x + y end
+
+add.(1, 2)
+```
+
+引数名を省略する記法もある
+
+* `&()`で囲み、`&1`, `&2`, ... で第1引数から順に参照する
+* 後述の高階関数に単純な関数を与える際などに使うことがある
+
+```elixir
+# fn x -> x * 2 end と同等
+&(&1 * 2)
+```
+
+### 引数のパターンマッチ
+
+パターンマッチが成功した時、処理が事項される。
+
+関数の処理に必要な値だけ取り出すことができ、**とても強力**。
+
+```elixir
+take_x = fn %{x: value} -> value end
+
+take_x.(%{a: 1, b: 2, x: 24, y: 25, z: 26})
+```
+
+```elixir
+# 引数自体も使いたいときは以下のように書く
+# map に %{a: 1, b: 2, x: 24, y: 25, z: 26} が束縛されたうえで %{x: value} のパターンマッチが行われる
+take_x = fn %{x: value} = map -> value + map.a end
+
+take_x.(%{a: 1, b: 2, x: 24, y: 25, z: 26})
+```
+
+### 練習問題
+
+`request`はHTTPリクエストの内容を模したmapである。 引数のパターンマッチでリクエストボディから`target`パラメータを取り出し、それを2倍して返す関数を定義してみよう。
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 4-1
+request = %{
+  header: %{content_type: "application/json"},
+  body: %{target: 21, message_to_you: "This may be the answer of everything."}
+}
+
+# implement me!
+extract_answer = extract_answer.(request) == 42
+```
+
+関数は複数の式を持てる。
+
+`return`という構文は無く、最後の式の値が返り値となる。
+
+```elixir
+multilines_add = fn x, y ->
+  x * y
+  IO.inspect("1st arg is #{x}")
+  IO.inspect("2nd arg is #{x}")
+  x + y
+end
+
+multilines_add.(2, 3)
+```
+
+これはつまり、**Early returnはできない**ということ。
+
+一応、Elixirでは後で出てくる`case`式や`if`式でearly return相当のことはできる。
+
+ただしElixirでは、パターンマッチや関数の多重定義が可能なおかげで、early returnができなくて困ることはあまりない。
+
+```elixir
+# Early returnができないので普通に書くとif式がネストする。
+# そもそも関数内で条件分岐しようとすると、処理の本体以外のコードが増えてしまう
+
+something_do_with_positive_int = fn x ->
+  if not is_integer(x) do
+    {:error, :not_integer}
+  else
+    if x <= 0 do
+      {:error, :not_positive}
+    else
+      IO.puts("処理の本体")
+      IO.puts("実際はいろいろなことを行う")
+      {:ok, x * 2}
+    end
+  end
+end
+```
+
+```elixir
+something_do_with_positive_int.(1)
+```
+
+```elixir
+something_do_with_positive_int.(-1)
+```
+
+ここでは詳しくは説明しないが、パターンマッチと関数の多重定義を用いることで制御構造を排除できる。
+
+* 引数のパターンによって呼び出す処理を変える
+* `when`を用いた[guard構文](https://hexdocs.pm/elixir/guards.html)で引数の型や値に応じて処理を変える
+
+```elixir
+# 引数のmapのパターンに応じて3種類の処理を定義
+switch_by_action = fn
+  %{add: x, target: target} -> {:ok, target + x}
+  %{double: target} -> {:ok, target * 2}
+  _ -> {:error, :bad_action}
+end
+```
+
+```elixir
+switch_by_action.(%{add: 1, target: 0})
+```
+
+```elixir
+switch_by_action.(%{double: 1})
+```
+
+```elixir
+switch_by_action.(%{power: 2, target: 2})
+```
+
+`something_do_with_positive_int`の、guard構文を用いた多重定義バージョン
+
+```elixir
+something_do_with_positive_int = fn
+  x when not is_integer(x) ->
+    {:error, :not_integer}
+
+  x when x <= 0 ->
+    {:error, :not_positive}
+
+  x ->
+    IO.puts("処理の本体")
+    IO.puts("実際はいろいろなことを行う")
+    {:ok, x * 2}
+end
+```
+
+```elixir
+something_do_with_positive_int.(1)
+```
+
+## 高階関数
+
+引数に関数を取ったり、関数を返り値としたりする関数。
+
+```elixir
+# 関数 f を受け取って, 2つの引数を f に適用する関数を返す関数
+my_apply2 = fn callback ->
+  # 引数を2つとる関数が返る
+  fn x, y -> callback.(x, y) end
+end
+```
+
+```elixir
+# 和と積を計算する関数を作る
+my_add = my_apply2.(fn x, y -> x + y end)
+my_mul = my_apply2.(&(&1 * &2))
+```
+
+```elixir
+IO.inspect(my_add.(6, 7))
+IO.inspect(my_mul.(6, 7))
+```
+
+### 練習問題
+
+第1引数と第2引数に数字、第3引数に引数を2つとる関数をとり、第1引数と第2引数を第3引数の関数へ渡して実行する関数を作ってみよう。
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 4-2
+# implement me!
+func = add = &(&1 + &2)
+func.(1, 2, add) == 3
+```
+
+## モジュールと名前付き関数
+
+* Elixirでは関連する関数をグループ化してモジュールとして管理する
+  * 処理を行う対象となるデータごとにモジュールを分割する事が多い
+  * e.g.) 文字列を処理する`String`モジュールなど。他にも`List`モジュール、`Map`モジュール,`Enum`モジュールなど
+* モジュール名はUpperCamelCaseで表す
+* モジュール名を`.`で連結することで階層構造をもたせることができる
+  * ex. `Module.Submodule`
+* モジュール内で定義した関数は名前付き関数となる
+  * `def`でモジュール外から呼び出せるpublic関数を定義
+  * `defp`でモジュール内からしか呼び出せないprivate関数を定義
+
+```elixir
+defmodule MyMath do
+  def add(x, y) do
+    x + y
+  end
+
+  def multiple(x, y) do
+    x * y
+  end
+
+  def get_sum_and_products(x, y) do
+    show_args(x, y)
+    {add(x, y), multiple(x, y)}
+  end
+
+  defp show_args(x, y) do
+    IO.inspect("Called with x: #{x}, y: #{y}")
+  end
+end
+```
+
+```elixir
+MyMath.add(1, 2)
+```
+
+```elixir
+MyMath.multiple(2, 3)
+```
+
+```elixir
+MyMath.get_sum_and_products(2, 3)
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+MyMath.show_args(2, 3)
+
+# => %UndefinedFunctionError{arity: 2, function: :show_args, message: nil, module: MyMath, reason: nil}
+```
+
+```elixir
+# 名前付き関数適用時の括弧は省略可能
+MyMath.add(1, 2)
+```
+
+高階関数に名前付き関数を渡す時は、`&ModuleName.function_name/0`や`&function_name/0`のように、`/0`でarity(引数の数)を指定する。
+
+Elixirでは名前が同じでもarityが違う関数は異なるものとして扱われる。
+
+```elixir
+defmodule Vegitable do
+  def apply_get_name(get_name_func) do
+    get_name_func.()
+  end
+
+  def apply_get_name(get_name_func, adjective) do
+    get_name_func.(adjective)
+  end
+end
+
+defmodule Vegitable.Tomato do
+  def get_name() do
+    "tomato"
+  end
+
+  def get_name(adjective) do
+    "#{adjective} tomato"
+  end
+end
+```
+
+```elixir
+Vegitable.apply_get_name(&Vegitable.Tomato.get_name/0)
+```
+
+```elixir
+Vegitable.apply_get_name(&Vegitable.Tomato.get_name/1, "sweet")
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+Vegitable.apply_get_name(&Vegitable.Tomato.get_name/0, "sweet")
+# => UndefinedFunctionError
+```
+
+### 練習問題
+
+以下の仕様を満たすモジュールを定義してみよう
+
+* モジュール名は`Name`
+* 次のpublic関数を含む
+  * `get_first_name/1`: mapを受け取り`first_name`キーの値を返す
+  * `get_last_name/1`: mapを受け取り`last_name`キーの値を返す
+  * `get_full_name/1`: mapを受け取り、`first_name`キーの値に`last_name`キーの値を1スペース区切りで連結して返す
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 4-3
+# implement Name module!
+
+name_map = %{first_name: "Jose", last_name: "Valim"}
+IO.inspect(Name.get_first_name(name_map) == "Jose")
+IO.inspect(Name.get_last_name(name_map) == "Valim")
+IO.inspect(Name.get_full_name(name_map) == "Jose Valim")
+```
+
+### 名前付き関数の多重定義
+
+参考までに。
+
+同じ名前・同じarityの関数を複数定義することができる。
+
+引数のパターンにマッチする関数が実際に呼ばれる。
+
+```elixir
+defmodule OverloadExample do
+  def ensure_success({:ok, _} = result) do
+    IO.puts("Succeeded")
+    result
+  end
+
+  def ensure_success({:error, message} = result) do
+    IO.puts("Failed (#{message})")
+    result
+  end
+
+  def ensure_success(_) do
+    IO.puts("Something wrong")
+    {:error, :bad_parameter}
+  end
+end
+```
+
+```elixir
+OverloadExample.ensure_success({:ok, 42})
+```
+
+```elixir
+OverloadExample.ensure_success({:error, "No answer is found"})
+```
+
+```elixir
+OverloadExample.ensure_success(:bad)
+```
+
+### 関数の仕様(スペック)
+
+Elixirは動的型付け言語なので、ランタイム時の型チェックは難しい。
+
+しかし、型自体は存在しており、関数のスペック(引数や返り値の型)を表現することは可能。
+
+スペックを定義することで、静的解析ツールを用いてコンパイル時にチェックさせることが可能。
+
+```elixir
+defmodule SpecExample do
+  @spec add(number, number) :: number
+  def add(x, y) do
+    x + y
+  end
+end
+```

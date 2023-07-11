@@ -18,7 +18,7 @@
   - (optional)変更する場合はSSH接続用の公開鍵
 - [スクリプト](../../../script/aws/launch_makeami_instance.sh)でAMI作成用のインスタンスを起動する
   ```sh
-  script/aws/create_ami.sh script/util/bootstrap_amazonlinux2.sh
+  script/aws/launch_makeami_instance.sh script/util/bootstrap_amazonlinux2.sh
   ```
 - `iot-intern-makeami-yyyymmdd`という名前のインスタンスが起動するので、SSH接続して初期化が完了していることを確認する
   - `/tmp/bootstrap_amazonlinux2_yyyymmddHHMM.log`の最後に`Finished all steps!`と出力されていることを確認する
@@ -29,6 +29,9 @@
   - Linkitの仕様書は本来内部向けのドキュメントであり、publicであるこのレポジトリに含めるべきではないため手動で設置する
   - パスは`/home/intern-user/IoTIntern/doc/linkit_api.apib`とする
   - 拡張子は`.apib`とすること(VSCodeのAPI Blueprint Viewer拡張機能でプレビューするために必要)
+- Visual Studio Code サーバーと拡張機能のインストール
+  - Visual Studio Code サーバーは、Remote - SSH による初回接続時に自動で EC2 へインストールされる
+  - Remote - SSH で EC2 に接続し、[スクリプト](../../../script/util/install_vscode_extensions.sh)で拡張機能をインストールする
 
 ### AMIの登録
 

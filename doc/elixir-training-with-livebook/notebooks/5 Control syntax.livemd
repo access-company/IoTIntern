@@ -1,0 +1,106 @@
+# 制御構文
+
+## 制御構文
+
+Elixirでも手続き型言語と同様、条件分岐(`if`, `cond`, `case`)や例外処理(`try`~`rescue`)のような制御構文がある。
+
+ただし、実際にはパターンマッチという強力な仕組みと`case`を組み合わせることで分岐や例外処理を表現することが多い。
+
+## case
+
+Elixirでは`case`、そして`if`、`cond`はパターンマッチを用いる関数として実装されている。
+
+よって、「条件によって制御を変える」のではなく「引数の値やパターンによって処理を変える」と解釈するのがいい。
+
+パターンマッチを行うことから、`case`の各マッチにおいて変数に値を束縛することができる。
+
+```elixir
+some_list = [0, 1, 2, 3]
+
+case some_list do
+  [] -> "empty!"
+  [head | _tail] -> "the first value: #{head}"
+end
+```
+
+```elixir
+some_map = %{
+  a: 0
+}
+
+case some_map do
+  %{a: value} -> {:ok, "a is #{value}"}
+  %{b: value} -> {:ok, "b is #{value}"}
+  _ -> {:error, "No expected key"}
+end
+```
+
+### 練習問題
+
+HTTPレスポンスを表すmapがあり、整数の`status`とmapの`body`を含むとする。
+
+case構文を使って、HTTPレスポンスを表すmapのパターンに応じて処理を以下のように分けてみよう。
+
+* `status`が200のとき、`:ok`と`body`の組のtupleを作る
+* `status`が400のとき、`:error`と`:bad_resuest`の組のtupleを作る
+* `status`が403のとき、`:error`と`:not_found`の組のtupleを作る
+* `status`が500のとき、`:error`と`:internal_error`の組のtupleを作る
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 5-1
+response = %{status: 400, body: %{message: "Invalid parameter!"}}
+
+result =
+  case response do
+    # implement me!
+  end
+
+result == {:error, :bad_request}
+```
+
+マッチの際に`when`による[guard構文](https://hexdocs.pm/elixir/guards.html#content)を用いることで、さらに細かいパターンマッチを行うことができる。
+
+ただし、guardに用いる条件はコンパイル時に決まっている必要があり、マクロのみが使用可能。  
+(つまり任意の式や関数を用いることができるわけではない)
+
+```elixir
+some_list = [0, 1, 2, 3]
+
+case some_list do
+  [] -> "empty!"
+  [head | _] when is_number(head) -> "#{head} is a number"
+  [head | _] when is_atom(head) -> "#{head} is an atom"
+  [head | _] -> "#{head} is unexpected type"
+end
+```
+
+case 式は入れ子にすることもできる。
+
+```elixir
+some_map = %{
+  a: %{
+    answer: 42
+  }
+}
+
+case some_map do
+  %{b: inner} ->
+    inner
+
+  %{a: inner} ->
+    case inner do
+      %{hello: world} -> world
+      %{answer: answer} -> answer
+    end
+end
+```
+
+## ifとcond
+
+Elixirでは基本的に、`if`は結果がbooleanとなる式と共に用いる。
+
+`cond`は`if`の条件が複数ある場合に用いる構文である。
+
+ほとんどの場合、パターンマッチと`case`構文で事足りるはずなので、ここではあえて取り上げない。

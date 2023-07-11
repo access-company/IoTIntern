@@ -69,7 +69,7 @@ AntikytheraはErlang VM上で動くErlangプロセスの1つであり、gearも�
 - Antikytheraの機能
     - HTTPサーバー
       - クライアントからのHTTPリクエストに対し、Antikytheraが管理しているErlangプロセスを使ってgearの関数を呼び出し、処理を行う
-      - 処理結果をHTTPリクエストとしてクライアントに返す
+      - 処理結果をHTTPレスポンスとしてクライアントに返す
     - Web Socketの管理
     - (図には書いていないが) gearが任意の非同期処理を行うための機能提供
 

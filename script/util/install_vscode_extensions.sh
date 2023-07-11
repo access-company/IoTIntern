@@ -27,3 +27,6 @@ install_extension mhutchie git-graph 1.30.0
 
 # https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir
 install_extension mjmcloug vscode-elixir 1.1.0
+
+# https://marketplace.visualstudio.com/items?itemName=ms-vsliveshare.vsliveshare
+install_extension ms-vsliveshare vsliveshare 1.0.5669

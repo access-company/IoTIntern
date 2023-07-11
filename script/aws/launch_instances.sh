@@ -32,7 +32,7 @@ run_instances(){
     --profile iot_intern \
     --image-id "${image_id}" \
     --count "${instance_count}" \
-    --instance-type 't2.micro' \
+    --instance-type 't3.micro' \
     --security-group-ids "${security_group_id}" \
     --tag-specifications "ResourceType='instance',Tags=[{Key='Name',Value='iot-intern'}]"
 }
