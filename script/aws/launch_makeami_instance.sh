@@ -23,7 +23,10 @@ find_image_id() {
   aws ec2 describe-images \
     --profile iot_intern \
     --owner amazon \
-    --filters "Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2" "Name=state,Values=available" \
+    --filters "Name=architecture,Values=x86_64" \
+      "Name=virtualization-type,Values=hvm" \
+      "Name=name,Values=amzn2-ami-kernel-*" \
+      "Name=state,Values=available" \
     --query Images \
   | jq -r "sort_by(.CreationDate)[-1].ImageId"
 }
@@ -42,7 +45,7 @@ gen_block_device_mappings() {
         "DeviceName": "/dev/xvda",
         "Ebs": {
           "DeleteOnTermination": true,
-          "VolumeSize": 8,
+          "VolumeSize": 16,
           "VolumeType": "gp3"
         }
       }
@@ -68,7 +71,7 @@ run_instance() {
   aws ec2 run-instances \
     --profile iot_intern \
     --image-id "$image_id" \
-    --instance-type "t2.micro" \
+    --instance-type "t3.micro" \
     --subnet-id "$subnet_id" \
     --user-data "file://${file}" \
     --block-device-mappings "$block_device_mappings" \

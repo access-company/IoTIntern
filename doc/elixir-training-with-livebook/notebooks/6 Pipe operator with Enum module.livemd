@@ -1,0 +1,108 @@
+# pipe演算子とEnumモジュール
+
+## はじめに
+
+Elixirでは関数型言語という特性を活かす演算子として、pipe演算子`|>`が導入されている。
+
+これは複数の関数を連結する演算子である。
+
+pipe演算子を用いることで、データを処理する一連のパイプラインを構築し, 大きな処理を実現することができる。
+
+pipe演算子に関連して, Listのような列挙可能(Enumerable)な値の処理に頻繁に用いられるのが`Enum`モジュールである。
+
+`Enum`モジュールは「反復処理」や「集約」を抽象化する高階関数を提供しており, プログラマは処理の本質を関数で表現することに集中できる。
+
+<!-- livebook:{"break_markdown":true} -->
+
+### pipe演算子
+
+ある数に対し, 次の処理を行う。
+
+1. 10を足す
+2. 2倍する
+3. 任意の数を足す
+
+それぞれのステップを個別の関数として表現し、組合せて期待される結果を得ることにする。
+
+```elixir
+# 以下の関数を順番に適用する
+add10 = fn x -> x + 10 end
+double = fn x -> x * 2 end
+add = fn x, y -> x + y end
+```
+
+```elixir
+# 愚直に書くと返り値を毎回変数に束縛するか, 次のように関数をネストして適用する必要がある
+add.(double.(add10.(1)), 100)
+```
+
+pipe演算子を使うと、前の関数の返り値が次の関数の第一引数として自動的に渡される。
+
+結果として、関数を適用順に直列に書くことができる。
+
+```elixir
+1 |> add10.() |> double.() |> add.(100)
+```
+
+`case`も関数なのでpipe演算子でつなぐことができる。
+
+```elixir
+File.read("resources/2/hello.txt")
+|> case do
+  {:ok, content} -> content
+  {:error, msg} -> msg
+end
+|> IO.puts()
+```
+
+### Enumモジュール
+
+詳細は[公式ドキュメント](https://hexdocs.pm/elixir/Enum.html)を参照のこと。
+
+ここでは一部の例を紹介するにとどめる。
+
+#### Enum.map/2
+
+写像を行う関数である。
+
+第一引数にEnumerable、第二引数に、1つの値をとって何らかの値を返す関数を取る。
+
+```elixir
+# 与えられた複数の整数に対し, それぞれ2倍する
+# どのように繰り返し処理を行うかは本質ではない
+# Enum モジュールの関数により、対象と適用する処理とを宣言的に記述できる
+
+Enum.map([0, 1, 2, 3, 4], fn x -> x * 2 end)
+```
+
+```elixir
+collection = [
+  %{x: 0, y: 1},
+  %{x: 2, y: 1},
+  %{x: 4, y: 2}
+]
+
+Enum.map(collection, fn map -> map.x end)
+```
+
+```elixir
+# もちろんpipe演算子で処理をつなげることができる
+
+[0, 1, 2, 3, 4]
+|> Enum.map(fn x -> x * 2 end)
+|> Enum.map(fn x -> x + 1 end)
+|> Enum.map(fn x -> "number #{x}" end)
+```
+
+#### Enum.filter/2
+
+第一引数にEnumerable、第二引数に、1つの値をとってbooleanを返す関数を取る。
+
+第二引数の関数の返り値が`true`となる要素だけを残す。
+
+```elixir
+is_even? = &(Integer.mod(&1, 2) == 0)
+
+[0, 1, 2, 3, 4]
+|> Enum.filter(is_even?)
+```

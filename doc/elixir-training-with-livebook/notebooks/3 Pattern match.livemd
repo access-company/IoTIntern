@@ -1,0 +1,439 @@
+# パターンマッチ
+
+## パターンマッチとは
+
+* Elixirの強力な構文
+* Elixirにおける`=`演算子はマッチ演算子と呼ばれ、手続き型の言語の代入演算子とは概念が異なる
+
+## マッチ演算子
+
+* 左辺と右辺をマッチさせる
+  * 変数を含まない値同士でマッチ可能
+* 左辺に変数が含まれる場合、右辺とマッチするよう値に「束縛」される
+* 左辺と右辺がマッチしない場合、「MatchError」
+
+```elixir
+# マッチが成功する例
+0 = 0
+"a" = "a"
+:a = :a
+[0, 1, 2] = [0, 1, 2]
+%{a: 0, b: 1} = %{a: 0, b: 1}
+%{a: 0} = %{a: 0, b: 1}
+```
+
+以下, MatchErrorとなる例
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+0 = 1
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+[0, 1] = [0, 1, 2]
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+[0, 1, 2] = [0, 1]
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+%{a: 0, b: 1} = %{a: 0}
+```
+
+### マッチ演算子と変数束縛
+
+* 変数はマッチ演算子により、右辺にマッチするよう値に束縛される
+  * 変数に値を束縛してもマッチできない場合、やはりMatchError
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# 一番最初の時点ではxは定義されていないし、何の値にも束縛されていない
+x
+# => (CompileError) console:2 "undefined function x/0"
+```
+
+```elixir
+# 0とマッチさせると、xに0が束縛されていれば両辺がマッチする。よってxに0が束縛される
+x = 0
+
+x
+```
+
+```elixir
+x = 0
+# xは0で束縛されているのでマッチが成功
+0 = x
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+x = 0
+# => %MatchError{term: 0} xは既に0に束縛されているので、1とはマッチしない
+1 = x
+```
+
+Elixirでは値は不変(immutable)
+
+```elixir
+array1 = [0, 1, 2]
+array2 = array1
+array2 = array2 ++ [3]
+
+# 以下は true か false か? 予想してから実行してみよう
+array1 == [0, 1, 2] and array2 == [0, 1, 2, 3]
+```
+
+### Listに対するパターンマッチ
+
+```elixir
+# 要素が全て等しいのでマッチが成功
+l = [0, 1, 2, 3]
+[0, 1, 2, 3] = l
+```
+
+```elixir
+# 変数が含まれる場合、右辺にマッチするよう値が束縛される
+[a, b, c, d] = [0, 1, 2, 3]
+
+"#{a}, #{b}, #{c}, #{d}"
+```
+
+```elixir
+# 右辺に変数が含まれる場合、右辺の変数に束縛されている値にマッチする
+x = 10
+y = 20
+[a, b, c, d] = [0, x, 2, y]
+
+"#{a}, #{b}, #{c}, #{d}"
+```
+
+Exercise 3-1: List から必要な値を変数に束縛して取り出してみよう
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# xに1が, yに4が束縛されるようパターンマッチを完成させてよう。
+= [0, 1, 2, 3, 4, 5]
+ 
+x == 1 and y == 4 # true になること。
+```
+
+### 不要な値を無視する
+
+Elixirにおいて, アンダースコア`_`やアンダースコアで始まる変数は、コンパイラに「使用しない」変数であることを表す。
+
+Elixirでは未使用の変数があるとコンパイル時にwarningが発せられる。
+
+アンダースコアを用いて使用しない変数であると明示すれば、warningが解消される。
+
+パターンマッチでもマッチはさせるが使用しない場合に、アンダースコアを用いることができる。
+
+```elixir
+# Listの先頭から3番目の値だけ取り出したいとき。1番目と2番目, 4番目は何でもいい
+[_, _, x, _] = [0, 1, 2, 3]
+
+x
+```
+
+Listに対するパターンマッチでは特有のマッチ記法がある。
+
+`[a | b]`の`a`はリストの先頭、`b`はその後続のリストにマッチする。
+
+```elixir
+[head | tail] = [0, 1, 2, 3, 4]
+
+head == 0 and tail == [1, 2, 3, 4]
+```
+
+要素が1つだと、`tail`は空のリストにマッチする。
+
+```elixir
+[head | tail] = [0]
+
+head == 0 and tail == []
+```
+
+空のリストにマッチさせようとすると、MatchError
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+[head | tail] = []
+# => %MatchError{term: []}
+```
+
+先頭から$n$個の要素に対してマッチすることも可能。
+
+反対に、最後から$n$個のマッチは不可能。
+
+```elixir
+[first, second | tail] = [0, 1, 2, 3, 4]
+
+first == 0 and
+  second == 1 and
+  tail == [2, 3, 4]
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# => CompileError
+[head | last_one_before, last] = [0, 1, 2]
+```
+
+Listの結合演算子`++`を用いてパターンマッチさせることも可能。
+
+ただし、変数を用いる場合は`++`の右辺にしか置けない。
+
+```elixir
+[0] ++ rest = [0, 1, 2, 3]
+rest
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+head ++ [1, 2, 3] = [0, 1, 2, 3]
+# => CompileError
+```
+
+### Tupleに対するパターンマッチ
+
+要素の数が一致する必要がある
+
+```elixir
+{a, b, c} = {1, "a", :atom}
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+{a, b} = {1, "a", :atom}
+```
+
+よくあるのは、処理の成功/失敗によって処理を切り替えたい場合。
+
+* Elixir では成功/失敗をそれぞれ`:ok`、`:error`とのタプルを返すことで表現することが多い
+
+```elixir
+result = {:ok, "succeeded"}
+
+{:ok, msg} = result
+"Operation #{msg}"
+```
+
+### Mapに対するパターンマッチ
+
+* 左辺は右辺のサブセットであればいい
+* ネストしたマップにもパターンマッチ可能
+
+```elixir
+%{x: value} = %{x: 0, y: 1, z: 2}
+value
+```
+
+```elixir
+%{:x => value} = %{x: 0, y: 1, z: 2}
+value
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+%{no_key: value} = %{x: 0, y: 1, z: 2}
+# => MatchError
+```
+
+```elixir
+nested_map = %{
+  outer_universe: %{
+    universe: %{
+      hello: "universe!",
+      answer_of_everything: 42
+    }
+  }
+}
+
+%{outer_universe: %{universe: %{hello: target}}} = nested_map
+target
+```
+
+```elixir
+# マッチ演算子をネストさせることもできる
+%{
+  outer_universe: %{
+    universe:
+      %{
+        answer_of_everything: the_answer
+      } = universe
+  }
+} = nested_map
+
+IO.inspect(universe)
+IO.inspect(the_answer)
+```
+
+### 文字列に対するパターンマッチ
+
+文字列の結合に`<>`という演算子を使用できることを[2 Basic syntax #特徴的な演算子](./2%20Basic%20syntax.livemd#特徴的な演算子)で紹介したが、この演算子はパターンマッチにも使用できる。
+
+ただし、変数を用いる場合は<>の右辺にしか置けない。
+
+```elixir
+"Hello " <> target = "Hello world!"
+target
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+greet <> " world" = "Hello world!"
+# => ArgumentError
+```
+
+### pin演算子
+
+* 変数は通常、別の値にマッチさせると新しい値に束縛される
+* pin演算子を使うと、変数が束縛されている値に対してマッチするか試すことができる
+
+```elixir
+target_1 = %{greet: "Hello", name: "world"}
+target_2 = %{greet: "こんにちは", name: "世界"}
+```
+
+```elixir
+# pinned_greet は場合によって動的に変わるとする
+# greet: が pinned_greet と等しいときだけパターンマッチが成功するようにしたい
+pinned_greet = "Hello"
+
+%{greet: pinned_greet, name: to_be_world} = target_1
+pinned_greet == "Hello" and to_be_world == "world"
+```
+
+```elixir
+pinned_greet = "Hello"
+
+try do
+  %{greet: pinned_greet, name: to_be_world} = target_2
+  pinned_greet == "こんにちは" and to_be_world == "世界"
+  # MatchError を期待しているが…果たして?
+rescue
+  MatchError -> "😲"
+end
+```
+
+pinned_greet は変数なので、パターンマッチのたび別の値が束縛されるのだった。
+
+pin 演算子は、変数が新しい値に束縛されないようにする。
+
+```elixir
+pinned_greet = "Hello"
+
+# %{greet: "Hello", name: to_be_world} = target_1 と等価だ
+%{greet: ^pinned_greet, name: to_be_world} = target_1
+pinned_greet == "Hello" and to_be_world == "world"
+```
+
+```elixir
+pinned_greet = "Hello"
+
+try do
+  %{greet: ^pinned_greet, name: to_be_world} = target_2
+  to_be_world == "世界"
+  # 今度こそ MatchError になるだろう
+rescue
+  MatchError -> "😃"
+end
+```
+
+## 練習問題
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-2
+# 3を変数xに束縛
+ = %{a: 1, b: 2, c: 3}
+
+x == 3
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-3
+# :aを変数x，2.3を変数yに拘束（1と"a"は何にも拘束しない）
+ = [1, :a, "a", 2.3]
+ 
+x == :a and y == 2.3
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-4
+# 2を変数x，4を変数y，5～10のリストをzに拘束（1と3は何にも拘束しない）
+ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+x == 2 and y == 4 and z == [5, 6, 7, 8, 9, 10]
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-5
+# 1を変数x，4を変数yに拘束
+ =  %{a: %{b: 1, c: 2, d: [3, 4, 5]}}
+ 
+x == 1 and y == 4
+```
+
+```elixir
+# Exercise 3-6, 3-7で使用するデータ
+request = %{
+  header: %{
+    "x-custom-header": "a8d3981b2"
+  },
+  body: %{
+    first_name: "Alice",
+    last_name: "Liddell",
+    address: [
+      "Westminster",
+      "London",
+      "England",
+      "United Kingdom"
+    ]
+  }
+}
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-6
+# 複雑なパターンマッチを試してみよう
+# requestのbodyからfirst_nameとlast_nameを同時に取り出してみよう
+ = request
+
+first_name == "Alice" and last_name == "Liddell"
+```
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 3-7
+# requestのbodyのaddressは地区, 州, 構成国, 主権国家の順に並んでいる。州(state)と構成国(country)だけ取り出してみよう
+ = request
+
+state == "London" && country == "England"
+```
