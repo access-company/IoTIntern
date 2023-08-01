@@ -297,7 +297,7 @@ target
 <!-- livebook:{"continue_on_error":true} -->
 
 ```elixir
-greet <> " world" = "Hello world!"
+greet <> " world!" = "Hello world!"
 # => ArgumentError
 ```
 
