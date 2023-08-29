@@ -1,18 +1,14 @@
 # 課題 3
 
-## 課題
+lib/linkit.ex のコメントアウトを解除し、適宜コードを補完して関数を完成させてください。
 
-- lib/linkit.ex のコメントアウトを解除し、適宜コードを補完して関数を完成させて、alert API 経由で Linkit へ通知が送れるようにしてください
-- `IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test` を実行してテストが成功することを確認してください
+課題A、課題Bどちらから始めてもらっても構いません。
 
-## 期待結果
+## 課題A
 
-- テストが成功する
+- alert API 経由で Linkit へ通知が送れるようにしてください
 
-  ```shell
-  $ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
-  … (省略) 3 tests, 0 failures
-  ```
+### 期待結果
 
 - お掃除ロボットシミュレータの障害発生時、または下記のコマンド実行時に Linkit app にメッセージが届く
 
@@ -22,6 +18,36 @@
   200
   ```
 
-## 補足
+### ヒント
 
 Linkit API の仕様書は、別途共有された linkit_api.apib を参照ください。
+
+課題Aが完成すれば、お掃除ロボットシミュレータを動かすとLinkitの方に通知が来るはずです。
+Web Server を起動した状態でブラウザから http://iot-intern.localhost:8080/ui/index.html にアクセスして試してみてください。
+
+## 課題B
+
+- `IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test` を実行してテストが成功することを確認してください。
+
+### 期待結果
+
+- テストが成功する
+
+  ```shell
+  $ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
+  … (省略) 3 tests, 0 failures
+  ```
+
+### ヒント
+
+テストコードは [test/lib/linkit_test.exs](https://github.com/access-company/IoTIntern/blob/master/test/lib/linkit_test.exs) に既に実装済みです。まずはこのテストが何のテストをしているのかを考えてみましょう。
+
+#### テストとは
+
+テストは、ソフトウェアやアプリケーションが意図した動作をしているか、または特定の要件や仕様を満たしているかを確認するために行います。
+
+- 品質の保証: テストを行うことでソフトウェアの品質を確保し、信頼性の高いコードを書くことができます。
+- バグの早期発見: テストを通してバグや問題点を発見することで、開発をスムーズに進めることができます。
+- 仕様のドキュメントとしての役割: テストコードは、ソフトウェアがどのように動作するべきかの実例として機能することができます。
+
+と言ったメリットがあります。

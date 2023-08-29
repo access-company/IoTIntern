@@ -3,7 +3,7 @@
 ## 課題
 
 - `IO.inspect` で `conn` の内容を確認してください
-- [仕様](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib) に沿って時刻を返すように [alert API](https://github.com/access-company/IoTIntern/blob/apidoc/web/controller/alert.ex) を実装してください
+- 手始めに時刻(sent_at)を返すように [alert API](https://github.com/access-company/IoTIntern/blob/apidoc/web/controller/alert.ex) を実装してください。alert API の仕様については[仕様書](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib)の内容を確認してください。
 
 ## 期待結果
 
