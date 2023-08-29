@@ -49,7 +49,7 @@ add.(1, 2)
 
 ### 引数のパターンマッチ
 
-パターンマッチが成功した時、処理が事項される。
+パターンマッチが成功した時、処理が実行される。
 
 関数の処理に必要な値だけ取り出すことができ、**とても強力**。
 
@@ -81,7 +81,9 @@ request = %{
 }
 
 # implement me!
-extract_answer = extract_answer.(request) == 42
+extract_answer = 
+
+extract_answer.(request) == 42
 ```
 
 関数は複数の式を持てる。
@@ -211,7 +213,9 @@ IO.inspect(my_mul.(6, 7))
 ```elixir
 # Exercise 4-2
 # implement me!
-func = add = &(&1 + &2)
+func = 
+
+add = &(&1 + &2)
 func.(1, 2, add) == 3
 ```
 
