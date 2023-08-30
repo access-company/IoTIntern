@@ -36,20 +36,10 @@ defmodule IotIntern.Controller.LinkitTest do
     assert Linkit.post_message("message") == {201, expected}
   end
 
-  test "Linkit.post_message returns 403" do
-    res_body = """
-    {
-      "result": "failed",
-      "error_code": 40301,
-      "error_message": "chat room members limit exceeded"
-    }
-    """
+  test "Linkit.post_message returns 404" do
+    :meck.expect(Httpc, :post, 3, {:ok, %{status: 404}})
 
-    :meck.expect(Httpc, :post, 3, {:ok, %{status: 403, body: res_body}})
-
-    expected = Jason.decode!(res_body)
-
-    assert Linkit.post_message("message") == {403, expected}
+    assert Linkit.post_message("message") == {404}
   end
 
   test "Linkit.post_message returns error with timeout" do

@@ -197,7 +197,7 @@ result =
   case response do
     %{status: 200, body: body} -> {:ok, body}
     %{status: 400} -> {:error, :bad_request}
-    %{status: 403} -> {:error, :not_found}
+    %{status: 404} -> {:error, :not_found}
     %{status: 500} -> {:error, :internal_error}
   end
 

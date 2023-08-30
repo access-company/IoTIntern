@@ -32,7 +32,7 @@
 #     # 仕様に沿った関数の戻り値を返せるように実装してください
 #     case Httpc.post(endpoint_url, {:json, req_body}, header) do
 #       {:ok, %{status: 201, body: res_body}} -> {}
-#       {:ok, %{status: 403, body: res_body}} -> {}
+#       {:ok, %{status: 404}} -> {}
 #       {:error, reason} -> {}
 #     end
 #   end
