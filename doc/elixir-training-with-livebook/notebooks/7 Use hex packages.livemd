@@ -116,7 +116,7 @@ TestStruct.new(%{x: 0})
 
 ```elixir
 # xのvalueが整数ではないので失敗
-TestStruct.new(%{x: 1.0}
+TestStruct.new(%{x: 1.0})
 ```
 
 ```elixir

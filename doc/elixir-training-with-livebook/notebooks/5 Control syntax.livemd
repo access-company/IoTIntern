@@ -43,7 +43,7 @@ case構文を使って、HTTPレスポンスを表すmapのパターンに応じ
 
 * `status`が200のとき、`:ok`と`body`の組のtupleを作る
 * `status`が400のとき、`:error`と`:bad_resuest`の組のtupleを作る
-* `status`が403のとき、`:error`と`:not_found`の組のtupleを作る
+* `status`が404のとき、`:error`と`:not_found`の組のtupleを作る
 * `status`が500のとき、`:error`と`:internal_error`の組のtupleを作る
 
 <!-- livebook:{"continue_on_error":true} -->
