@@ -94,7 +94,7 @@ extract_answer.(request) == 42
 multilines_add = fn x, y ->
   x * y
   IO.inspect("1st arg is #{x}")
-  IO.inspect("2nd arg is #{x}")
+  IO.inspect("2nd arg is #{y}")
   x + y
 end
 
