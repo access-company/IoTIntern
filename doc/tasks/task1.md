@@ -3,7 +3,8 @@
 ## 課題
 
 - `IO.inspect` で `conn` の内容を確認してください
-- [仕様](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib) に沿って時刻を返すように [alert API](https://github.com/access-company/IoTIntern/blob/apidoc/web/controller/alert.ex) を実装してください
+- 手始めに [alert API](https://github.com/access-company/IoTIntern/blob/apidoc/web/controller/alert.ex) が時刻(sent_at)を返すように実装してください。
+  - ヒント: alert API の[仕様書](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib) を確認すること。
 
 ## 期待結果
 
@@ -19,4 +20,4 @@
 
 ## 補足
 
-[DateTime モジュール](https://hexdocs.pm/elixir/1.9/DateTime.html) のドキュメントを参照してください。
+[DateTime モジュール](https://hexdocs.pm/elixir/1.9.4/DateTime.html) のドキュメントを参照してください。
