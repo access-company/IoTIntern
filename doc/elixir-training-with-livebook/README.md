@@ -38,3 +38,7 @@ Elixirの実行環境であるLivebookが必要である。
   - URLをそのままクリックしても起動できる
 - 右上にあるopenボタンを押下するとノートブックが置いてある場所にアクセスできる
   - ファイルの実体はローカルの[`notebooks`](./notebooks)ディレクトリに存在する
+
+### 参考
+
+- その他Livebookの詳しい内容は [Livebookの公式リポジトリ](https://github.com/livebook-dev/livebook?tab=readme-ov-file#livebook)を参照
