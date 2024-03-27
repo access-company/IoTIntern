@@ -1,4 +1,4 @@
-# Hello Livebook!
+# 0. Hello Livebook!
 
 ## はじめに
 
@@ -16,13 +16,14 @@ notebookを作るにあたり, 下記のドキュメントを参考にしてい�
 
 ## Livebookについて
 
-Livebookでは, markdown, そしてコードとコードの実行結果を記録することができます。 Notebookは"cell"と呼ばれる単位で区切って記述します。
+Livebookでは、Markdownとコード及びコードの実行結果を記録することができます。 Notebookは"cell"と呼ばれる単位で区切って記述します。
 
 * Markdown cellとCode cellをよく使います
 * このセクションもcell(Markdown cell)です
-* cellをダブルクリックするとinsertモードに切り替わります
+* cell右上のEdit contentボタンをクリックするとinsertモードに切り替わります
 * `Shift` + `Enter`でMarkdown cellをレンダリング、またはCode cellを実行します
-* 試してみましょう
+
+次のCode cellを実行してみましょう
 
 ```elixir
 # ここはCode cellです
@@ -31,7 +32,7 @@ IO.puts("Hello Livebook!")
 
 その他のショートカットキーは左下のKeyboard Shortcutsボタンから見ることができます。
 
-なお、ここでのElixir学習はLivebookを使用するのですが、ターミナル上でiexというコマンドを実行することでもElixirコードを対話的に実行可能です。
+なお、ここでのElixir学習はLivebookを使用するのですが、ターミナル上で`iex`コマンドを実行することでもElixirコードを対話的に実行可能です。
 
 iexも試してみてください。
 
@@ -48,9 +49,9 @@ iex(1)> "Hello Elixir!"
 
 * [公式ドキュメント](https://hexdocs.pm/elixir/Kernel.html)
   * ビルトインの関数・マクロについてよく知ることは簡潔かつバグが少ないコードを書くために必要です
-  * 多分あるだろうと思った関数はたいがい実装されているものです．私もよくにらめっこしながらコーディングしています
+  * 多分あるだろうと思った関数はたいがい実装されているものです。私もよくにらめっこしながらコーディングしています
 * [Elixir School](https://elixirschool.com/ja/)
-  * Elixirが体系立てて解説されています．ピュアなElixirだけでなく，頻出ライブラリについても解説されています
-* [プログラミングElixir](プログラミングElixir)
+  * Elixirが体系立てて解説されています。ピュアなElixirだけでなく、頻出ライブラリについても解説されています
+* プログラミングElixir
   * 書籍で体系立てて学びたければこちら
-  * かなり網羅的に書かれていますが，例題の解答がなく，これだけで書けるようになるかと聞かれると疑問・・・
+  * かなり網羅的に書かれていますが、例題の解答がなく、これだけで書けるようになるかと聞かれると疑問・・・

@@ -1,6 +1,7 @@
-※このディレクトリは https://github.com/access-company/IoTIntern/tree/master/doc/elixir-training を基にLivebookで書き換えたものである。
-
 # Elixir training
+
+> [!NOTE]
+> このディレクトリは <https://github.com/access-company/IoTIntern/tree/master/doc/elixir-training> を基にLivebookで書き換えたものである
 
 Elixirの基本的な文法の学習のためのドキュメント集である。
 
@@ -10,15 +11,18 @@ Elixirのコードを試すだけなら`iex`が最も手軽だが、複数行に
 ## セットアップ
 
 Elixirの実行環境であるLivebookが必要である。
+
 - ここでは準備を簡易化するためDockerを使用する
   - ErlangとElixirのバージョンは[Livebookのdocker image](https://github.com/livebook-dev/livebook/pkgs/container/livebook)で指定されたものになる
 
 ### ローカルで使用するツールのインストール
 
-`docker`コマンドが使えればいい。
-- [Dockerのインストール](https://docs.docker.jp/get-docker.html)
+`docker`コマンドが使えればOK
+
+- [Dockerのインストール方法](https://docs.docker.jp/get-docker.html)
 
 ### コンテナの起動
+
 - 前提
   - このファイルと同じディレクトリに居ること
 - `make`コマンドが使える場合

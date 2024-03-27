@@ -1,4 +1,4 @@
-# Elixirの関数とモジュール
+# 4. Elixirの関数とモジュール
 
 ## 関数の種類
 
@@ -26,7 +26,7 @@ fn x, y -> x + y end
 ```
 
 * 無名関数を変数に束縛できる
-* 無名関数の呼び出し時は, `add.(1, 2)`のように`.()`と括弧の前にピリオドが必要
+* 無名関数の呼び出し時は、`add.(1, 2)`のように`.()`と括弧の前にピリオドが必要
   * 名前付き関数呼び出しの`()`が省略できる仕様との間で曖昧さを回避するため
   * `IO.inspect "hello"`は`IO`moduleの名前付き関数`puts`を呼び出しているので括弧を省略できている
   * 丁寧に書くと`IO.inspect("hello")`
@@ -67,7 +67,7 @@ take_x = fn %{x: value} = map -> value + map.a end
 take_x.(%{a: 1, b: 2, x: 24, y: 25, z: 26})
 ```
 
-### 練習問題
+### 練習問題 Exercise 4-1
 
 `request`はHTTPリクエストの内容を模したmapである。 引数のパターンマッチでリクエストボディから`target`パラメータを取り出し、それを2倍して返す関数を定義してみよう。
 
@@ -81,7 +81,7 @@ request = %{
 }
 
 # implement me!
-extract_answer = 
+extract_answer =
 
 extract_answer.(request) == 42
 ```
@@ -204,7 +204,7 @@ IO.inspect(my_add.(6, 7))
 IO.inspect(my_mul.(6, 7))
 ```
 
-### 練習問題
+### 練習問題 Exercise 4-2
 
 第1引数と第2引数に数字、第3引数に引数を2つとる関数をとり、第1引数と第2引数を第3引数の関数へ渡して実行する関数を作ってみよう。
 
@@ -213,7 +213,7 @@ IO.inspect(my_mul.(6, 7))
 ```elixir
 # Exercise 4-2
 # implement me!
-func = 
+func =
 
 add = &(&1 + &2)
 func.(1, 2, add) == 3
@@ -318,7 +318,7 @@ Vegitable.apply_get_name(&Vegitable.Tomato.get_name/0, "sweet")
 # => UndefinedFunctionError
 ```
 
-### 練習問題
+### 練習問題 Exercise 4-3
 
 以下の仕様を満たすモジュールを定義してみよう
 

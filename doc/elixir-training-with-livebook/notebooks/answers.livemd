@@ -2,15 +2,24 @@
 
 # Answers
 
-## 1 Hello elixir
+## 回答
+
+<!-- livebook:{"branch_parent_index":0} -->
+
+## 1 Hello Elixir
+
+<!-- livebook:{"branch_parent_index":0} -->
 
 ## 2 Basic syntax
 
+<!-- livebook:{"branch_parent_index":0} -->
+
 ## 3 Pattern Match
 
+### Exercise 3-1
+
 ```elixir
-# Exercise 3-1
-# xに1が, yに4が束縛されるようパターンマッチを完成させてください。
+# xに1が、yに4が束縛されるようパターンマッチを完成させてください。
 [0, x, 2, 3, y, 5] = [0, 1, 2, 3, 4, 5]
 
 x == 1 and y == 4
@@ -22,8 +31,9 @@ x == 1 and y == 4
 true
 ```
 
+### Exercise 3-2
+
 ```elixir
-# Exercise 3-2
 # 3を変数xに束縛
 %{c: x} = %{a: 1, b: 2, c: 3}
 
@@ -36,9 +46,10 @@ x == 3
 true
 ```
 
+### Exercise 3-3
+
 ```elixir
-# Exercise 3-3
-# :aを変数x，2.3を変数yに拘束（1と"a"は何にも拘束しない）
+# :aを変数x、2.3を変数yに拘束（1と"a"は何にも拘束しない）
 [_, x, _, y] = [1, :a, "a", 2.3]
 
 x == :a and y == 2.3
@@ -50,9 +61,10 @@ x == :a and y == 2.3
 true
 ```
 
+### Exercise 3-4
+
 ```elixir
-# Exercise 3-4
-# 2を変数x，4を変数y，5～10のリストをzに拘束（1と3は何にも拘束しない）
+# 2を変数x、4を変数y、5～10のリストをzに拘束（1と3は何にも拘束しない）
 [1, x, 3, y | z] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 x == 2 and y == 4 and z == [5, 6, 7, 8, 9, 10]
@@ -64,9 +76,10 @@ x == 2 and y == 4 and z == [5, 6, 7, 8, 9, 10]
 true
 ```
 
+### Exercise 3-5
+
 ```elixir
-# Exercise 3-5
-# 1を変数x，4を変数yに拘束
+# 1を変数x、4を変数yに拘束
 %{a: %{b: x, d: [_, y, _]}} = %{a: %{b: 1, c: 2, d: [3, 4, 5]}}
 
 x == 1 and y == 4
@@ -78,8 +91,9 @@ x == 1 and y == 4
 true
 ```
 
+### Exercise 3-6
+
 ```elixir
-# Exercise 3-6
 # 複雑なパターンマッチを試してみよう
 
 request = %{
@@ -109,6 +123,8 @@ first_name == "Alice" and last_name == "Liddell"
 true
 ```
 
+### Exercise 3-7
+
 ```elixir
 # requestのbodyのaddressは地区, 州, 構成国, 主権国家の順に並んでいる。州(state)と構成国(country)だけ取り出してみよう
 %{body: %{address: [_, state, country, _]}} = request
@@ -122,10 +138,13 @@ state == "London" and country == "England"
 true
 ```
 
+<!-- livebook:{"branch_parent_index":0} -->
+
 ## 4 Function and module
 
+### Exercise 4-1
+
 ```elixir
-# Exercise 4-1
 request = %{
   header: %{content_type: "application/json"},
   body: %{target: 21, message_to_you: "This may be the answer of everything."}
@@ -142,8 +161,9 @@ extract_answer.(request) == 42
 true
 ```
 
+### Exercise 4-2
+
 ```elixir
-# Exercise 4-2
 func = fn x, y, callback -> callback.(x, y) end
 
 add = &(&1 + &2)
@@ -156,8 +176,9 @@ func.(1, 2, add) == 3
 true
 ```
 
+### Exercise 4-3
+
 ```elixir
-# Exercise 4-3
 # implement Name module!
 
 defmodule Name do
@@ -187,10 +208,13 @@ Name.get_first_name(name_map) == "Jose" and
 true
 ```
 
+<!-- livebook:{"branch_parent_index":0} -->
+
 ## 5 Control syntax
 
+### Exercise 5-1
+
 ```elixir
-# Exercise 5-1
 response = %{status: 400, body: %{message: "Invalid parameter!"}}
 
 result =
@@ -210,6 +234,10 @@ result == {:error, :bad_request}
 true
 ```
 
+<!-- livebook:{"branch_parent_index":0} -->
+
 ## 6 pipe operator with Enum module
+
+<!-- livebook:{"branch_parent_index":0} -->
 
 ## 7 Use hex packages
