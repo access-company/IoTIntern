@@ -3,7 +3,7 @@
 > [!NOTE]
 > このディレクトリは <https://github.com/access-company/IoTIntern/tree/master/doc/elixir-training> を基にLivebookで書き換えたものである
 
-Elixirの基本的な文法の学習のためのドキュメント集である。
+この資料はElixirの基本的な文法の学習のためのドキュメント集である。
 
 Elixirのコードを試すだけなら`iex`が最も手軽だが、複数行にわたるコードを書いたり、コードの一部を変更して試行錯誤的に実験する際には不便である。
 これらの問題が解消されることと、コードとその実行結果がセットで記録に残ることの有用さにより[Livebook](https://livebook.dev/)を使用している。
