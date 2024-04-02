@@ -270,6 +270,24 @@ CromaTestModule.accept_hello_atom(:hello)
 CromaTestModule.accept_hello_atom(:world)
 ```
 
+### struct <-> map の変換
+
+<!-- livebook:{"break_markdown":true} -->
+
+* map から struct
+
+```elixir
+%{x: 1}
+|> TestStruct.new!()
+```
+
+* stuct から map
+
+```elixir
+TestStruct.new!(%{x: 1})
+|> Map.from_struct()
+```
+
 ## meck
 
 Erlangのモッキングライブラリ。
