@@ -1,3 +1,5 @@
+<!-- livebook:{"file_entries":[{"name":"image_of_mocking.png","type":"attachment"}]} -->
+
 # Hexパッケージ
 
 ```elixir
@@ -289,7 +291,7 @@ Erlangのモッキングライブラリ。
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/image_of_mocking.png)
+![](files/image_of_mocking.png)
 
 ```elixir
 defmodule HttpBin do
