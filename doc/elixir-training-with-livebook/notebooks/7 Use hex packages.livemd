@@ -7,7 +7,8 @@ Mix.install([
   {:jason, "~> 1.4"},
   {:croma, "~> 0.11.3"},
   {:httpoison, "~> 2.1"},
-  {:meck, "~> 0.9.2"}
+  {:meck, "~> 0.9.2"},
+  {:kino, "~> 0.12.3"}
 ])
 ```
 
@@ -194,6 +195,44 @@ Food.new(%{})
 Food.new(%{})
 ```
 
+### Structの更新・変換
+
+Struct内の値の更新は以下のようにできる (Mapも同様)。
+
+```elixir
+test_struct = TestStruct.new!(%{x: 0})
+IO.puts("original: #{inspect(test_struct)}")
+# 基本はこれ
+%{test_struct | x: 1}
+```
+
+```elixir
+# パイプラインを併用したい時はこれら
+test_struct
+|> Map.replace!(:x, 1)
+|> Map.put(:x, 2)
+|> Map.merge(%{x: 3})
+|> dbg()
+```
+
+StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使いましょう。
+
+```elixir
+# Map
+%{x: 1}
+# Map -> Struct
+|> TestStruct.new!()
+# Struct -> Map
+|> Map.from_struct()
+|> dbg()
+```
+
+* その他一般的なMap, Structに関しては公式ドキュメントを参照
+  * Map: <https://hexdocs.pm/elixir/Map.html>
+  * Struct: <https://hexdocs.pm/elixir/structs.html>
+
+<!-- livebook:{"break_markdown":true} -->
+
 ### 関数定義における利用例
 
 こちらは参考までに。
@@ -265,24 +304,6 @@ CromaTestModule.accept_hello_atom(:hello)
 
 ```elixir
 CromaTestModule.accept_hello_atom(:world)
-```
-
-### struct <-> map の変換
-
-<!-- livebook:{"break_markdown":true} -->
-
-* map から struct
-
-```elixir
-%{x: 1}
-|> TestStruct.new!()
-```
-
-* stuct から map
-
-```elixir
-TestStruct.new!(%{x: 1})
-|> Map.from_struct()
 ```
 
 ## meck
