@@ -227,7 +227,7 @@ StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixi
 |> dbg()
 ```
 
-* その他一般的なMap, Structに関しては公式ドキュメントを参照
+* その他MapとStructに関する情報は公式ドキュメントを参照
   * Map: <https://hexdocs.pm/elixir/Map.html>
   * Struct: <https://hexdocs.pm/elixir/structs.html>
 
