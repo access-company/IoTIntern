@@ -35,7 +35,7 @@ case some_map do
 end
 ```
 
-### 練習問題
+### 練習問題 Exercise 5-1
 
 HTTPレスポンスを表すmapがあり、整数の`status`とmapの`body`を含むとする。
 
@@ -49,15 +49,57 @@ case構文を使って、HTTPレスポンスを表すmapのパターンに応じ
 <!-- livebook:{"continue_on_error":true} -->
 
 ```elixir
-# Exercise 5-1
 response = %{status: 400, body: %{message: "Invalid parameter!"}}
 
 result =
   case response do
     # implement me!
   end
+```
 
-result == {:error, :bad_request}
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# 正しいかテストしてみよう
+
+defmodule Exercise5 do
+  def response(response) do
+    case response do
+      # 上の回答を入れよう
+      _? -> "?"
+    end
+  end
+end
+
+ExUnit.start(autorun: false)
+
+defmodule Exercise5Test do
+  use ExUnit.Case, async: true
+
+  describe "resonse/1" do
+    test "returns body when status is 200" do
+      response = %{status: 200, body: %{message: "Valid parameter!"}}
+      assert Exercise5.response(response) == {:ok, response.body}
+    end
+
+    test "returns bad request error when status is 400" do
+      response = %{status: 400, body: %{message: "Invalid parameter!"}}
+      assert Exercise5.response(response) == {:error, :bad_request}
+    end
+
+    test "returns not_found error when status is 404" do
+      response = %{status: 404, body: %{message: "Resource not found!"}}
+      assert Exercise5.response(response) == {:error, :not_found}
+    end
+
+    test "returns internal error when status is 500" do
+      response = %{status: 500, body: %{message: "Internal error!"}}
+      assert Exercise5.response(response) == {:error, :internal_error}
+    end
+  end
+end
+
+ExUnit.run()
 ```
 
 マッチの際に`when`による[guard構文](https://hexdocs.pm/elixir/guards.html#content)を用いることで、さらに細かいパターンマッチを行うことができる。
