@@ -1,6 +1,6 @@
 <!-- livebook:{"file_entries":[{"name":"image_of_mocking.png","type":"attachment"}]} -->
 
-# Hexパッケージ
+# 7. Hexパッケージ
 
 ```elixir
 Mix.install([
@@ -88,6 +88,8 @@ json
 
 ### バリデーションつきStructの定義
 
+※ 補足: Structは名前付きのMapみたいなイメージ（詳細は[公式ドキュメント](https://hexdocs.pm/elixir/structs.html)を参照）
+
 ```elixir
 # 例1. フィールドのバリデーションつきStructを定義
 # new/1 や new!/1 関数でStructを生成する時、フィールドのvalidationが自動で行われる
@@ -146,6 +148,7 @@ defmodule Food do
 
   # 正規表現で長さ1～50の文字列を許可
   defmodule Name do
+    # warning occurs, but ignore it
     use Croma.SubtypeOfString, pattern: ~r/\A.{1,50}\z/
   end
 

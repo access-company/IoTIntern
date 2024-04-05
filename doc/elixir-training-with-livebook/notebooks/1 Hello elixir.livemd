@@ -55,9 +55,9 @@ Nintendoのゲームサーバーでも採用実績があるらしい([参考](ht
 
 Elixir独自の特徴（記法的な面から）としては
 
-* パターンマッチが強力（大事．慣れると他言語に戻れないぐらい大事）
+* パターンマッチが強力（大事。慣れると他言語に戻れないぐらい大事）
 * コードの自動生成や言語拡張などができるマクロ（言語自体がマクロでどんどん拡張して発展させたもの）
-  * むやみに濫用すると危険．黒魔術
+  * むやみに濫用すると危険。黒魔術
 * Erlangと相互にライブラリを共有できる
 
 最近では José Valim が [nx](https://github.com/elixir-nx/nx) という機械学習を想定したプロジェクトを立ち上げた。
@@ -72,7 +72,7 @@ Elixir独自の特徴（記法的な面から）としては
 * 小さな関数を組合せて大きな仕事を果たす
 * 宣言的に記述
 * ループや分岐、例外処理といった制御構造を極力排除 (言語機能に押し付ける)
-* 繰り返しは写像や再起関数で
+* 繰り返しは写像や再帰関数で
 * 分岐や例外処理はパターンマッチで
 
 Erlangプロセスの利用については別の機会に。
@@ -88,7 +88,8 @@ FizzBuzz(n) =
 \begin{cases}
   \text{"FizzBuzz"} & \text{if } n \equiv 0 & (\text{mod } 15) \\
   \text{"Buzz"}     & \text{if } n \equiv 0 & (\text{mod } 5) \\
-  \text{"Fizz"}     & \text{if } n \equiv 0 & (\text{mod } 3)
+  \text{"Fizz"}     & \text{if } n \equiv 0 & (\text{mod } 3) \\
+  n                 & \text{otherwise}
 \end{cases}
 $$
 
@@ -104,6 +105,7 @@ defmodule FizzBuzz do
   ```elixir
   iex> FizzBuzz.say(1)
   {:ok, 1}
+
   iex> FizzBuzz.say(3)
   {:ok, "Fizz"}
   ```

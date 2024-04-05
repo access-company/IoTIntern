@@ -130,7 +130,7 @@ x == 1 and y == 4 # true になること。
 
 ### 不要な値を無視する
 
-Elixirにおいて, アンダースコア`_`やアンダースコアで始まる変数は、コンパイラに「使用しない」変数であることを表す。
+Elixirにおいて、アンダースコア`_`やアンダースコアで始まる変数は、コンパイラに「使用しない」変数であることを表す。
 
 Elixirでは未使用の変数があるとコンパイル時にwarningが発せられる。
 
@@ -402,6 +402,8 @@ x == 2 and y == 4 and z == [5, 6, 7, 8, 9, 10]
 x == 1 and y == 4
 ```
 
+### Exercise 3-6
+
 ```elixir
 # Exercise 3-6、3-7で使用するデータ
 request = %{
@@ -421,8 +423,6 @@ request = %{
 }
 ```
 
-### Exercise 3-6
-
 <!-- livebook:{"continue_on_error":true} -->
 
 ```elixir
@@ -441,5 +441,5 @@ first_name == "Alice" and last_name == "Liddell"
 # requestのbodyのaddressは地区, 州, 構成国, 主権国家の順に並んでいる。州(state)と構成国(country)だけ取り出してみよう
  = request
 
-state == "London" && country == "England"
+state == "London" and country == "England"
 ```
