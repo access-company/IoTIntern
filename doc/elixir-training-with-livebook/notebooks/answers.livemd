@@ -126,7 +126,7 @@ true
 ### Exercise 3-7
 
 ```elixir
-# requestのbodyのaddressは地区, 州, 構成国, 主権国家の順に並んでいる。州(state)と構成国(country)だけ取り出してみよう
+# requestのbodyのaddressは地区、州、構成国、主権国家の順に並んでいる。州(state)と構成国(country)だけ取り出してみよう
 %{body: %{address: [_, state, country, _]}} = request
 
 state == "London" and country == "England"
