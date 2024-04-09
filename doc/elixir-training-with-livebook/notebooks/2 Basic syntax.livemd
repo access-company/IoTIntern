@@ -197,6 +197,10 @@ m["b"]
 # m.b # => KeyError
 ```
 
+また、Mapの拡張としてStructがあるがここでの説明は割愛する。
+
+（詳細は[公式ドキュメント](https://hexdocs.pm/elixir/structs.html)か、[7. Hexパッケージ#Croma](./7%20Use%20hex%20packages.livemd#Croma)を参照）
+
 ## 特徴的な演算子
 
 [Basic operators - Elixir](https://elixir-lang.org/getting-started/basic-operators.html)
