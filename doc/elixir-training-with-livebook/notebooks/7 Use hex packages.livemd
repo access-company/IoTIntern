@@ -218,7 +218,11 @@ test_struct
 |> dbg()
 ```
 
-StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使いましょう。
+ただし、上記の方法だと更新時にvalidationが走らないことに留意したい。
+
+<!-- livebook:{"break_markdown":true} -->
+
+また、StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使いましょう。
 
 ```elixir
 # Map
