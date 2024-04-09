@@ -85,10 +85,10 @@ json
 ## Croma
 
 * Elixirで型ベースプログラミングを行うのを楽にするマクロ集
+* Elixir標準の[Struct](https://hexdocs.pm/elixir/structs.html)を踏襲しつつ、強力な型検証を提供してくれる
+  * 定義方法などはCroma独自のものでありStructとは異なる点に注意
 
 ### バリデーションつきStructの定義
-
-※ 補足: Structは名前付きのMapみたいなイメージ（詳細は[公式ドキュメント](https://hexdocs.pm/elixir/structs.html)を参照）
 
 ```elixir
 # 例1. フィールドのバリデーションつきStructを定義
