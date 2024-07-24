@@ -6,6 +6,10 @@ FORMAT: 1A
 
 お掃除ロボットに異常が発生したことをLinkitに通知します.
 
+本APIでLinkitに通知するメッセージは以下の通りです.
+
++ #{異常の種類}が発生しました
+
 + Request (application/json)
     + Attributes
         + `type`: `derailment` (enum[string], required) - 異常の種類
