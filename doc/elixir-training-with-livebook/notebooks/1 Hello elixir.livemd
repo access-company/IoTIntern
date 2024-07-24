@@ -20,8 +20,6 @@ ElixirとErlangは切っても切れない関係にある。
 
 上記のような特徴は、現代の分散システムでも必要とされていて、言語としてもサーバーシステムに適している。
 
-Nintendoのゲームサーバーでも採用実績があるらしい([参考](https://employment.en-japan.com/engineerhub/entry/2019/08/01/103000))。
-
 この特性を実現するために以下のような並列処理・分散処理をサポートする機能を持っている。
 
 * 軽量プロセス
@@ -46,12 +44,17 @@ Nintendoのゲームサーバーでも採用実績があるらしい([参考](ht
 ## Elixir
 
 * José Valim が創始者。 Plataformatec 社が中心的にサポートしている
+* 誕生は2012年と比較的新しい
 * 書きやすく読みやすい言語でErlangの特性を利用するために開発されている
 * Erlangの特性を引き継いでいる
   * 動的型付け
   * 関数型
   * Scalable
   * Maintainable
+* ElixirやErlangを使用している企業
+  * [Discord](https://elixir-lang.org/blog/2020/10/08/real-time-communication-at-scale-with-elixir-at-discord/)
+  * [任天堂](https://speakerdeck.com/elixirfest/otp-to-ejabberd-wohuo-yong-sita-nintendo-switch-tm-xiang-ke-hutusiyutong-zhi-sisutemu-npns-false-kai-fa-shi-li)
+  * [その他国内企業](https://github.com/voluntas/japanese-erlang-elixir-companies?tab=readme-ov-file)
 
 Elixir独自の特徴（記法的な面から）としては
 

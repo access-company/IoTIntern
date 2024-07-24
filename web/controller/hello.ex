@@ -1,3 +1,6 @@
+# NOTE: curlからの実行方法
+# curl -X POST "http://iot-intern.localhost:8080/api/v1/hello" -H 'auth: xxxx' -H 'Content-Type: application/json' -d '{"message": "hello"}'
+
 defmodule IotIntern.Controller.Hello do
   use Antikythera.Controller
 
