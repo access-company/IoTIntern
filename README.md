@@ -18,7 +18,7 @@ Linkit アカウント登録完了メールにパスワードが記載されて�
 
 [Gear コンフィグ](./gear_config.json)に下記の値を設定する。
 
-`linkit_api_key`, `notification_user_credential`, `chatroom_id` は事前に共有される。
+`linkit_api_key`, `notification_user_credential`, `chatroom_id` は講師から共有される。
 
 
 ```sh
