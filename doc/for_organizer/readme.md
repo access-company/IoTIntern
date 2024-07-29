@@ -1,24 +1,29 @@
 # 管理者向け情報
 
+## 対象読者
+
+- 一から環境構築をした際の状況が知りたい人
+- 引き継ぎをした人向けのマニュアルは[./setup/for_successors.md](./setup/for_successors.md)にある。
+
+## 前提条件
+
+- AWS CLIを使う場合は[AWS CloudShell](https://aws.amazon.com/jp/cloudshell/)を使うことを前提とする
 - 開発環境としてはAWS EC2の使用を前提とする
 - Gear開発時にはビジネスチャットアプリ「Linkit」との連携を前提とする
 
 ## 事前準備
 
-### aws cli
+### AWS CloudShellを用いたAWS CLIの実行方法
 
-- [aws cli (v2)](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/install-cliv2.html)をインストールする
-- aws cliを使用するためのプロファイルを設定する。プロファイル名は`iot_intern`とする
-  - アクセスキーを設定する
-    - IAMユーザーでアクセスキーを取得する
-    - `~/.aws/credentials`に`[iot_intern]`として設定する
-  - コンフィグを編集する
-    - `~/.aws/config`に以下のように登録する
-    ```
-    [profile iot_intern]
-    region = ap-northeast-1
-    output = json
-    ```
+- AWSのマネジメントコンソールを開き、検索ボックスのところに「CloudShell」と入力する
+- profileの設定を行う
+  ```
+  mkdir -p ~/.aws
+  echo -e "[profile iot_intern]\nregion = ap-northeast-1\noutput = json" > ~/.aws/config
+  cat ~/.aws/config
+  ```
+
+AWS関連のスクリプトは「アクション」→「ファイルをアップロード」でアップロードしてから実行する。
 
 ### SSH接続用の鍵の作成
 
@@ -26,10 +31,10 @@
 鍵の生成時に、WindowsのSSH Client向けに`ed25519`を使用したほうがいいという話があるので、`ed25519`を使用する。
 
 - 管理者用のキーペア
-  - `ssh-keygen -o -a 100 -t ed25519 -f iot-intern-admin-key`
+  - `ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/iot-intern-admin-key`
   - 公開鍵はAMIを作成するとき、EC2起動時のユーザーデータに埋め込む
 - Gear開発者用のキーペア
-  - `ssh-keygen -o -a 100 -t ed25519 -f iot-intern-user-key`
+  - `ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/iot-intern-user-key`
   - 秘密鍵(`iot-intern-user-key`)はgear開発者に配布する
   - 公開鍵はAMIを作成するとき、EC2起動時のユーザーデータに埋め込む
 
