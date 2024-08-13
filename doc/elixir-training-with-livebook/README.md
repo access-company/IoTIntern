@@ -11,6 +11,7 @@ Elixirのコードを試すだけなら`iex`が最も手軽だが、複数行に
 ## セットアップ
 
 Elixirの実行環境であるLivebookが必要である。
+
 - ここでは準備を簡易化するためDockerを使用する
   - ErlangとElixirのバージョンは[Livebookのdocker image](https://github.com/livebook-dev/livebook/pkgs/container/livebook)で指定されたものになる
 
