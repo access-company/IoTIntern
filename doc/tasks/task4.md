@@ -41,6 +41,10 @@ Randomized with seed 791970
   - コードの品質が高くなる
   - 工数を削減できる
 
+### JSONオブジェクトのパース・エンコード
+
+Elixir講義の7章を参照してみてください。
+
 ### meck の使い方
 
 - [`meck`](https://github.com/eproxus/meck) は erlang/elixir のモックライブラリ
