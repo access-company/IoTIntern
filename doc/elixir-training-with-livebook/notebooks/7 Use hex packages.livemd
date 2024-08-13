@@ -1,11 +1,14 @@
-# Hexパッケージ
+<!-- livebook:{"file_entries":[{"name":"image_of_mocking.png","type":"attachment"}]} -->
+
+# 7. Hexパッケージ
 
 ```elixir
 Mix.install([
   {:jason, "~> 1.4"},
   {:croma, "~> 0.11.3"},
   {:httpoison, "~> 2.1"},
-  {:meck, "~> 0.9.2"}
+  {:meck, "~> 0.9.2"},
+  {:kino, "~> 0.12.3"}
 ])
 ```
 
@@ -82,6 +85,8 @@ json
 ## Croma
 
 * Elixirで型ベースプログラミングを行うのを楽にするマクロ集
+* Elixir標準の[Struct](https://hexdocs.pm/elixir/structs.html)を踏襲しつつ、強力な型検証を提供してくれる
+  * 定義方法などはCroma独自のものでありStructとは異なる点に注意
 
 ### バリデーションつきStructの定義
 
@@ -92,7 +97,6 @@ json
 defmodule TestStruct do
   # xは整数でなければならない
   use Croma.Struct,
-    recursive_new?: true,
     fields: [
       x: Croma.Integer
     ]
@@ -101,7 +105,6 @@ end
 defmodule OtherStruct do
   # xは整数でなければならない
   use Croma.Struct,
-    recursive_new?: true,
     fields: [
       x: Croma.Integer
     ]
@@ -145,11 +148,11 @@ defmodule Food do
 
   # 正規表現で長さ1～50の文字列を許可
   defmodule Name do
+    # warning occurs, but ignore it
     use Croma.SubtypeOfString, pattern: ~r/\A.{1,50}\z/
   end
 
   use Croma.Struct,
-    recursive_new?: true,
     fields: [
       category: Category,
       name: Name
@@ -194,6 +197,48 @@ Food.new(%{})
 # categoryに未定義のatomが渡される場合もエラーになることを確かめよう
 Food.new(%{})
 ```
+
+### Structの更新・変換
+
+Struct内の値の更新は以下のようにできる (Mapも同様)。
+
+```elixir
+test_struct = TestStruct.new!(%{x: 0})
+IO.puts("original: #{inspect(test_struct)}")
+# 基本はこれ
+%{test_struct | x: 1}
+```
+
+```elixir
+# パイプラインを併用したい時はこれら
+test_struct
+|> Map.replace!(:x, 1)
+|> Map.put(:x, 2)
+|> Map.merge(%{x: 3})
+|> dbg()
+```
+
+ただし、上記の方法だと更新時にvalidationが走らないことに留意したい。
+
+<!-- livebook:{"break_markdown":true} -->
+
+また、StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使いましょう。
+
+```elixir
+# Map
+%{x: 1}
+# Map -> Struct
+|> TestStruct.new!()
+# Struct -> Map
+|> Map.from_struct()
+|> dbg()
+```
+
+* その他MapとStructに関する情報は公式ドキュメントを参照
+  * Map: <https://hexdocs.pm/elixir/Map.html>
+  * Struct: <https://hexdocs.pm/elixir/structs.html>
+
+<!-- livebook:{"break_markdown":true} -->
 
 ### 関数定義における利用例
 
@@ -283,13 +328,13 @@ Erlangのモッキングライブラリ。
   * しかし、外部サービスを実際にダウンさせることはできない
 * そもそもテストで、外部サービスにリクエストを送りたくない
 
-モックを使うと, 関数呼び出しを監視することができ、必要ならば同じインターフェースで異なる振る舞いをする別の関数に差し替えることができる。
+モックを使うと、関数呼び出しを監視することができ、必要ならば同じインターフェースで異なる振る舞いをする別の関数に差し替えることができる。
 
 つまり、下の図のようにあるテストケースのときだけ`HttpBin.send_request/3`を常に`%{status: 500}`を返す別の関数に差し替えることができる。
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/image_of_mocking.png)
+![](files/image_of_mocking.png)
 
 ```elixir
 defmodule HttpBin do
