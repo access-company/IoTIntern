@@ -47,6 +47,7 @@ Elixir講義の7章を参照してみてください。
 
 ### meck の使い方
 
+- Elixir講義の7章にも説明があります
 - [`meck`](https://github.com/eproxus/meck) は erlang/elixir のモックライブラリ
 - モックする必要性
   - 外部サーバーに依存せずにテストを行うことができるので test が安定化する
