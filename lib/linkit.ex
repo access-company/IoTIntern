@@ -6,9 +6,9 @@
 #   # typespec に定義される関数仕様となるように関数を実装してください。
 #   # typespec (https://hexdocs.pm/elixir/1.12/typespecs.html) とは関数の型仕様を宣言するための仕様で、下記のような記法で記述します。
 #   # @spec 関数名(引数の型,..) :: 返り値の型
-#   # つまり、post_message は String.t を引数にとり、返り値として2種類の型のタプルを返すという仕様になっています。
+#   # つまり、post_message は String.t を引数にとり、返り値として3種類の型のタプルを返すという仕様になっています。
 #   # post_message 関数の引数と返り値の具体例としては test/lib/linkit_test.exs を参照ください。
-#   @spec post_message(String.t) :: {integer, map} | {:error, any}
+# @spec post_message(String.t) :: {integer, map} | {integer} | {:error, any}
 #   def post_message(message) do
 #     %{
 #       "linkit_api_key"               => api_key,
