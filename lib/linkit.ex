@@ -8,7 +8,7 @@
 #   # @spec 関数名(引数の型,..) :: 返り値の型
 #   # つまり、post_message は String.t を引数にとり、返り値として2種類の型のタプルを返すという仕様になっています。
 #   # post_message 関数の引数と返り値の具体例としては test/lib/linkit_test.exs を参照ください。
-#   @spec post_message(String.t) :: {integer, map} | {:error, any}
+# @spec post_message(String.t) :: {integer, map} | {integer} | {:error, any}
 #   def post_message(message) do
 #     %{
 #       "linkit_api_key"               => api_key,
