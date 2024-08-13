@@ -1,8 +1,9 @@
-※このディレクトリは https://github.com/access-company/IoTIntern/tree/master/doc/elixir-training を基にLivebookで書き換えたものである。
-
 # Elixir training
 
-Elixirの基本的な文法の学習のためのドキュメント集である。
+> [!NOTE]
+> このディレクトリは <https://github.com/access-company/IoTIntern/tree/master/doc/elixir-training> を基にLivebookで書き換えたものである
+
+この資料はElixirの基本的な文法の学習のためのドキュメント集である。
 
 Elixirのコードを試すだけなら`iex`が最も手軽だが、複数行にわたるコードを書いたり、コードの一部を変更して試行錯誤的に実験する際には不便である。
 これらの問題が解消されることと、コードとその実行結果がセットで記録に残ることの有用さにより[Livebook](https://livebook.dev/)を使用している。
@@ -10,15 +11,18 @@ Elixirのコードを試すだけなら`iex`が最も手軽だが、複数行に
 ## セットアップ
 
 Elixirの実行環境であるLivebookが必要である。
+
 - ここでは準備を簡易化するためDockerを使用する
   - ErlangとElixirのバージョンは[Livebookのdocker image](https://github.com/livebook-dev/livebook/pkgs/container/livebook)で指定されたものになる
 
 ### ローカルで使用するツールのインストール
 
-`docker`コマンドが使えればいい。
-- [Dockerのインストール](https://docs.docker.jp/get-docker.html)
+`docker`コマンドが使えればOK
+
+- [Dockerのインストール方法](https://docs.docker.jp/get-docker.html)
 
 ### コンテナの起動
+
 - 前提
   - このファイルと同じディレクトリに居ること
 - `make`コマンドが使える場合
@@ -34,3 +38,7 @@ Elixirの実行環境であるLivebookが必要である。
   - URLをそのままクリックしても起動できる
 - 右上にあるopenボタンを押下するとノートブックが置いてある場所にアクセスできる
   - ファイルの実体はローカルの[`notebooks`](./notebooks)ディレクトリに存在する
+
+### 参考
+
+- その他Livebookの詳しい内容は [Livebookの公式リポジトリ](https://github.com/livebook-dev/livebook?tab=readme-ov-file#livebook)を参照
