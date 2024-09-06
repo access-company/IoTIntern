@@ -60,7 +60,7 @@ Web Server を起動した状態でブラウザから http://iot-intern.localhos
   - 外部サーバーに依存せずにテストを行うことができるので test が安定化する
   - 任意の固定値を返せるので、異常ケース等をシミュレーションできる
 - サンプル実装
-  - test/web/controller/hello_test.exs
+  - `test/web/controller/hello_test.exs`
 - `meck.expect/3` を使うことで下記のように function の動作をモックできます
 
   ```elixir
