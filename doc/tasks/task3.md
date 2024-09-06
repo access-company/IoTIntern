@@ -51,3 +51,51 @@ Web Server を起動した状態でブラウザから http://iot-intern.localhos
 - 仕様のドキュメントとしての役割: テストコードは、ソフトウェアがどのように動作するべきかの実例として機能することができます。
 
 と言ったメリットがあります。
+
+### meck の使い方
+
+- Elixir講義の7章にも説明があります
+- [`meck`](https://github.com/eproxus/meck) は erlang/elixir のモックライブラリ
+- モックする必要性
+  - 外部サーバーに依存せずにテストを行うことができるので test が安定化する
+  - 任意の固定値を返せるので、異常ケース等をシミュレーションできる
+- サンプル実装
+  - `test/web/controller/hello_test.exs`
+- `meck.expect/3` を使うことで下記のように function の動作をモックできます
+
+  ```elixir
+  defmodule Hoge do
+    def foo(x) do
+      x + 1
+    end
+  end
+
+  > Hoge.foo(1)
+  2
+
+  # Hoge.foo/1の処理を書き換える
+  :meck.expect(Hoge, :foo, fn(x) -> x + 2 end)
+
+  > Hoge.foo(1)
+  3
+  ```
+
+  ※引数の数は正確に記述する必要があります。数が違っているとmockが適用されません。
+
+  ```elixir
+  defmodule Hoge do
+    # 引数が2つの関数を定義
+    def foo(x, y) do
+      x + y
+    end
+  end
+
+  > Hoge.foo(1, 2)
+  3
+
+  # `fn`の引数が2つになるように定義
+  :meck.expect(Hoge, :foo, fn(x, y) -> x + y + 2 end)
+
+  > Hoge.foo(1, 2)
+    5
+  ```
