@@ -105,6 +105,7 @@ end
 defmodule OtherStruct do
   # xは整数でなければならない
   use Croma.Struct,
+    recursive_new?: true,
     fields: [
       x: Croma.Integer
     ]
@@ -153,6 +154,7 @@ defmodule Food do
   end
 
   use Croma.Struct,
+    recursive_new?: true,
     fields: [
       category: Category,
       name: Name
@@ -334,7 +336,7 @@ Erlangのモッキングライブラリ。
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](files/image_of_mocking.png)
+![モックの説明画像](files/image_of_mocking.png)
 
 ```elixir
 defmodule HttpBin do
