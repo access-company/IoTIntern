@@ -336,7 +336,7 @@ Erlangのモッキングライブラリ。
 
 <!-- livebook:{"break_markdown":true} -->
 
-![モックの説明画像](files/image_of_mocking.pn)
+![モックの説明画像](files/image_of_mocking.png)
 
 ```elixir
 defmodule HttpBin do
