@@ -26,7 +26,7 @@
 
 - [`Croma`](https://hexdocs.pm/croma/Croma.html) は、elixir で型ベースのプログラミングを補助するためのマクロユーティリティ
 - サンプル実装
-  - web/controller/hello_croma.ex
+  - `web/controller/hello_croma.ex`
 - Elixir講義の7章にも説明があります
 
 ### `Croma.Struct`の使用例

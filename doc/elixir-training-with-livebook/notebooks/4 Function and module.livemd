@@ -82,8 +82,7 @@ request = %{
 
 # implement me!
 extract_answer =
-
-extract_answer.(request) == 42
+  extract_answer.(request) == 42
 ```
 
 関数は複数の式を持てる。
@@ -214,8 +213,8 @@ IO.inspect(my_mul.(6, 7))
 # Exercise 4-2
 # implement me!
 func =
+  add = &(&1 + &2)
 
-add = &(&1 + &2)
 func.(1, 2, add) == 3
 ```
 
