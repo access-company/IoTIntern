@@ -80,9 +80,9 @@ request = %{
   body: %{target: 21, message_to_you: "This may be the answer of everything."}
 }
 
-# implement me!
-extract_answer =
-  extract_answer.(request) == 42
+extract_answer = "implement me!"
+
+extract_answer.(request) == 42
 ```
 
 関数は複数の式を持てる。
@@ -136,7 +136,7 @@ something_do_with_positive_int.(-1)
 ここでは詳しくは説明しないが、パターンマッチと関数の多重定義を用いることで制御構造を排除できる。
 
 * 引数のパターンによって呼び出す処理を変える
-* `when`を用いた[guard構文](https://hexdocs.pm/elixir/guards.html)で引数の型や値に応じて処理を変える
+* `when`を用いた[guard構文](https://hexdocs.pm/elixir/patterns-and-guards.html#guards)で引数の型や値に応じて処理を変える
 
 ```elixir
 # 引数のmapのパターンに応じて3種類の処理を定義
@@ -211,10 +211,9 @@ IO.inspect(my_mul.(6, 7))
 
 ```elixir
 # Exercise 4-2
-# implement me!
-func =
-  add = &(&1 + &2)
+func = "implement me!"
 
+add = &(&1 + &2)
 func.(1, 2, add) == 3
 ```
 
@@ -314,7 +313,7 @@ Vegitable.apply_get_name(&Vegitable.Tomato.get_name/1, "sweet")
 
 ```elixir
 Vegitable.apply_get_name(&Vegitable.Tomato.get_name/0, "sweet")
-# => UndefinedFunctionError
+# => BadArityError
 ```
 
 ### 練習問題 Exercise 4-3
