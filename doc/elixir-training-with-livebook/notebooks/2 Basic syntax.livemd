@@ -151,12 +151,12 @@ Enum.at([0, 1, 2, 3], 2)
 
 ```elixir
 # 処理が成功したことと、結果の組を表すデータ構造として
-File.read("./resources/2/hello.txt")
+File.read("/data/resources/2/hello.txt")
 ```
 
 ```elixir
 # 処理が失敗したことを表すデータ構造として
-File.read("./resources/not/found")
+File.read("/data/resources/not/found")
 ```
 
 ### Map

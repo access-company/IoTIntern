@@ -62,7 +62,7 @@ map
 ```
 
 ```elixir
-File.read!("./resources/7/test.json")
+File.read!("/data/resources/7/test.json")
 |> Jason.decode!()
 ```
 
