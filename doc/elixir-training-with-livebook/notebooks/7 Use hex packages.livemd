@@ -105,7 +105,6 @@ end
 defmodule OtherStruct do
   # xは整数でなければならない
   use Croma.Struct,
-    recursive_new?: true,
     fields: [
       x: Croma.Integer
     ]
@@ -154,7 +153,6 @@ defmodule Food do
   end
 
   use Croma.Struct,
-    recursive_new?: true,
     fields: [
       category: Category,
       name: Name
