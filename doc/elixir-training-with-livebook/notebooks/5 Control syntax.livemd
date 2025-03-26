@@ -41,10 +41,10 @@ HTTP レスポンスを表す map があり、整数の`status`と map の`body`
 
 case 構文を使って、HTTP レスポンスを表す map のパターンに応じて処理を以下のように分けてみよう。
 
-- `status`が 200 のとき、`:ok`と`body`の組の tuple を作る
-- `status`が 400 のとき、`:error`と`:bad_request`の組の tuple を作る
-- `status`が 404 のとき、`:error`と`:not_found`の組の tuple を作る
-- `status`が 500 のとき、`:error`と`:internal_error`の組の tuple を作る
+* `status`が 200 のとき、`:ok`と`body`の組の tuple を作る
+* `status`が 400 のとき、`:error`と`:bad_request`の組の tuple を作る
+* `status`が 404 のとき、`:error`と`:not_found`の組の tuple を作る
+* `status`が 500 のとき、`:error`と`:internal_error`の組の tuple を作る
 
 <!-- livebook:{"continue_on_error":true} -->
 
