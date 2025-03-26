@@ -80,9 +80,9 @@ request = %{
   body: %{target: 21, message_to_you: "This may be the answer of everything."}
 }
 
-# implement me!
-extract_answer =
-  extract_answer.(request) == 42
+extract_answer = "implement me!"
+
+extract_answer.(request) == 42
 ```
 
 関数は複数の式を持てる。
@@ -211,10 +211,9 @@ IO.inspect(my_mul.(6, 7))
 
 ```elixir
 # Exercise 4-2
-# implement me!
-func =
-  add = &(&1 + &2)
+func = "implement me!"
 
+add = &(&1 + &2)
 func.(1, 2, add) == 3
 ```
 
