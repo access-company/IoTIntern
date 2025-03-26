@@ -4,7 +4,7 @@
 
 Elixirは動的型付け言語だが、内部的には型が存在する。
 
-[基本的な型](https://elixir-lang.org/getting-started/basic-types.html)は以下。
+[基本的な型](https://hexdocs.pm/elixir/basic-types.html)は以下。
 
 * Integer
 * Float
@@ -203,7 +203,7 @@ m["b"]
 
 ## 特徴的な演算子
 
-[Basic operators - Elixir](https://elixir-lang.org/getting-started/basic-operators.html)
+[Operators reference - Elixir](https://hexdocs.pm/elixir/operators.html)
 
 * 中置演算子
   * すでに出ている`+`や`*`などの算術演算子

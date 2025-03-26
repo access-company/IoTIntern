@@ -32,7 +32,7 @@ Erlang向けのHexパッケージもあり、Elixirでも問題なく使用可�
 
 ## Livebook上での使用
 
-動的にパッケージのインストールを行うため、[`Mix.install/2`](https://hexdocs.pm/mix/1.14/Mix.html#install/2)を利用する。
+動的にパッケージのインストールを行うため、[`Mix.install/2`](https://hexdocs.pm/mix/Mix.html#install/2)を利用する。
 
 Livebookではインストール専用のセルがノートブック上部に配置されているため、そこに必要なパッケージを追加してsetupボタンを押す。
 

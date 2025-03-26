@@ -136,7 +136,7 @@ something_do_with_positive_int.(-1)
 ここでは詳しくは説明しないが、パターンマッチと関数の多重定義を用いることで制御構造を排除できる。
 
 * 引数のパターンによって呼び出す処理を変える
-* `when`を用いた[guard構文](https://hexdocs.pm/elixir/guards.html)で引数の型や値に応じて処理を変える
+* `when`を用いた[guard構文](https://hexdocs.pm/elixir/patterns-and-guards.html#guards)で引数の型や値に応じて処理を変える
 
 ```elixir
 # 引数のmapのパターンに応じて3種類の処理を定義

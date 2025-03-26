@@ -102,7 +102,7 @@ end
 ExUnit.run()
 ```
 
-マッチの際に`when`による[guard 構文](https://hexdocs.pm/elixir/guards.html#content)を用いることで、さらに細かいパターンマッチを行うことができる。
+マッチの際に`when`による[guard 構文](https://hexdocs.pm/elixir/patterns-and-guards.html#guards)を用いることで、さらに細かいパターンマッチを行うことができる。
 
 ただし、guard に用いる条件はコンパイル時に決まっている必要があり、マクロのみが使用可能。
 (つまり任意の式や関数を用いることができるわけではない)
