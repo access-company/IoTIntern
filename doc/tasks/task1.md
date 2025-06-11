@@ -2,22 +2,24 @@
 
 ## 課題
 
-- `IO.inspect` で `conn` の内容を確認してください
+- `IO.inspect` で `conn` の内容を確認してください。
 - 手始めに [alert API](https://github.com/access-company/IoTIntern/blob/apidoc/web/controller/alert.ex) が時刻(sent_at)を返すように実装してください。
   - ヒント: alert API の[仕様書](https://github.com/access-company/IoTIntern/blob/apidoc/doc/api.apib) を確認すること。
   - `sent_at`の値は現在時刻にしてください。
 
 ## 期待結果
 
-- curl でリクエストを行うと `sent_at` が返される
+- curl でリクエストを行うと `sent_at` が返される。
 
   ```shell
   $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{}' -w '\n%{http_code}\n'
+  ```
+  ```plain
   {"sent_at":"2021-06-18T06:26:53Z"}
   200
   ```
 
-- お掃除ロボットシミュレータの画面に、メッセージの送信日時が表示される
+- お掃除ロボットシミュレータの画面に、`sent_at` で指定した時刻が表示される。
 
 ## 補足
 
