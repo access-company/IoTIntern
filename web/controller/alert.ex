@@ -26,7 +26,7 @@ defmodule IotIntern.Controller.Alert do
   def post_alert(%{request: %{body: body}} = conn) do
     case RequestBody.new(body) do
       {:ok, validated} ->
-        message = Map.get(@alert_messages, validated.type)
+        message = Map.get(@alert_messages, validated.type) <> "が発生しました"
         case Linkit.post_message(message) do
           {201, _} ->
             iso_now_time = DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601()
