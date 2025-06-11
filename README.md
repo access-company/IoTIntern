@@ -23,10 +23,12 @@ Linkit アカウント登録完了メールにパスワードが記載されて�
 
 ```sh
 $ cat gear_config.json
+```
+```json
 {
   "linkit_app_id": "a_BjF4XHB2",
   "linkit_group_id": "g_YrTWTxJY",
-  "linkit_api_key": "2t23xxxxxxxxxxxxxx", // 要確認
+  "linkit_api_key": "2t23xxxxxxxxxxxxxx",
   "notification_user_credential": "xxxxx",
   "chatroom_id": "xxxxxxxx"
 }
