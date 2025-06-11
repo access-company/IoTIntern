@@ -14,8 +14,6 @@ mix deps.get && mix deps.get
 
 ### Web Server の起動
 
-Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
-
 [gear_config.json](./gear_config.json)に下記の値を設定します。
 
 `linkit_api_key`, `notification_user_credential`, `chatroom_id` は講師から共有されます。
@@ -34,6 +32,7 @@ $ cat gear_config.json
 }
 ```
 
+下記コマンドで `gear_config.json` に書かれた値を環境変数に指定した状態で、Web Server を起動できます。
 ```sh
 IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) iex -S mix
 ```
@@ -43,6 +42,10 @@ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) iex -S mix
 Web Server を起動した状態でブラウザから
 http://iot-intern.localhost:8080/ui/index.html
 にアクセスします。
+
+### Linkit へのメッセージ送信の確認
+
+Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
 
 ## リポジトリレイアウト
 
