@@ -10,6 +10,8 @@
 
   ```shell
   $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "dead_battery"}' -w '\n%{http_code}\n'
+  ```
+  ```plain
   {"sent_at":"2021-06-18T06:26:53Z"}
   200
   ```
@@ -18,21 +20,23 @@
 
   ```shell
   $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "hello"}' -w '\n%{http_code}\n'
+  ```
+  ```plain
   {"message":"Unable to understand the request","type":"BadRequest"}
   400
   ```
 
 ## 補足
 
-- [`Croma`](https://hexdocs.pm/croma/Croma.html) は、elixir で型ベースのプログラミングを補助するためのマクロユーティリティ
+- [`Croma`](https://hexdocs.pm/croma/Croma.html) は、elixir で型ベースのプログラミングを補助するためのマクロユーティリティです。
 - サンプル実装
   - `web/controller/hello_croma.ex`
-- Elixir講義の7章にも説明があります
+- Elixir講義の7章にも説明があります。
 
 ### `Croma.Struct`の使用例
 
-`Croma.Struct`を用いることでStructの各fieldの制約などを宣言的に定義し、その制約に応じて値をvalidationすることができる関数(`new/1`)を自動生成することができる。
-具体的な使用例は下記である。
+`Croma.Struct`を用いることでStructの各fieldの制約などを宣言的に定義し、その制約に応じて値をvalidationすることができる関数(`new/1`)を自動生成することができます。
+具体的な使用例を下記に示します。
 
 ```elixir
 defmodule Hoge do
@@ -61,10 +65,10 @@ invalid_map = %{
 {:error, {:invalid_value, [Hoge, {Croma.Integer, :bar}]}}
 ```
 
-fieldの型として宣言できるもの(`Croma.String`など)は[ここ](https://github.com/skirino/croma/blob/master/lib/croma/builtin_type.ex)を参照。
+fieldの型として宣言できるもの(`Croma.String`など)は[lib/croma/builtin_type.ex](https://github.com/skirino/croma/blob/master/lib/croma/builtin_type.ex)を参照してください。
 
-fieldの型として独自の制約を作ることもできる。
-例えば、field `foo`は数字3桁で文字列でなければならないといった制約は[これ](https://github.com/skirino/croma/blob/master/lib/croma/subtype.ex)を利用して下記のようにかける。
+fieldの型として独自の制約を作ることもできます。
+例えば、field `foo`は数字3桁で文字列でなければならないといった制約は[lib/croma/subtype.ex](https://github.com/skirino/croma/blob/master/lib/croma/subtype.ex)を利用して下記のようにかけます。
 
 ```elixir
 defmodule Hoge do
@@ -96,8 +100,8 @@ valid_map = %{
 {:error, {:invalid_value, [Hoge, {Hoge.ThreeNumberStr, :foo}]}}
 ```
 
-fieldとして値が必須であるかどうかは[`Croma.TypeGen`](https://github.com/skirino/croma/blob/master/lib/croma/type_gen.ex)によって制御できる。
-例えば、`foo`が必須で`bar`はオプションであるstructは下記のように書けば良い。
+fieldとして値が必須であるかどうかは[`Croma.TypeGen`](https://github.com/skirino/croma/blob/master/lib/croma/type_gen.ex)によって制御できます。
+例えば、`foo`が必須で`bar`はオプションであるstructは下記のように書けます。
 
 ```elixir
 use Croma
