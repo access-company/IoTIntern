@@ -36,8 +36,8 @@ defmodule IotIntern.Controller.AlertTest do
     req_body = %{"type" => "dead_battery"}
 
     :meck.expect(Linkit, :post_message, fn message ->
-      assert message == "バッテリー不足"
-      {201, put_in(res_body, ["chat_message", "message"], "バッテリー不足")}
+      assert message == "バッテリー不足が発生しました"
+      {201, put_in(res_body, ["chat_message", "message"], "バッテリー不足が発生しました")}
     end)
 
     res = Req.post_json(@api_path, req_body, %{})
@@ -48,8 +48,8 @@ defmodule IotIntern.Controller.AlertTest do
     req_body = %{"type" => "derailment"}
 
     :meck.expect(Linkit, :post_message, fn message ->
-      assert message == "脱輪"
-      {201, put_in(res_body, ["chat_message", "message"], "脱輪")}
+      assert message == "脱輪が発生しました"
+      {201, put_in(res_body, ["chat_message", "message"], "脱輪が発生しました")}
     end)
 
     res = Req.post_json(@api_path, req_body, %{})
@@ -60,8 +60,8 @@ defmodule IotIntern.Controller.AlertTest do
     req_body = %{"type" => "jamming"}
 
     :meck.expect(Linkit, :post_message, fn message ->
-      assert message == "異物混入"
-      {201, put_in(res_body, ["chat_message", "message"], "異物混入")}
+      assert message == "異物混入が発生しました"
+      {201, put_in(res_body, ["chat_message", "message"], "異物混入が発生しました")}
     end)
 
     res = Req.post_json(@api_path, req_body, %{})

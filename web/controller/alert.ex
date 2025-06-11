@@ -14,7 +14,7 @@ defmodule IotIntern.Controller.Alert do
 
   def post_alert(%{request: %{body: body}} = conn) do
     if body["type"] in ["dead_battery", "derailment", "jamming"] do
-      message = Map.get(@alert_messages, body["type"])
+      message = Map.get(@alert_messages, body["type"]) <> "が発生しました"
 
       case Linkit.post_message(message) do
         {201, _} ->
