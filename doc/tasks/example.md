@@ -4,11 +4,14 @@
 
 開始時のコードは空のレスポンスをステータス200で返すようになっています。
 リモート環境 (EC2) の VSCode ターミナルから curl を利用して期待結果が得られるか確認してください。
+※ iexを開いているターミナルとは別のターミナルで行ってください。
 
 ## 期待結果
 
 ```shell
 $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{}' -w '\n%{http_code}\n'
+```
+```plain
 {}
 200
 ```
