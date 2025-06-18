@@ -10,7 +10,7 @@ defmodule IotIntern.Controller.HelloTest do
   end
 
   test "hello api succeeds with 200" do
-    # NOTE: モジュール名、関数名、引数の数, 任意の返り値
+    # NOTE: モジュール名、関数名、モック関数
     :meck.expect(Httpc, :get, fn _url -> :ok end)
 
     headers = %{"auth" => "xxxx"}

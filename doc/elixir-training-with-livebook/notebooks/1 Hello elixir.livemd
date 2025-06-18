@@ -63,9 +63,11 @@ Elixir独自の特徴（記法的な面から）としては
   * むやみに濫用すると危険。黒魔術
 * Erlangと相互にライブラリを共有できる
 
-最近では José Valim が [nx](https://github.com/elixir-nx/nx) という機械学習を想定したプロジェクトを立ち上げた。
+2021年には José Valim が [nx](https://github.com/elixir-nx/nx) という機械学習を想定したプロジェクトを立ち上げた。
 
 関連して [Nx](https://github.com/elixir-nx/nx/tree/main/nx#readme) という Numpy にインスパイアされた計算ライブラリが作成されており、科学計算方面への利用も今後促進されそう。
+
+2022年に José Valim が公式ブログ記事 [My Future with Elixir: set-theoretic types](https://elixir-lang.org/blog/2022/10/05/my-future-with-elixir-set-theoretic-types/) を発表してコンパイル時の型チェックを強化する取り組みが進行中。
 
 ## Elixirのコードの雰囲気
 

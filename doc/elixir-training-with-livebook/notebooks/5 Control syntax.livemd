@@ -2,13 +2,13 @@
 
 ## 制御構文
 
-Elixirでも手続き型言語と同様、条件分岐(`if`, `cond`, `case`)や例外処理(`try`~`rescue`)のような制御構文がある。
+Elixir でも手続き型言語と同様、条件分岐(`if`, `cond`, `case`)や例外処理(`try`~`rescue`)のような制御構文がある。
 
 ただし、実際にはパターンマッチという強力な仕組みと`case`を組み合わせることで分岐や例外処理を表現することが多い。
 
 ## case
 
-Elixirでは`case`、そして`if`、`cond`はパターンマッチを用いる関数として実装されている。
+Elixir では`case`、そして`if`、`cond`はパターンマッチを用いる関数として実装されている。
 
 よって、「条件によって制御を変える」のではなく「引数の値やパターンによって処理を変える」と解釈するのがいい。
 
@@ -37,14 +37,14 @@ end
 
 ### 練習問題 Exercise 5-1
 
-HTTPレスポンスを表すmapがあり、整数の`status`とmapの`body`を含むとする。
+HTTP レスポンスを表す map があり、整数の`status`と map の`body`を含むとする。
 
-case構文を使って、HTTPレスポンスを表すmapのパターンに応じて処理を以下のように分けてみよう。
+case 構文を使って、HTTP レスポンスを表す map のパターンに応じて処理を以下のように分けてみよう。
 
-* `status`が200のとき、`:ok`と`body`の組のtupleを作る
-* `status`が400のとき、`:error`と`:bad_resuest`の組のtupleを作る
-* `status`が404のとき、`:error`と`:not_found`の組のtupleを作る
-* `status`が500のとき、`:error`と`:internal_error`の組のtupleを作る
+* `status`が 200 のとき、`:ok`と`body`の組の tuple を作る
+* `status`が 400 のとき、`:error`と`:bad_request`の組の tuple を作る
+* `status`が 404 のとき、`:error`と`:not_found`の組の tuple を作る
+* `status`が 500 のとき、`:error`と`:internal_error`の組の tuple を作る
 
 <!-- livebook:{"continue_on_error":true} -->
 
@@ -102,9 +102,9 @@ end
 ExUnit.run()
 ```
 
-マッチの際に`when`による[guard構文](https://hexdocs.pm/elixir/guards.html#content)を用いることで、さらに細かいパターンマッチを行うことができる。
+マッチの際に`when`による[guard 構文](https://hexdocs.pm/elixir/patterns-and-guards.html#guards)を用いることで、さらに細かいパターンマッチを行うことができる。
 
-ただし、guardに用いる条件はコンパイル時に決まっている必要があり、マクロのみが使用可能。  
+ただし、guard に用いる条件はコンパイル時に決まっている必要があり、マクロのみが使用可能。
 (つまり任意の式や関数を用いることができるわけではない)
 
 ```elixir
@@ -139,9 +139,9 @@ case some_map do
 end
 ```
 
-## ifとcond
+## if と cond
 
-Elixirでは基本的に、`if`は結果がbooleanとなる式と共に用いる。
+Elixir では基本的に、`if`は結果が boolean となる式と共に用いる。
 
 `cond`は`if`の条件が複数ある場合に用いる構文である。
 

@@ -4,7 +4,7 @@
 
 Elixirは動的型付け言語だが、内部的には型が存在する。
 
-[基本的な型](https://elixir-lang.org/getting-started/basic-types.html)は以下。
+[基本的な型](https://hexdocs.pm/elixir/basic-types.html)は以下。
 
 * Integer
 * Float
@@ -151,12 +151,12 @@ Enum.at([0, 1, 2, 3], 2)
 
 ```elixir
 # 処理が成功したことと、結果の組を表すデータ構造として
-File.read("./resources/2/hello.txt")
+File.read("/data/resources/2/hello.txt")
 ```
 
 ```elixir
 # 処理が失敗したことを表すデータ構造として
-File.read("./resources/not/found")
+File.read("/data/resources/not/found")
 ```
 
 ### Map
@@ -203,7 +203,7 @@ m["b"]
 
 ## 特徴的な演算子
 
-[Basic operators - Elixir](https://elixir-lang.org/getting-started/basic-operators.html)
+[Operators reference - Elixir](https://hexdocs.pm/elixir/operators.html)
 
 * 中置演算子
   * すでに出ている`+`や`*`などの算術演算子
