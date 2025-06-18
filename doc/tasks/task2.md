@@ -10,6 +10,8 @@
 
   ```shell
   $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "dead_battery"}' -w '\n%{http_code}\n'
+  ```
+  ```plain
   {"sent_at":"2021-06-18T06:26:53Z"}
   200
   ```
@@ -18,6 +20,8 @@
 
   ```shell
   $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "hello"}' -w '\n%{http_code}\n'
+  ```
+  ```plain
   {"message":"Unable to understand the request","type":"BadRequest"}
   400
   ```
