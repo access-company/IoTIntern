@@ -6,7 +6,7 @@
 
 ### 依存関係の取得
 
-予め取得済みのものが AMI に含まれているので、場合に応じて行う。
+予め取得済みのものが AMI に含まれているので、場合に応じて行います。
 
 ```sh
 mix deps.get && mix deps.get
@@ -14,24 +14,25 @@ mix deps.get && mix deps.get
 
 ### Web Server の起動
 
-Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
+[gear_config.json](./gear_config.json)に下記の値を設定します。
 
-[Gear コンフィグ](./gear_config.json)に下記の値を設定する。
-
-`linkit_api_key`, `notification_user_credential`, `chatroom_id` は講師から共有される。
+`linkit_api_key`, `notification_user_credential`, `chatroom_id` は講師から共有されます。
 
 
 ```sh
 $ cat gear_config.json
+```
+```json
 {
   "linkit_app_id": "a_BjF4XHB2",
   "linkit_group_id": "g_YrTWTxJY",
-  "linkit_api_key": "2t23xxxxxxxxxxxxxx", // 要確認
+  "linkit_api_key": "2t23xxxxxxxxxxxxxx",
   "notification_user_credential": "xxxxx",
   "chatroom_id": "xxxxxxxx"
 }
 ```
 
+下記コマンドで `gear_config.json` に書かれた値を環境変数に指定した状態で、Web Server を起動できます。
 ```sh
 IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) iex -S mix
 ```
@@ -40,7 +41,11 @@ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) iex -S mix
 
 Web Server を起動した状態でブラウザから
 http://iot-intern.localhost:8080/ui/index.html
-にアクセスする。
+にアクセスします。
+
+### Linkit へのメッセージ送信の確認
+
+Linkit アカウント登録完了メールにパスワードが記載されているので、メール記載のリンクから Linkit を開いてください。
 
 ## リポジトリレイアウト
 
@@ -58,62 +63,29 @@ http://iot-intern.localhost:8080/ui/index.html
 └── web // API 記述先
 ```
 
-## Antikythera概要
-
-### WebサーバーとしてのAntikythera
-
-[Antikythera](https://github.com/access-company/antikythera)は複数のwebサービスをホスティングするPlatform as a Serviceである。
-Antikytheraにホスティングされた個々のwebサービスをgearと呼んでいる。
-AntikytheraはErlang VM上で動くErlangプロセスの1つであり、gearもまたAntikytheraと同じErlang VM上で動いている。
-
-- Antikytheraの機能
-    - HTTPサーバー
-      - クライアントからのHTTPリクエストに対し、Antikytheraが管理しているErlangプロセスを使ってgearの関数を呼び出し、処理を行う
-      - 処理結果をHTTPレスポンスとしてクライアントに返す
-    - Web Socketの管理
-    - (図には書いていないが) gearが任意の非同期処理を行うための機能提供
-
-![Overview of antikythera framework](/overview_of_antikythera.png)
-
-### HTTPリクエストに対しHTTPレスポンスが返るまでの流れ
-
-1. AntikytheraがクライアントからのHTTPリクエストを受け取る
-2. Antikytheraがgearの関数を呼び出す
-   1. リクエストURLによって処理を行うgearが決まる
-       - サブドメインに基づく
-   2. リクエストのメソッドとURLのパスによって処理を行う関数が決まる
-       - gearの`web/router.ex`に基づく
-       - このファイルにはメソッド・パスの組に対して呼び出されるべき関数(コントローラーと呼ぶ)が定義されている
-   3. gearのコントローラーが実行される
-       - コントローラーはHTTPリクエストを表すデータ構造を受け取り、HTTPレスポンスを表すデータ構造を返す関数
-       - レスポンスボディは必要に応じてHTMLやJSONに加工する(ビューの関数を呼び出す)
-3. AntikytheraがクライアントにHTTPレスポンスを返す
-
-Gear開発者はコントローラーを起点として、HTTPリクエストに対しどのような処理を行うべきか、どのようなHTTPレスポンスを返すべきかに集中すればいい。
-
 ## API 追加のやり方
 
-API を追加するには"コントローラーの処理を書くこと"と"ルーターのパスを設定する" の二つを行う。
+API を追加するには「コントローラーの処理を書くこと」と「ルーターのパスを設定する」の二つを行います。
 
 ### コントローラーの処理を書く
 
-[`web/controller/hello.ex`](web/controller/hello.ex) のようにモジュールと関数を定義する。
+[`web/controller/hello.ex`](web/controller/hello.ex) のようにモジュールと関数を定義します。
 
-`Hello` モジュールの `hello/1` 関数は第一引数に `conn` を受け取り、新しい`conn` を返す。そしてレスポンスのコンテンツを `conn` に詰めるには関数 `Conn.json/3` を使っている。
+`Hello` モジュールの `hello/1` 関数は第一引数に `conn` を受け取り、新しい`conn` を返します。そしてレスポンスのコンテンツを `conn` に詰めるには関数 `Conn.json/3` を使っています。
 
 ### ルーターのパスを書く
 
-[`web/router.ex`](web/router.ex) を書き換える。
+[`web/router.ex`](web/router.ex) を書き換えます。
 
 ## テストの実行
 
-全ての `*_test.exs` ファイルを対象に実行するには
+全ての `*_test.exs` ファイルを対象に実行するには、下記コマンドを実行します。
 
 ```sh
 IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test
 ```
 
-または特定のテストファイルに対して下記のように行う。
+特定のテストファイルを対象に実行するには、下記コマンドを実行します。
 
 ```sh
 IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/web/controller/hello_test.exs
