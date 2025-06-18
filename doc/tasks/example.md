@@ -10,6 +10,8 @@
 
 ```shell
 $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{}' -w '\n%{http_code}\n'
+```
+```plain
 {}
 200
 ```
