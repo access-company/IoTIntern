@@ -33,6 +33,7 @@
 #     case Httpc.post(endpoint_url, {:json, req_body}, header) do
 #       {:ok, %{status: 201, body: res_body}} -> {}
 #       {:ok, %{status: 404}} -> {}
+#       {:ok, %{status: 500}} -> {}
 #       {:error, reason} -> {}
 #     end
 #   end
