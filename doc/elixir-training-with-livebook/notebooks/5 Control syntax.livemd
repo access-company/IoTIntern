@@ -35,6 +35,19 @@ case some_map do
 end
 ```
 
+以下のように`case`の結果を変数に束縛することもできる
+
+```elixir
+result = 
+  case some_map do
+    %{a: value} -> {:ok, "a is #{value}"}
+    %{b: value} -> {:ok, "b is #{value}"}
+    _ -> {:error, "No expected key"}
+  end
+
+IO.inspect(result)
+```
+
 ### 練習問題 Exercise 5-1
 
 HTTP レスポンスを表す map があり、整数の`status`と map の`body`を含むとする。
@@ -145,4 +158,21 @@ Elixir では基本的に、`if`は結果が boolean となる式と共に用い
 
 `cond`は`if`の条件が複数ある場合に用いる構文である。
 
-ほとんどの場合、パターンマッチと`case`構文で事足りるはずなので、ここではあえて取り上げない。
+```elixir
+score = 80
+if score >= 60 do
+  "Pass"
+else
+  "Fail"
+end
+```
+
+```elixir
+score = 80
+cond do
+  score >= 90 -> "Excellent"
+  score >= 75 -> "Good"
+  score >= 60 -> "Pass"
+  true -> "Fail"
+end
+```

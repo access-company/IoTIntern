@@ -329,11 +329,6 @@ Erlangのモッキングライブラリ。
 
 モックを使うと、関数呼び出しを監視することができ、必要ならば同じインターフェースで異なる振る舞いをする別の関数に差し替えることができる。
 
-つまり、下の図のようにあるテストケースのときだけ`HttpBin.send_request/3`を常に`%{status: 500}`を返す別の関数に差し替えることができる。
-
-<!-- livebook:{"break_markdown":true} -->
-
-![モックの説明画像](files/image_of_mocking.png)
 
 ```elixir
 defmodule HttpBin do

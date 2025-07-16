@@ -42,6 +42,12 @@ defmodule IotIntern.Controller.LinkitTest do
     assert Linkit.post_message("message") == {404}
   end
 
+  test "Linkit.post_message returns 500" do
+    :meck.expect(Httpc, :post, 3, {:ok, %{status: 500}})
+
+    assert Linkit.post_message("message") == {500}
+  end
+
   test "Linkit.post_message returns error with timeout" do
     :meck.expect(Httpc, :post, 3, {:error, :timeout})
 
