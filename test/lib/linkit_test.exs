@@ -22,7 +22,7 @@ defmodule IotIntern.Controller.LinkitTest do
         "type": "string",
         "unread_count": 1,
         "user_id": "1267712707"
-      },
+      }
     }
     """
 
