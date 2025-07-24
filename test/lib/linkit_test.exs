@@ -14,8 +14,6 @@ defmodule IotIntern.Controller.LinkitTest do
       "chat_message": {
         "_id": "2456598c88d3fdd8aa000017",
         "chat_room_id": "33398950c711636832000059",
-        "data": {},
-        "importance": "normal",
         "is_deleted": false,
         "message": "脱輪",
         "msg_seq": 10230,
@@ -25,7 +23,6 @@ defmodule IotIntern.Controller.LinkitTest do
         "unread_count": 1,
         "user_id": "1267712707"
       },
-      "server_time": "2015-07-22T00:57:45Z"
     }
     """
 
