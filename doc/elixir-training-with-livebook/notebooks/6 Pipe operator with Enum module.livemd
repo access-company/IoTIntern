@@ -64,6 +64,21 @@ end
 |> IO.puts()
 ```
 
+### 練習問題 Exercise 6-1
+
+先ほどのMyMathモジュールを用いて、次の処理を行ってみよう。
+その際、pipe演算子（`|>`）で関数を繋いで書くようにしてください。
+
+1. 5 * 20を行う
+2. 1.の結果を3倍する
+3. 2.の結果に1000を足す
+
+```elixir
+result = # implement me!
+
+IO.inspect(result)
+```
+
 ## Enumモジュール
 
 詳細は[公式ドキュメント](https://hexdocs.pm/elixir/Enum.html)を参照のこと。
