@@ -76,7 +76,7 @@ end
 ```elixir
 result = # implement me!
 
-IO.inspect(resulet)
+IO.inspect(result)
 ```
 
 ## Enumモジュール

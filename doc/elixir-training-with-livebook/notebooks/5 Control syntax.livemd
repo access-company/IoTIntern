@@ -210,4 +210,6 @@ result =
   cond do
     # implement me!
   end
+
+IO.inspect(result)
 ```
