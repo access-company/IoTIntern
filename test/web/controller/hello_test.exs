@@ -11,7 +11,7 @@ defmodule IotIntern.Controller.HelloTest do
 
   test "hello api succeeds with 200" do
     # NOTE: モジュール名、関数名、モック関数
-    :meck.expect(Httpc, :get, fn _url -> :ok end)
+    # :meck.expect(Httpc, :get, fn _url -> :ok end)
 
     headers = %{"auth" => "xxxx"}
     Enum.each(["hello", "world"], fn message ->
