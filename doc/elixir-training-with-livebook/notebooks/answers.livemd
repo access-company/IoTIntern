@@ -234,9 +234,78 @@ result == {:error, :bad_request}
 true
 ```
 
+### Exercise 5-2
+
+```elixir
+number = -5
+
+result =
+  if number > 0 do
+    "The number is positive."
+  else 
+    "The number is zero or negative."
+  end
+
+result == "The number is zero or negative."
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+true
+```
+
+### Exercise 5-3
+
+```elixir
+response = %{status: 400, body: %{message: "Invalid parameter!"}}
+status = response.status
+body = response.body
+
+result =
+  cond do
+    status == 200 -> {:ok, body}
+    status == 400 -> {:error, :bad_request}
+    status == 404 -> {:error, :not_found}
+    status == 500 -> {:error, :internal_error}
+  end
+
+result == {:error, :bad_request}
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+true
+```
+
 <!-- livebook:{"branch_parent_index":0} -->
 
 ## 6 pipe operator with Enum module
+
+### Exercise 6-1
+
+```elixir
+defmodule MyMath do
+  def add(x, y) do
+    x + y
+  end
+
+  def multiple(x, y) do
+    x * y
+  end
+end
+
+result = MyMath.multiple(5, 20) |> MyMath.multiple(3) |> MyMath.add(1000) 
+
+result == 1300
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+true
+```
 
 <!-- livebook:{"branch_parent_index":0} -->
 
