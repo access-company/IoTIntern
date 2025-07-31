@@ -7,8 +7,6 @@
 * 短時間（2時間半程度）で書けるようになることを目的としています
   * 必要最低限を残してかなりの部分が省略されています
   * より良いコードが書きたくなったり、細かい情報が必要になったら後述のリンク先を参照してください
-  * 正確性に欠けたり誤った説明をあえてしている箇所があります
-* 誤字脱字に気付いたらPR頂けるとありがたいです
 
 notebookを作るにあたり、下記のドキュメントを参考にしています。
 
@@ -38,11 +36,12 @@ iexも試してみてください。
 
 ```
 $ iex
-Erlang/OTP 23 [erts-11.0.3] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [hipe]
+Erlang/OTP 20 [erts-9.3.3.14] [source] [64-bit] [smp:2:2] [ds:2:2:10] [async-threads:10] [hipe] [kernel-poll:false]
 
-Interactive Elixir (1.11.2) - press Ctrl+C to exit (type h() ENTER for help)
-iex(1)> "Hello Elixir!"
-"Hello Elixir!"
+Interactive Elixir (1.9.4) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> IO.puts("Hello Livebook!")
+Hello Livebook!
+:ok
 ```
 
 ## もっと詳しく・よりよいコードを書くために

@@ -14,24 +14,27 @@ pipe演算子に関連して、Listのような列挙可能(Enumerable)な値の
 
 ## pipe演算子
 
-ある数に対し、次の処理を行う。
+MyMathモジュールを用いて、次の処理を行う。
 
-1. 10を足す
-2. 2倍する
-3. 任意の数を足す
-
-それぞれのステップを個別の関数として表現し、組合せて期待される結果を得ることにする。
+1. 1 + 2を行う
+2. 1.の結果を4倍する
+3. 2.の結果に10を足す
 
 ```elixir
-# 以下の関数を順番に適用する
-add10 = fn x -> x + 10 end
-double = fn x -> x * 2 end
-add = fn x, y -> x + y end
+defmodule MyMath do
+  def add(x, y) do
+    x + y
+  end
+
+  def multiple(x, y) do
+    x * y
+  end
+end
 ```
 
 ```elixir
 # 愚直に書くと返り値を毎回変数に束縛するか、次のように関数をネストして適用する必要がある
-add.(double.(add10.(1)), 100)
+MyMath.add(MyMath.multiple(MyMath.add(1, 2), 4),10)
 ```
 
 pipe演算子を使うと、前の関数の返り値が次の関数の第一引数として自動的に渡される。
@@ -39,7 +42,15 @@ pipe演算子を使うと、前の関数の返り値が次の関数の第一引�
 結果として、関数を適用順に直列に書くことができる。
 
 ```elixir
-1 |> add10.() |> double.() |> add.(100)
+MyMath.add(1, 2) |> MyMath.multiple(4) |> MyMath.add(10) 
+# もしくは下記のように書くことができる
+1 |> MyMath.add(2) |> MyMath.multiple(4) |> MyMath.add(10) 
+```
+
+途中の結果を出力したい場合は下記のように繋いでも良い
+
+```elixir
+MyMath.add(1, 2) |> IO.inspect() |> MyMath.multiple(4) |> IO.inspect() |> MyMath.add(10) 
 ```
 
 `case`も関数なのでpipe演算子でつなぐことができる。
@@ -51,6 +62,21 @@ File.read("resources/2/hello.txt")
   {:error, msg} -> msg
 end
 |> IO.puts()
+```
+
+### 練習問題 Exercise 6-1
+
+先ほどのMyMathモジュールを用いて、次の処理を行ってみよう。
+その際、pipe演算子（`|>`）で関数を繋いで書くようにしてください。
+
+1. 5 * 20を行う
+2. 1.の結果を3倍する
+3. 2.の結果に1000を足す
+
+```elixir
+result = # implement me!
+
+IO.inspect(result)
 ```
 
 ## Enumモジュール
