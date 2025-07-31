@@ -35,11 +35,24 @@ case some_map do
 end
 ```
 
+以下のように`case`の結果を変数に束縛することもできる
+
+```elixir
+result = 
+  case some_map do
+    %{a: value} -> {:ok, "a is #{value}"}
+    %{b: value} -> {:ok, "b is #{value}"}
+    _ -> {:error, "No expected key"}
+  end
+
+IO.inspect(result)
+```
+
 ### 練習問題 Exercise 5-1
 
 HTTP レスポンスを表す map があり、整数の`status`と map の`body`を含むとする。
 
-case 構文を使って、HTTP レスポンスを表す map のパターンに応じて処理を以下のように分けてみよう。
+`case` 構文を使って、HTTP レスポンスを表す map のパターンに応じて処理を以下のように分けてみよう。
 
 * `status`が 200 のとき、`:ok`と`body`の組の tuple を作る
 * `status`が 400 のとき、`:error`と`:bad_request`の組の tuple を作る
@@ -145,4 +158,58 @@ Elixir では基本的に、`if`は結果が boolean となる式と共に用い
 
 `cond`は`if`の条件が複数ある場合に用いる構文である。
 
-ほとんどの場合、パターンマッチと`case`構文で事足りるはずなので、ここではあえて取り上げない。
+```elixir
+score = 80
+if score >= 60 do
+  "Pass"
+else
+  "Fail"
+end
+```
+
+```elixir
+score = 80
+cond do
+  score >= 90 -> "Excellent"
+  score >= 75 -> "Good"
+  score >= 60 -> "Pass"
+  true -> "Fail"
+end
+```
+
+### 練習問題 Exercise 5-2
+
+`if`を使って、正の数の場合は "The number is positive.", それ以外(0, 負の数)の場合は "The number is zero or negative." を表示させてみよう。
+
+```elixir
+number = -5
+
+result =
+  if xxxx do
+    # implement me!
+  end
+
+IO.inspect(result)
+```
+
+### 練習問題 Exercise 5-3
+
+HTTP レスポンスを表す map があり、整数の`status`と map の`body`を含むとする。
+
+`cond` 構文を使って、HTTP レスポンスを表す map のパターンに応じて処理を以下のように分けてみよう。
+
+* `status`が 200 のとき、`:ok`と`body`の組の tuple を作る
+* `status`が 400 のとき、`:error`と`:bad_request`の組の tuple を作る
+* `status`が 404 のとき、`:error`と`:not_found`の組の tuple を作る
+* `status`が 500 のとき、`:error`と`:internal_error`の組の tuple を作る
+
+```elixir
+response = %{status: 400, body: %{message: "Invalid parameter!"}}
+
+result =
+  cond do
+    # implement me!
+  end
+
+IO.inspect(result)
+```
