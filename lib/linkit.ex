@@ -44,6 +44,7 @@ defmodule IotIntern.Linkit do
     case Httpc.post(endpoint_url, {:json, req_body}, header) do
       {:ok, %{status: 201, body: res_body}} -> {201, Jason.decode!(res_body)}
       {:ok, %{status: 404}} -> {404}
+      {:ok, %{status: 500}} -> {500}
       {:error, reason} -> {:error, reason}
     end
   end
