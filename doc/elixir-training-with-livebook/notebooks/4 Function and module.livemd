@@ -54,7 +54,7 @@ add.(1, 2)
 関数の処理に必要な値だけ取り出すことができ、**とても強力**。
 
 ```elixir
-defmodule MyMath do
+defmodule MyMath1 do
   def add(%{a: a, b: b}) do
     a + b
   end
@@ -65,8 +65,8 @@ defmodule MyMath do
 end
 
 params = %{a: 1, b: 2, x: 24, y: 25, z: 26}
-IO.inspect(MyMath.add(params))
-IO.inspect(MyMath.multiple(params))
+IO.inspect(MyMath1.add(params))
+IO.inspect(MyMath1.multiple(params))
 ```
 
 ```elixir
@@ -246,7 +246,7 @@ func.(1, 2, add) == 3
   * `defp`でモジュール内からしか呼び出せないprivate関数を定義
 
 ```elixir
-defmodule MyMath do
+defmodule MyMath2 do
   def add(x, y) do
     x + y
   end
@@ -267,28 +267,28 @@ end
 ```
 
 ```elixir
-MyMath.add(1, 2)
+MyMath2.add(1, 2)
 ```
 
 ```elixir
-MyMath.multiple(2, 3)
+MyMath2.multiple(2, 3)
 ```
 
 ```elixir
-MyMath.get_sum_and_products(2, 3)
+MyMath2.get_sum_and_products(2, 3)
 ```
 
 <!-- livebook:{"continue_on_error":true} -->
 
 ```elixir
-MyMath.show_args(2, 3)
+MyMath2.show_args(2, 3)
 
 # => %UndefinedFunctionError{arity: 2, function: :show_args, message: nil, module: MyMath, reason: nil}
 ```
 
 ```elixir
 # 名前付き関数適用時の括弧は省略可能
-MyMath.add(1, 2)
+MyMath2.add(1, 2)
 ```
 
 高階関数に名前付き関数を渡す時は、`&ModuleName.function_name/0`や`&function_name/0`のように、`/0`でarity(引数の数)を指定する。
