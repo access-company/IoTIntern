@@ -22,7 +22,7 @@ defmodule IotIntern.Controller.AlertTest do
         "request_id" => "d80979c1-624c-4b9e-91e3-d1a0a713c7d01437526664419",
         "is_deleted" => false,
         "unread_count" => 1,
-        "message" => "脱輪が発生しました",
+        "message" => "脱輪が発生しました"
       }
     }
 
