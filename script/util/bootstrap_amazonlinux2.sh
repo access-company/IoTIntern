@@ -6,9 +6,9 @@ set -euo pipefail -o posix
 #
 gear_dir_name=IoTIntern
 iot_intern_repo_url="https://github.com/access-company/${gear_dir_name}.git"
-erlang_version="20.3.8.25"
-elixir_version="1.9.4"
-nodejs_version="14.17.1"
+erlang_version="26.2.5.14"
+elixir_version="1.15.8-otp-26"
+nodejs_version="22.11.0"
 
 
 admin_password=""
@@ -19,22 +19,21 @@ user_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfzA7yQtj8YRPunRbrF/OhiVMH
 #
 # Do setup
 #
-log="/tmp/bootstrap_amazonlinux2_$(date '+%Y%m%dT%H%M').log"
+log="/tmp/bootstrap_amazonlinux2023_$(date '+%Y%m%dT%H%M').log"
 (
   #
   # Install basic packages
   #
-  yum -y update
-  yum groupinstall -y "Development Tools"
-  yum install -y openssl-devel ncurses-devel expad-devel
-  yum install -y openssl openssl-devel gcc-c++ unixODBC unixODBC-devel fop java-1.6.0-openjdk-devel
+  dnf -y update
+  dnf groupinstall -y "Development Tools"
+  dnf install -y openssl-devel ncurses-devel expat-devel
   # inotify is required by antikythera
   cd /opt
   git clone https://github.com/inotify-tools/inotify-tools.git --branch 3.20.2.2
   cd inotify-tools && bash autogen.sh
   ./configure --prefix=/usr --libdir=/lib64 && make && make install
   # development header of the Expat is required in compiling fast_xml, on which antikythera depends
-  yum install -y patch expat-devel
+  dnf install -y patch expat-devel
 
   content=$(cat << 'EOF'
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
@@ -82,32 +81,11 @@ EOF
   add_linux_user intern-admin 501 "${admin_password}" "${admin_ssh_pubkey}"
   add_linux_user intern-user 502 "${user_password}" "${user_ssh_pubkey}"
 
-  usermod -G wheel intern-admin
-
-  #
-  #  Install asdf
-  #
-  yum install -y automake autoconf readline-devel ncurses-devel openssl-devel libyaml-devel libxslt-devel libffi-devel libtool
-  mkdir /opt/asdf
-  git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.1
-  chown -R intern-admin:intern-admin /opt/asdf
-  content=$(cat << 'EOF'
-  export ASDF_DATA_DIR='/opt/asdf'
-. /opt/asdf/asdf.sh
-EOF
-  )
-  echo "${content}" >> "/etc/bashrc"
-  set +u
-  # shellcheck disable=SC1091
-  source "/etc/bashrc"
-  set -u
-  echo "[Done] installed asdf"
-
   #
   # Install languages for gear development
   #
-  touch /etc/asdf-tool-versions
-  chown intern-admin:intern-admin /etc/asdf-tool-versions
+  sudo touch /etc/asdf-tool-versions
+  sudo chown intern-admin:intern-admin /etc/asdf-tool-versions
   content=$(cat << EOF
 erlang ${erlang_version}
 elixir ${elixir_version}
@@ -115,8 +93,36 @@ nodejs ${nodejs_version}
 EOF
   )
   echo "${content}" > /etc/asdf-tool-versions
+  
+  usermod -G wheel intern-admin
+
+  #
+  #  Install asdf
+  #
+  dnf install -y automake autoconf readline-devel ncurses-devel openssl-devel libyaml-devel libxslt-devel libffi-devel libtool
+  mkdir /opt/asdf
+  git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.14.1
+  sudo chown -R intern-admin:intern-admin /opt/asdf
+  export ASDF_DATA_DIR='/opt/asdf'
+. /opt/asdf/asdf.sh
+  content=$(cat << 'EOF'
+  export ASDF_DATA_DIR='/opt/asdf'
+. /opt/asdf/asdf.sh
+EOF
+  )
+  echo "${content}" >> "/etc/bashrc"
+  echo "[Done] installed asdf"
   # Required to install asdf plugin by root user
   export HOME="/home/intern-admin/"
+
+  # Install swap file
+  swapfile_size_in_mb=1024
+  dd if=/dev/zero of=/swapfile count="${swapfile_size_in_mb}" bs=1M
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+  sudo echo '/swapfile swap swap defaults 0 0' >> /etc/fstab
+  sudo echo "[Done] installed swap file"
 
   # Erlang
   su intern-admin -c "asdf plugin-add erlang"
@@ -132,7 +138,7 @@ EOF
   echo "[Done] installed Elixir ${elixir_version}"
 
   # Node.js
-  yum install -y perl-Digest-SHA
+  dnf install -y perl-Digest-SHA
   su intern-admin -c "asdf plugin-add nodejs"
   su intern-admin -c "asdf install nodejs ${nodejs_version}"
   su intern-admin -c "npm install --global yarn"
@@ -158,23 +164,12 @@ EOF
   echo "${content}" >> '/etc/sysctl.d/docker-compose-elixir-training.conf'
   echo "[Done] tuned kernel parameters"
 
-  # Install swap file
-  swapfile_size_in_mb=1024
-  dd if=/dev/zero of=/swapfile count="${swapfile_size_in_mb}" bs=1M
-  chmod 600 /swapfile
-  mkswap /swapfile
-  swapon /swapfile
-  echo '/swapfile swap swap defaults 0 0' >> /etc/fstab
-  echo "[Done] installed swap file"
 
-  # Install docker and docker-compose
-  sudo yum install -y docker
-  sudo systemctl start docker
-  sudo systemctl enable docker
+  # Install docker
+  sudo dnf install -y docker
+  sudo systemctl enable --now docker
   sudo usermod -a -G docker intern-admin
-  curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  chmod +x /usr/local/bin/docker-compose
-  echo "[Done] installed docker and docker-compose"
+  echo "[Done] installed docker"
 
   content=$(cat << "EOF"
 [Unit]
