@@ -24,6 +24,7 @@ try do
       [
         # List of gear dependencies, e.g.
         # {:some_gear, [git: "git@github.com:some-organization/some_gear.git"]},
+        {:calliope, [git: "https://github.com/access-company/calliope.git", override: true]},
       ]
     end
   end
@@ -35,7 +36,10 @@ rescue
       def project() do
         [
           app:  :just_to_fetch_antikythera_instance_as_a_dependency,
-          deps: [unquote(instance_dep)],
+          deps: [
+            unquote(instance_dep),
+            {:calliope, [git: "https://github.com/access-company/calliope.git"]}
+          ],
         ]
       end
     end
