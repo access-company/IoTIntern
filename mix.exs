@@ -36,10 +36,7 @@ rescue
       def project() do
         [
           app:  :just_to_fetch_antikythera_instance_as_a_dependency,
-          deps: [
-            unquote(instance_dep),
-            {:calliope, [git: "https://github.com/access-company/calliope.git"]}
-          ],
+          deps: [unquote(instance_dep)],
         ]
       end
     end
