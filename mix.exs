@@ -24,6 +24,7 @@ try do
       [
         # List of gear dependencies, e.g.
         # {:some_gear, [git: "git@github.com:some-organization/some_gear.git"]},
+        {:calliope, [git: "https://github.com/access-company/calliope.git", override: true]},
       ]
     end
   end
