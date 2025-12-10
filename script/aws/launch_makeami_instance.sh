@@ -25,7 +25,7 @@ find_image_id() {
     --owner amazon \
     --filters "Name=architecture,Values=x86_64" \
       "Name=virtualization-type,Values=hvm" \
-      "Name=name,Values=amzn2-ami-kernel-*" \
+      "Name=name,Values=al2023-ami-2023.*" \
       "Name=state,Values=available" \
     --query Images \
   | jq -r "sort_by(.CreationDate)[-1].ImageId"
