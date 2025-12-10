@@ -169,9 +169,13 @@ EOF
 
   # Install docker
   sudo dnf install -y docker
-  sudo systemctl enable --now docker
+  sudo systemctl start docker
+  sudo systemctl enable docker  
   sudo usermod -a -G docker intern-admin
-  echo "[Done] installed docker"
+
+  curl -L "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  echo "[Done] installed docker and docker-compose"
 
   content=$(cat << "EOF"
 [Unit]
