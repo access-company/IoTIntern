@@ -13,8 +13,8 @@ nodejs_version="22.11.0"
 
 admin_password=""
 user_password=""
-admin_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFdUtImrkF223X3Eyj+Kv8jaSltvCldKKcr/46eGMDvl'
-user_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfzA7yQtj8YRPunRbrF/OhiVMH8DAXe7E4wGHNolhmZ'
+admin_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILlvTc39SsQ5r8eDJ5h70+fRozO8qY91JD2cZlDo9V8o'
+user_ssh_pubkey='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMroi/NDHU4V+jFjiaUHgTzXeQA4htlD3+7Q++Rpy4ZV'
 
 #
 # Do setup
