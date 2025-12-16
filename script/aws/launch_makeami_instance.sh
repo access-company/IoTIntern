@@ -20,15 +20,11 @@ if ! [ -f "$file" ]; then
 fi
 
 find_image_id() {
-  aws ec2 describe-images \
+  aws ssm get-parameter \
     --profile iot_intern \
-    --owner amazon \
-    --filters "Name=architecture,Values=x86_64" \
-      "Name=virtualization-type,Values=hvm" \
-      "Name=name,Values=amzn2-ami-kernel-*" \
-      "Name=state,Values=available" \
-    --query Images \
-  | jq -r "sort_by(.CreationDate)[-1].ImageId"
+    --name "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64" \
+    --query "Parameter.Value" \
+    --output text
 }
 
 find_subnet_id() {
