@@ -17,7 +17,7 @@ install_extension(){
 }
 
 # https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml
-install_extension jebbs plantuml 2.15.1
+install_extension jebbs plantuml 2.18.1
 
 # https://marketplace.visualstudio.com/items?itemName=develiteio.api-blueprint-viewer
 install_extension develiteio api-blueprint-viewer 0.9.4
@@ -29,4 +29,4 @@ install_extension mhutchie git-graph 1.30.0
 install_extension mjmcloug vscode-elixir 1.1.0
 
 # https://marketplace.visualstudio.com/items?itemName=ms-vsliveshare.vsliveshare
-install_extension ms-vsliveshare vsliveshare 1.0.5669
+install_extension ms-vsliveshare vsliveshare 1.0.5959
