@@ -26,13 +26,13 @@ defmodule IotIntern.Controller.AlertTest do
       }
     }
 
-    now = ~U[2021-06-02T03:53:30Z]
+    now = ~U[2021-06-02T03:53:30.000000Z]
     :meck.expect(DateTime, :utc_now, fn -> now end)
 
     [
       {"jamming", "異物混入が発生しました"},
       {"derailment", "脱輪が発生しました"},
-      {"dead_battery", "バッテリー不足が発生しました"},
+      {"dead_battery", "バッテリー不足が発生しました"}
     ]
     |> Enum.each(fn {alert_message, linkit_message} ->
       :meck.expect(Linkit, :post_message, fn message ->
