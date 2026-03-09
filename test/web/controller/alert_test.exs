@@ -26,7 +26,7 @@ defmodule IotIntern.Controller.AlertTest do
       }
     }
 
-    now = ~U[2021-06-02T03:53:30Z]
+    now = ~U[2021-06-02T03:53:30.000000Z]
     :meck.expect(DateTime, :utc_now, fn -> now end)
 
     # dead_battery
