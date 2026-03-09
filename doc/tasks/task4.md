@@ -26,6 +26,10 @@ Finished in 0.8 seconds
 Randomized with seed 791970
 ```
 
+### ヒント
+
+テストファイルは [test/web/controller/alert_test.exs](https://github.com/access-company/IoTIntern/blob/master/test/web/controller/alert_test.exs) に既に用意されています。
+
 ### JSONオブジェクトのパース・エンコード
 
 Elixir講義の7章を参照してみてください。
