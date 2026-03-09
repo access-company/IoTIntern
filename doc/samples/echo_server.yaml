@@ -1,0 +1,52 @@
+openapi: "3.0.3"
+info:
+  title: API 一覧
+  version: "1.0.0"
+servers:
+  - url: https://api.example.com
+tags:
+  - name: echo
+    description: エコー API
+
+paths:
+  /echo:
+    post:
+      tags:
+        - echo
+      summary: エコー API
+      description: クライアントからのリクエストボディをそのまま返します
+      operationId: echo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: メッセージ
+                  example: hello
+      responses:
+        "200":
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 応答メッセージ
+                    example: hello
+        "400":
+          description: リクエスト不正
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: エラーメッセージ
+                    example: Bad Request
