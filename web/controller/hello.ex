@@ -10,11 +10,12 @@ defmodule IotIntern.Controller.Hello do
   def hello(%{request: req} = conn) do
     %{
       headers: %{
-        "auth" => auth,
+        "auth" => auth
       },
-      body: %{
-        "message" => msg,
-      } = req_body,
+      body:
+        %{
+          "message" => msg
+        } = req_body
     } = req
 
     # NOTE: リクエストの呼び出しは下記のように行うがテストでは実際にリクエストを行わないよう :meck を使う。
@@ -22,7 +23,7 @@ defmodule IotIntern.Controller.Hello do
 
     case {auth, msg} do
       {"xxxx", msg} when msg in ["hello", "world"] -> Conn.json(conn, 200, req_body)
-      _                                            -> Conn.json(conn, 400, %{"message" => "ng"})
+      _ -> Conn.json(conn, 400, %{"message" => "ng"})
     end
   end
 end
