@@ -12,7 +12,7 @@
 - curl でリクエストを行うと `sent_at` が返される。
 
   ```shell
-  $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{}' -w '\n%{http_code}\n'
+  curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{}' -w '\n%{http_code}\n'
   ```
   ```plain
   {"sent_at":"2021-06-18T06:26:53Z"}
