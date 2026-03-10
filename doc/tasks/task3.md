@@ -39,7 +39,7 @@ Web Server を起動した状態でブラウザから http://iot-intern.localhos
   $ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
   ```
   ```plain
-  … (省略) 3 tests, 0 failures
+  … (省略) 7 tests, 0 failures
   ```
 
 ### ヒント
