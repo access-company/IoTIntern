@@ -44,7 +44,7 @@ Web Server を起動した状態でブラウザから http://iot-intern.localhos
 
 ### ヒント
 
-テストコードは [test/lib/linkit_test.exs](https://github.com/access-company/IoTIntern/blob/master/test/lib/linkit_test.exs) に既に実装済みです。まずはこのテストが何のテストをしているのかを考えてみましょう。
+テストコードは [test/lib/linkit_test.exs](../../test/lib/linkit_test.exs) に既に実装済みです。まずはこのテストが何のテストをしているのかを考えてみましょう。
 
 ## テストとは
 
