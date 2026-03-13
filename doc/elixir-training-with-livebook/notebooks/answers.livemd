@@ -34,21 +34,6 @@ true
 ### Exercise 3-2
 
 ```elixir
-# 3を変数xに束縛
-%{c: x} = %{a: 1, b: 2, c: 3}
-
-x == 3
-```
-
-<!-- livebook:{"output":true} -->
-
-```
-true
-```
-
-### Exercise 3-3
-
-```elixir
 # :aを変数x、2.3を変数yに拘束（1と"a"は何にも拘束しない）
 [_, x, _, y] = [1, :a, "a", 2.3]
 
@@ -61,13 +46,28 @@ x == :a and y == 2.3
 true
 ```
 
-### Exercise 3-4
+### Exercise 3-3
 
 ```elixir
 # 2を変数x、4を変数y、5～10のリストをzに拘束（1と3は何にも拘束しない）
 [1, x, 3, y | z] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 x == 2 and y == 4 and z == [5, 6, 7, 8, 9, 10]
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+true
+```
+
+### Exercise 3-4
+
+```elixir
+# 3を変数xに束縛
+%{c: x} = %{a: 1, b: 2, c: 3}
+
+x == 3
 ```
 
 <!-- livebook:{"output":true} -->
