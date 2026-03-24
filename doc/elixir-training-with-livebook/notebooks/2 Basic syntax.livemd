@@ -72,7 +72,7 @@ false
 ```
 
 ```elixir
-# booleanのtrueやfalse、値がないことを示すnilも実際にはコロンを省略したatomとして定義されています
+# booleanのtrueやfalse、値がないことを示すnilも実際にはコロンを省略したatomとして定義されている
 true == :true
 ```
 

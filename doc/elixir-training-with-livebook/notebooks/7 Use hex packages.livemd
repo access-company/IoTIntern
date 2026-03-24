@@ -221,7 +221,7 @@ test_struct
 
 <!-- livebook:{"break_markdown":true} -->
 
-また、StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使いましょう。
+また、StructからMapへの変換には [`Map.from_struct/1`](https://hexdocs.pm/elixir/Map.html#from_struct/1)を使うこと。
 
 ```elixir
 # Map
