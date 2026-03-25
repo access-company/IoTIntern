@@ -2,7 +2,7 @@
 
 ## 関数の種類
 
-Elixirは関数型言語で、関数は基本的な型の一つでもある。
+Elixirは関数型言語で、関数はプログラムを構成する基本的な要素である。
 
 * Elixirの関数は2種類
   * コードのどこにでも書ける無名関数(anonymous function)
@@ -10,10 +10,13 @@ Elixirは関数型言語で、関数は基本的な型の一つでもある。
 
 ## 無名関数
 
-モジュールに属さない関数。 変数に束縛することで使い回すことができる。
+モジュールに属さない関数。
+変数に束縛することで使い回すことができる。
+無名関数には名前がないが、内部的には定義時に返る`#Function<43.97283095/2 in :erl_eval.expr/5>`のようなハッシュで識別されている。
 
-* 無名関数の定義方法
-* 無名関数は、内部的には定義時に返る`#Function<43.97283095/2 in :erl_eval.expr/5>`のようなハッシュで識別されている
+### 無名関数の定義方法
+
+`fn`キーワードを用いて定義する。
 
 ```elixir
 # 引数を1つとる関数
@@ -26,10 +29,9 @@ fn x, y -> x + y end
 ```
 
 * 無名関数を変数に束縛できる
-* 無名関数の呼び出し時は、`add.(1, 2)`のように`.()`と括弧の前にピリオドが必要
-  * 名前付き関数呼び出しの`()`が省略できる仕様との間で曖昧さを回避するため
-  * `IO.inspect "hello"`は`IO`moduleの名前付き関数`puts`を呼び出しているので括弧を省略できている
-  * 丁寧に書くと`IO.inspect("hello")`
+* 無名関数を呼び出すときは、`add.(1, 2)`のように括弧の前にピリオド`.()`が必要
+  * 名前付き関数呼び出しと区別するため
+  * `add(1, 2)`は同じモジュール内の名前付き関数`add`を呼び出す構文として解釈される
 
 ```elixir
 add = fn x, y -> x + y end
@@ -37,7 +39,7 @@ add = fn x, y -> x + y end
 add.(1, 2)
 ```
 
-引数名を省略する記法もある
+引数名を省略する記法もある。
 
 * `&()`で囲み、`&1`, `&2`, ... で第1引数から順に参照する
 * 後述の高階関数に単純な関数を与える際などに使うことがある
@@ -54,19 +56,12 @@ add.(1, 2)
 関数の処理に必要な値だけ取り出すことができ、**とても強力**。
 
 ```elixir
-defmodule MyMath1 do
-  def add(%{a: a, b: b}) do
-    a + b
-  end
-
-  def multiple(%{x: x, y: y}) do
-    x * y
-  end
-end
+add = fn %{a: a, b: b} -> a + b end
+multiple = fn %{x: x, y: y} -> x * y end
 
 params = %{a: 1, b: 2, x: 24, y: 25, z: 26}
-IO.inspect(MyMath1.add(params))
-IO.inspect(MyMath1.multiple(params))
+IO.inspect(add.(params))
+IO.inspect(multiple.(params))
 ```
 
 ```elixir
@@ -102,7 +97,6 @@ extract_answer.(request) == 42
 ```
 
 関数は複数の式を持てる。
-
 `return`という構文は無く、最後の式の値が返り値となる。
 
 ```elixir
@@ -116,14 +110,13 @@ end
 multilines_add.(2, 3)
 ```
 
-これはつまり、**Early returnはできない**ということ。
+これはつまり、**早期リターンはできない**ということ。
 
-一応、Elixirでは後で出てくる`case`式や`if`式でearly return相当のことはできる。
-
-ただしElixirでは、パターンマッチや関数の多重定義が可能なおかげで、early returnができなくて困ることはあまりない。
+一応、Elixirでは後で出てくる`case`式や`cond`式、`if`式で早期リターン相当のことはできる。
+ただしElixirでは、パターンマッチや関数の多重定義が可能なおかげで、早期リターンができなくて困ることはあまりない。
 
 ```elixir
-# Early returnができないので普通に書くとif式がネストする。
+# 早期リターンができないので、if式で書くとそのまま入れ子が深くなってしまう
 # そもそも関数内で条件分岐しようとすると、処理の本体以外のコードが増えてしまう
 
 something_do_with_positive_int = fn x ->
@@ -221,7 +214,7 @@ IO.inspect(my_mul.(6, 7))
 
 ### 練習問題 Exercise 4-2
 
-第1引数と第2引数に数字、第3引数に引数を2つとる関数をとり、第1引数と第2引数を第3引数の関数へ渡して実行する関数を作ってみよう。
+第1引数と第2引数に数値、第3引数に引数を2つとる関数をとり、第1引数と第2引数の値を第3引数の関数の各引数として渡して適用する関数を作ってみよう。
 
 <!-- livebook:{"continue_on_error":true} -->
 
@@ -230,18 +223,18 @@ IO.inspect(my_mul.(6, 7))
 func = "implement me!"
 
 add = &(&1 + &2)
-func.(1, 2, add) == 3
+func.(1, 2, add) == 3  # add.(1, 2) の結果が返る
 ```
 
 ## モジュールと名前付き関数
 
 * Elixirでは関連する関数をグループ化してモジュールとして管理する
-  * 処理を行う対象となるデータごとにモジュールを分割する事が多い
-  * e.g.) 文字列を処理する`String`モジュールなど。他にも`List`モジュール、`Map`モジュール、`Enum`モジュールなど
+  * 処理対象のデータごとにモジュールを分割する事が多い
+  * 文字列を処理する`String`モジュールなど。他にも`List`モジュール、`Map`モジュール、`Enum`モジュールなど
 * モジュール名はUpperCamelCaseで表す
 * モジュール名を`.`で連結することで階層構造をもたせることができる
   * ex. `Module.Submodule`
-* モジュール内で定義した関数は名前付き関数となる
+* 名前付き関数は、モジュール内でのみ定義できる
   * `def`でモジュール外から呼び出せるpublic関数を定義
   * `defp`でモジュール内からしか呼び出せないprivate関数を定義
 
@@ -282,8 +275,7 @@ MyMath2.get_sum_and_products(2, 3)
 
 ```elixir
 MyMath2.show_args(2, 3)
-
-# => %UndefinedFunctionError{arity: 2, function: :show_args, message: nil, module: MyMath, reason: nil}
+# => (UndefinedFunctionError) function MyMath2.show_args/2 is undefined or private
 ```
 
 ```elixir
@@ -291,9 +283,9 @@ MyMath2.show_args(2, 3)
 MyMath2.add(1, 2)
 ```
 
-高階関数に名前付き関数を渡す時は、`&ModuleName.function_name/0`や`&function_name/0`のように、`/0`でarity(引数の数)を指定する。
+高階関数に名前付き関数を渡す時は、`&ModuleName.function_name/0`や`&function_name/0`のように、`/0`でアリティ(引数の個数)を指定する。
 
-Elixirでは名前が同じでもarityが違う関数は異なるものとして扱われる。
+Elixirでは名前が同じでもアリティが違う関数は異なるものとして扱われる。
 
 ```elixir
 defmodule Vegitable do
@@ -358,7 +350,7 @@ IO.inspect(Name.get_full_name(name_map) == "Jose Valim")
 
 参考までに。
 
-同じ名前・同じarityの関数を複数定義することができる。
+同じ名前・同じアリティの関数を複数定義することができる。
 
 引数のパターンにマッチする関数が実際に呼ばれる。
 
@@ -395,11 +387,9 @@ OverloadExample.ensure_success(:bad)
 
 ### 関数の仕様(スペック)
 
-Elixirは動的型付け言語なので、ランタイム時の型チェックは難しい。
-
+Elixirは動的型付け言語なので、型は実行時に決定され、コンパイル時に検査することはできない。
 しかし、型自体は存在しており、関数のスペック(引数や返り値の型)を表現することは可能。
-
-スペックを定義することで、静的解析ツールを用いてコンパイル時にチェックさせることが可能。
+スペックを定義することで、静的解析ツールを用いて実行前に型検査ができる。
 
 ```elixir
 defmodule SpecExample do
