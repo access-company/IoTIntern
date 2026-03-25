@@ -92,12 +92,16 @@ x = 0
 * 変数に束縛された値は、何があっても変化しない
 
 ```elixir
-array1 = [0, 1, 2]
-array2 = array1
-array2 = array2 ++ [3]
+user1 = %{ id: 1, name: "Alice" }
+user2 = %{ id: 2, name: "Bob" }
+users = [user1, user2]
+IO.inspect(users)
 
-# 以下は true か false か? 予想してから実行してみよう
-array1 == [0, 1, 2] and array2 == [0, 1, 2, 3]
+# user1.name = "Taro" のような書き方はできない
+user1 = %{ user1 | name: "Taro" }
+
+# user1 を再束縛しても、users の値は変化しない
+IO.inspect(users)
 ```
 
 ### Listに対するパターンマッチ
