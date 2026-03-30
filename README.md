@@ -20,7 +20,7 @@ mix deps.get && mix deps.get
 
 
 ```sh
-$ cat gear_config.json
+cat gear_config.json
 ```
 ```json
 {
