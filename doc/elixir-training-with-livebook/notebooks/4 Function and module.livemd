@@ -282,7 +282,7 @@ MyMath1.show_args(2, 3)
 
 ```elixir
 # 名前付き関数適用時の括弧は省略可能
-MyMath1.add(1, 2)
+MyMath1.add 1, 2
 ```
 
 ### 名前付き関数の引数パターンマッチ
