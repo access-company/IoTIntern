@@ -13,7 +13,7 @@ lib/linkit.ex のコメントアウトを解除し、適宜コードを補完し
 - お掃除ロボットシミュレータの障害発生時、または下記のコマンド実行時に Linkit app にメッセージが届く。
 
   ```shell
-  $ curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "dead_battery"}' -w '\n%{http_code}\n'
+  curl -X POST "http://iot-intern.localhost:8080/api/v1/alert" -H "Content-Type: application/json" -d '{"type": "dead_battery"}' -w '\n%{http_code}\n'
   ```
   ```plain
   {"sent_at":"2021-06-18T06:59:41Z"}
@@ -22,7 +22,7 @@ lib/linkit.ex のコメントアウトを解除し、適宜コードを補完し
 
 ### ヒント
 
-Linkit API の仕様書は、別途共有された linkit_api.apib を参照ください。
+Linkit API の仕様書は、別途共有された linkit_api.yaml を参照ください。
 
 課題Aが完成すれば、お掃除ロボットシミュレータを動かすとLinkitの方に通知が来るはずです。
 Web Server を起動した状態でブラウザから http://iot-intern.localhost:8080/ui/index.html にアクセスして試してみてください。
@@ -36,15 +36,15 @@ Web Server を起動した状態でブラウザから http://iot-intern.localhos
 - テストが成功する
 
   ```shell
-  $ IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
+  IOT_INTERN_CONFIG_JSON=$(cat gear_config.json) mix test test/lib/linkit_test.exs
   ```
   ```plain
-  … (省略) 3 tests, 0 failures
+  … (省略) 7 tests, 0 failures
   ```
 
 ### ヒント
 
-テストコードは [test/lib/linkit_test.exs](https://github.com/access-company/IoTIntern/blob/master/test/lib/linkit_test.exs) に既に実装済みです。まずはこのテストが何のテストをしているのかを考えてみましょう。
+テストコードは [test/lib/linkit_test.exs](../../test/lib/linkit_test.exs) に既に実装済みです。まずはこのテストが何のテストをしているのかを考えてみましょう。
 
 ## テストとは
 

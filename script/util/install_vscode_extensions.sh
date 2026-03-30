@@ -19,8 +19,8 @@ install_extension(){
 # https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml
 install_extension jebbs plantuml 2.18.1
 
-# https://marketplace.visualstudio.com/items?itemName=develiteio.api-blueprint-viewer
-install_extension develiteio api-blueprint-viewer 0.9.4
+# https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi
+install_extension 42Crunch vscode-openapi 5.2.0
 
 # https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
 install_extension mhutchie git-graph 1.30.0
