@@ -14,6 +14,7 @@ defmodule IotIntern.Controller.HelloTest do
     # :meck.expect(Httpc, :get, fn _url -> :ok end)
 
     headers = %{"auth" => "xxxx"}
+
     Enum.each(["hello", "world"], fn message ->
       req_body = %{"message" => message}
       res = Req.post_json(@api_path, req_body, headers)
