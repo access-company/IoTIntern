@@ -129,7 +129,7 @@ end
 
 ```elixir
 # Enum というモジュールにインデックスで要素を取り出す関数 at が実装されている
-Enum.at([0, 1, 2, 3], 2)
+Enum.at(["Alice", "Bob", "Carol", "Dave"], 2)
 ```
 
 ### Tuple

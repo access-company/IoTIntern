@@ -96,6 +96,8 @@ extract_answer = "implement me!"
 extract_answer.(request) == 42
 ```
 
+### 複数の式と制御構造
+
 関数は複数の式を持てる。
 `return`という構文は無く、最後の式の値が返り値となる。
 
@@ -239,7 +241,7 @@ func.(1, 2, add) == 3  # add.(1, 2) の結果が返る
   * `defp`でモジュール内からしか呼び出せないprivate関数を定義
 
 ```elixir
-defmodule MyMath2 do
+defmodule MyMath1 do
   def add(x, y) do
     x + y
   end
@@ -260,28 +262,111 @@ end
 ```
 
 ```elixir
-MyMath2.add(1, 2)
+MyMath1.add(1, 2)
 ```
 
 ```elixir
-MyMath2.multiple(2, 3)
+MyMath1.multiple(2, 3)
 ```
 
 ```elixir
-MyMath2.get_sum_and_products(2, 3)
+MyMath1.get_sum_and_products(2, 3)
 ```
 
 <!-- livebook:{"continue_on_error":true} -->
 
 ```elixir
-MyMath2.show_args(2, 3)
-# => (UndefinedFunctionError) function MyMath2.show_args/2 is undefined or private
+MyMath1.show_args(2, 3)
+# => (UndefinedFunctionError) function MyMath1.show_args/2 is undefined or private
 ```
 
 ```elixir
 # 名前付き関数適用時の括弧は省略可能
-MyMath2.add(1, 2)
+MyMath1.add 1, 2
 ```
+
+### 名前付き関数の引数パターンマッチ
+
+名前付き関数でも引数のパターンマッチが使える。
+
+```elixir
+defmodule MyMath2 do
+  def add(%{a: a, b: b}) do
+    a + b
+  end
+
+  def multiple(%{x: x, y: y}) do
+    x * y
+  end
+end
+
+params = %{a: 1, b: 2, x: 24, y: 25, z: 26}
+IO.inspect(MyMath2.add(params))
+IO.inspect(MyMath2.multiple(params))
+```
+
+### 名前付き関数の多重定義
+
+参考までに。
+
+同じ名前・同じアリティの関数を複数定義することができる。
+
+引数のパターンにマッチする関数が実際に呼ばれる。
+
+```elixir
+defmodule OverloadExample do
+  def ensure_success({:ok, _} = result) do
+    IO.puts("Succeeded")
+    result
+  end
+
+  def ensure_success({:error, message} = result) do
+    IO.puts("Failed (#{message})")
+    result
+  end
+
+  def ensure_success(_) do
+    IO.puts("Something wrong")
+    {:error, :bad_parameter}
+  end
+end
+```
+
+```elixir
+OverloadExample.ensure_success({:ok, 42})
+```
+
+```elixir
+OverloadExample.ensure_success({:error, "No answer is found"})
+```
+
+```elixir
+OverloadExample.ensure_success(:bad)
+```
+
+### 練習問題 Exercise 4-3
+
+以下の仕様を満たすモジュールを定義してみよう
+
+* モジュール名は`Name`
+* 次のpublic関数を含む
+  * `get_first_name/1`: mapを受け取り`first_name`キーの値を返す
+  * `get_last_name/1`: mapを受け取り`last_name`キーの値を返す
+  * `get_full_name/1`: mapを受け取り、`first_name`キーの値に`last_name`キーの値を1スペース区切りで連結して返す
+
+<!-- livebook:{"continue_on_error":true} -->
+
+```elixir
+# Exercise 4-3
+# implement Name module!
+
+name_map = %{first_name: "Jose", last_name: "Valim"}
+IO.inspect(Name.get_first_name(name_map) == "Jose")
+IO.inspect(Name.get_last_name(name_map) == "Valim")
+IO.inspect(Name.get_full_name(name_map) == "Jose Valim")
+```
+
+### 高階関数に名前付き関数を渡す
 
 高階関数に名前付き関数を渡す時は、`&ModuleName.function_name/0`や`&function_name/0`のように、`/0`でアリティ(引数の個数)を指定する。
 
@@ -322,67 +407,6 @@ Vegitable.apply_get_name(&Vegitable.Tomato.get_name/1, "sweet")
 ```elixir
 Vegitable.apply_get_name(&Vegitable.Tomato.get_name/0, "sweet")
 # => BadArityError
-```
-
-### 練習問題 Exercise 4-3
-
-以下の仕様を満たすモジュールを定義してみよう
-
-* モジュール名は`Name`
-* 次のpublic関数を含む
-  * `get_first_name/1`: mapを受け取り`first_name`キーの値を返す
-  * `get_last_name/1`: mapを受け取り`last_name`キーの値を返す
-  * `get_full_name/1`: mapを受け取り、`first_name`キーの値に`last_name`キーの値を1スペース区切りで連結して返す
-
-<!-- livebook:{"continue_on_error":true} -->
-
-```elixir
-# Exercise 4-3
-# implement Name module!
-
-name_map = %{first_name: "Jose", last_name: "Valim"}
-IO.inspect(Name.get_first_name(name_map) == "Jose")
-IO.inspect(Name.get_last_name(name_map) == "Valim")
-IO.inspect(Name.get_full_name(name_map) == "Jose Valim")
-```
-
-### 名前付き関数の多重定義
-
-参考までに。
-
-同じ名前・同じアリティの関数を複数定義することができる。
-
-引数のパターンにマッチする関数が実際に呼ばれる。
-
-```elixir
-defmodule OverloadExample do
-  def ensure_success({:ok, _} = result) do
-    IO.puts("Succeeded")
-    result
-  end
-
-  def ensure_success({:error, message} = result) do
-    IO.puts("Failed (#{message})")
-    result
-  end
-
-  def ensure_success(_) do
-    IO.puts("Something wrong")
-    {:error, :bad_parameter}
-  end
-end
-```
-
-```elixir
-OverloadExample.ensure_success({:ok, 42})
-```
-
-```elixir
-OverloadExample.ensure_success({:error, "No answer is found"})
-```
-
-```elixir
-OverloadExample.ensure_success(:bad)
 ```
 
 ### 関数の仕様(スペック)
