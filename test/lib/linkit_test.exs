@@ -33,10 +33,56 @@ defmodule IotIntern.Controller.LinkitTest do
     assert Linkit.post_message("message") == {201, expected}
   end
 
-  test "Linkit.post_message returns 404" do
+  test "Linkit.post_message returns 403 when api key is invalid" do
+    res_body = """
+    {
+      "message": "Forbidden"
+    }
+    """
+
+    :meck.expect(Httpc, :post, 3, {:ok, %{status: 403, body: res_body}})
+
+    expected = Jason.decode!(res_body)
+
+    assert Linkit.post_message("message") == {403, expected}
+  end
+
+  test "Linkit.post_message returns 403 when access token is invalid" do
+    res_body = """
+    {
+      "error_code": "4300",
+      "error_msg": "invalid access token",
+      "result": "failed"
+    }
+    """
+
+    :meck.expect(Httpc, :post, 3, {:ok, %{status: 403, body: res_body}})
+
+    expected = Jason.decode!(res_body)
+
+    assert Linkit.post_message("message") == {403, expected}
+  end
+
+  test "Linkit.post_message returns 404 when chatroom id is invalid" do
     :meck.expect(Httpc, :post, 3, {:ok, %{status: 404}})
 
     assert Linkit.post_message("message") == {404}
+  end
+
+  test "Linkit.post_message returns 404 when group id is invalid" do
+    res_body = """
+    {
+      "error_code": "404101",
+      "error_msg": "Tenant not found",
+      "result": "failed"
+    }
+    """
+
+    :meck.expect(Httpc, :post, 3, {:ok, %{status: 404, body: res_body}})
+
+    expected = Jason.decode!(res_body)
+
+    assert Linkit.post_message("message") == {404, expected}
   end
 
   test "Linkit.post_message returns 500" do
