@@ -22,7 +22,7 @@ lib/linkit.ex のコメントアウトを解除し、適宜コードを補完し
 
 ### ヒント
 
-Linkit API の仕様書は、別途共有された linkit_api.apib を参照ください。
+Linkit API の仕様書は、別途共有された linkit_api.yaml を参照ください。
 
 課題Aが完成すれば、お掃除ロボットシミュレータを動かすとLinkitの方に通知が来るはずです。
 Web Server を起動した状態でブラウザから http://iot-intern.localhost:8080/ui/index.html にアクセスして試してみてください。
