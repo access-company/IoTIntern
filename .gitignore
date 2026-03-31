@@ -6,6 +6,6 @@ erl_crash.dump
 *.ez
 /node_modules
 gear_config.json
-/doc/linkit_api.apib
+/doc/linkit_api.yaml
 .DS_Store
 /tmp-downloaded
