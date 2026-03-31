@@ -16,6 +16,7 @@ IoTInternでの開発を行う際に以下の拡張機能を利用する。
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph): Gitのコミットグラフを可視化できる
 - [Lexical](https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical): Elixirの言語サーバー。syntax highlighting、入力補完、定義の参照・移動が可能
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker): スペルチェッカー
+- [Live Share](https://marketplace.visualstudio.com/items?itemName=ms-vsliveshare.vsliveshare): リアルタイム共同編集（必要に応じて利用）
 
 ### インストール
 
