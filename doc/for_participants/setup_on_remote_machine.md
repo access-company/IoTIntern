@@ -14,10 +14,8 @@ IoTInternでの開発を行う際に以下の拡張機能を利用する。
 - [Plant UML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml): シーケンス図のレンダリングが可能
 - [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi): OpenAPI形式の仕様書を編集・プレビュー可能
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph): Gitのコミットグラフを可視化できる
-- [vscode-elixir](https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir): syntax highlightingや入力補完ができるようになる
-    - [Elixir-LS](https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls)のほうが定義の参照や定義箇所への移動ができるなど高機能だが、下記の問題により無視できない不便さが生じたため使用していない
-        - IoTInternで利用する際、最新のものではなくバージョン0.5.0を利用しなければ拡張機能がクラッシュする(AntikytheraがErlangバージョン20系を要求することによる)
-        - IoTIntern gearコンパイル時にhexパッケージのコンパイルが失敗する場合がある(バックグラウンドでElixir-LSによるgearコンパイルが進行している時に処理がバッティングすることによる)
+- [Lexical](https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical): Elixirの言語サーバー。syntax highlighting、入力補完、定義の参照・移動が可能
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker): スペルチェッカー
 
 ### インストール
 
