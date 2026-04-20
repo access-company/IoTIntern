@@ -20,13 +20,16 @@ install_extension(){
 install_extension jebbs plantuml 2.18.1
 
 # https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi
-install_extension 42Crunch vscode-openapi 5.2.0
+install_extension 42Crunch vscode-openapi 5.3.0
 
 # https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
 install_extension mhutchie git-graph 1.30.0
 
-# https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir
-install_extension mjmcloug vscode-elixir 1.1.0
+# https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical
+install_extension lexical-lsp lexical 0.0.24
 
 # https://marketplace.visualstudio.com/items?itemName=ms-vsliveshare.vsliveshare
 install_extension ms-vsliveshare vsliveshare 1.0.5959
+
+# https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+install_extension streetsidesoftware code-spell-checker 4.6.0
