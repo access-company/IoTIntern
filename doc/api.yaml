@@ -1,0 +1,104 @@
+openapi: "3.0.3"
+info:
+  title: IOTインターン API
+  version: "1.0.0"
+
+paths:
+  /api/v1/alert:
+    post:
+      summary: アラート送信
+      description: お掃除ロボットに異常が発生したことを Linkit に通知します。通知メッセージの形式は「#{異常の種類}が発生しました」です。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertRequest"
+      responses:
+        "200":
+          description: 送信成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertResponse"
+        "400":
+          description: リクエストボディが不正な場合
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        "500":
+          description: Linkit へのメッセージ送信に失敗した場合
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LinkitError"
+
+components:
+  schemas:
+    AlertRequest:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - dead_battery
+            - derailment
+            - jamming
+          description: |
+            異常の種類
+            - `dead_battery`: バッテリー不足
+            - `derailment`: 脱輪
+            - `jamming`: 異物混入
+          example: derailment
+
+    AlertResponse:
+      type: object
+      required:
+        - sent_at
+      properties:
+        sent_at:
+          type: string
+          format: date-time
+          description: Linkit への送信完了日時（ISO 8601 形式、UTC）
+          example: "2020-01-01T13:00:00Z"
+
+    BadRequestError:
+      type: object
+      required:
+        - type
+        - message
+      properties:
+        type:
+          type: string
+          enum:
+            - BadRequest
+          description: エラー種別
+          example: BadRequest
+        message:
+          type: string
+          enum:
+            - Unable to understand the request
+          description: エラーの詳細
+          example: Unable to understand the request
+
+    LinkitError:
+      type: object
+      required:
+        - type
+        - message
+      properties:
+        type:
+          type: string
+          enum:
+            - LinkitError
+          description: エラー種別
+          example: LinkitError
+        message:
+          type: string
+          enum:
+            - Error caused on Linkit
+          description: エラーの詳細
+          example: Error caused on Linkit
