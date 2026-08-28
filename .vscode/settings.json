@@ -19,5 +19,5 @@
   ],
   "plantuml.server": "https://www.plantuml.com/plantuml",
   // Words allowed for code-spell-checker
-  "cSpell.words": ["startuml", "enduml", "antikythera", "linkit", "meck"]
+  "cSpell.words": ["startuml", "enduml", "antikythera", "linkit", "meck", "croma", "defun"]
 }
