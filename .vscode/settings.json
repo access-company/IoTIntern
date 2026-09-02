@@ -17,5 +17,7 @@
     "-Xmx2g",
     "-DPLANTUML_LIMIT_SIZE=16384"
   ],
-  "plantuml.server": "https://www.plantuml.com/plantuml"
+  "plantuml.server": "https://www.plantuml.com/plantuml",
+  // Words allowed for code-spell-checker
+  "cSpell.words": ["startuml", "enduml", "antikythera", "linkit", "meck", "croma", "defun"]
 }

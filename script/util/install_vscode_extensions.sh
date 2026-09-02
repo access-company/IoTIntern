@@ -25,8 +25,8 @@ install_extension 42Crunch vscode-openapi 5.3.0
 # https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
 install_extension mhutchie git-graph 1.30.0
 
-# https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical
-install_extension lexical-lsp lexical 0.0.24
+# https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir
+install_extension mjmcloug vscode-elixir 1.1.0
 
 # https://marketplace.visualstudio.com/items?itemName=ms-vsliveshare.vsliveshare
 install_extension ms-vsliveshare vsliveshare 1.0.5959
