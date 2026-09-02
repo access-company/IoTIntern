@@ -23,4 +23,4 @@
 
 ## 補足
 
-[DateTime モジュール](https://hexdocs.pm/elixir/1.9.4/DateTime.html) のドキュメントを参照してください。
+[DateTime モジュール](https://hexdocs.pm/elixir/1.15.8/DateTime.html) のドキュメントを参照してください。
